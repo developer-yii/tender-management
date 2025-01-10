@@ -117,8 +117,13 @@ if (!function_exists('convertDocToDocx')) {
     {
         $docxPath = str_replace('.doc', '.docx', $docPath);
 
-        // LibreOffice command to convert .doc to .docx
-        $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
+        $sofficePath = (PHP_OS_FAMILY === 'Windows')
+                ? '"C:\\Program Files\\LibreOffice\\program\\soffice.exe"'
+                : 'soffice';
+
+        $command = $sofficePath . ' --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
+
+        // $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
         exec($command, $output, $resultCode);
 
         if ($resultCode !== 0) {
@@ -133,7 +138,13 @@ if (!function_exists('convertDocxtoPdf')) {
     function convertDocxtoPdf($docxPath, $outputImagePath, $filenameonly)
     {
         // Convert DOCX to PDF using LibreOffice
-        $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to pdf ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg($outputImagePath);
+        $sofficePath = (PHP_OS_FAMILY === 'Windows')
+                ? '"C:\\Program Files\\LibreOffice\\program\\soffice.exe"'
+                : 'soffice';
+
+        $command = $sofficePath . ' --headless --convert-to docx ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg(dirname($docxPath));
+
+        // $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to pdf ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg($outputImagePath);
         exec($command, $output, $resultCode);
 
         // Check if the conversion was successful
@@ -162,7 +173,13 @@ if (!function_exists('extractFirstPageWithGhostscript')) {
     function extractFirstPageWithGhostscript($fullPdfPath, $firstPagePdfPath)
     {
         // Update this path if needed based on your installation
-        $gsCommand = '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe" -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
+        $gsPath = (PHP_OS_FAMILY === 'Windows')
+            ? '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe"'
+            : 'gs';
+
+        $gsCommand = $gsPath . ' -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
+
+        // $gsCommand = '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe" -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
 
         exec($gsCommand, $output, $resultCode);
 
