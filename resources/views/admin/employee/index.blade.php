@@ -46,7 +46,7 @@
                     @foreach($employeesWithoutTags as $employee)
                         <div class="employcardBox">
                             <div class="imgBox">
-                                <img src="{{ Storage::url('employee/profile-photo/' . $employee->profile_pic) }}" alt="{{ $employee->first_name}}">
+                                <img src="{{ $user->getProfilePicUrl() }}" alt="{{ $employee->first_name}}">
                             </div>
                             <div class="textbox">
                                 <h6>{{ $employee->first_name }} {{ $employee->last_name }}</h6>
