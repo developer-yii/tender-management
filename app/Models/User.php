@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -44,6 +45,42 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function getProfilePicUrl()
+    {
+        if ($this->profile_photo) {
+            $subFolder = "employee" . $this->id;  // Match the subfolder logic
+            $filePath = "public/employees/{$subFolder}/{$this->profile_photo}";  // Updated path
+            if (Storage::disk('local')->exists($filePath)) {
+                return asset('storage/employees/' . $subFolder . '/' . $this->profile_photo);  // Correct URL structure
+            }
+        }
+        return asset('img/image_not_available.png');
+    }
+
+    public function getCvUrl()
+    {
+        if ($this->cv) {
+            $subFolder = "employee" . $this->id;  // Match the subfolder logic
+            $filePath = "public/employees/{$subFolder}/{$this->cv}";  // Updated path
+            if (Storage::disk('local')->exists($filePath)) {
+                return asset('storage/employees/' . $subFolder . '/' . $this->cv);  // Correct URL structure
+            }
+        }
+        return asset('img/image_not_available.png');
+    }
+
+    public function getDocumentUrl()
+    {
+        if ($this->document) {
+            $subFolder = "employee" . $this->id;  // Match the subfolder logic
+            $filePath = "public/employees/{$subFolder}/{$this->document}";  // Updated path
+            if (Storage::disk('local')->exists($filePath)) {
+                return asset('storage/employees/' . $subFolder . '/' . $this->document);  // Correct URL structure
+            }
+        }
+        return asset('img/image_not_available.png');
+    }
+
     public function tenderUsers()
     {
         return $this->hasMany(TenderUser::class);
@@ -51,7 +88,7 @@ class User extends Authenticatable
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'tag_user');
+        return $this->belongsToMany(Tag::class, 'tag_users');
     }
 
     public function files()

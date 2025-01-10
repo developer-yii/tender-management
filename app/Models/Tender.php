@@ -11,7 +11,7 @@ class Tender extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
-
+    const tenderStatus = [1 => 'in Bearbeitung', 2 => 'in Betracht', 3 => 'Erhalten'];
     public function responsiblePerson()
     {
         return $this->belongsTo(User::class, 'responsible_person_id');

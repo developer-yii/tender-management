@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('profile_photo')->nullable();
+            $table->string('cv')->nullable();
+            $table->string('document')->nullable();
+            $table->string('docx_preview')->nullable();
             $table->enum('role', [1, 2])->default(2)->comment('1=admin, 2=employee');
             $table->longText('description')->nullable();
             $table->enum('is_active', ['true', 'false'])->default('true');

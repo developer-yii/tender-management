@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('type')->nullable();
+            $table->longText('address')->nullable();
             $table->string('managing_director')->nullable();
             $table->string('bank_name');
             $table->string('iban_number')->nullable();
@@ -24,6 +25,10 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('website_url')->nullable();
+            $table->text('company_presentation_word')->nullable();
+            $table->text('company_presentation_pdf')->nullable();
+            $table->text('agile_framework_word')->nullable();
+            $table->text('agile_framework_pdf')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

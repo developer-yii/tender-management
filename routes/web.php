@@ -1,5 +1,17 @@
 <?php
 
+use App\Http\Controllers\AiToolController;
+use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReferenceController;
+use App\Http\Controllers\ServerController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\TempleteController;
+use App\Http\Controllers\TenderController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,11 +24,94 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth', 'is_admin'])->group(function () {
+
+    // servers
+    Route::prefix('server')->as('server.')->group(function () {
+        Route::get('/', [ServerController::class, 'index'])->name('index');
+        Route::get('/get', [ServerController::class, 'get'])->name('list');
+        Route::post('/addupdate', [ServerController::class, 'addupdate'])->name('addupdate');
+        Route::post('/detail', [ServerController::class, 'detail'])->name('detail');
+    });
+
+    // company Details
+    Route::prefix('company-details')->as('company-details.')->group(function () {
+        Route::get('/', [CompanyProfileController::class, 'index'])->name('index');
+        Route::post('/update', [CompanyProfileController::class, 'update'])->name('update');
+        Route::post('/detail', [CompanyProfileController::class, 'detail'])->name('detail');
+    });
+
+    // tags
+    Route::prefix('tag')->as('tag.')->group(function () {
+        Route::get('/', [TagController::class, 'index'])->name('index');
+        Route::get('/get', [TagController::class, 'get'])->name('list');
+        Route::post('/addupdate', [TagController::class, 'addupdate'])->name('addupdate');
+        Route::post('/detail', [TagController::class, 'detail'])->name('detail');
+        Route::post('/delete', [TagController::class, 'delete'])->name('delete');
+    });
+
+
+    // employees
+    Route::prefix('employee')->as('employee.')->group(function () {
+        Route::get('/', [EmployeeController::class, 'index'])->name('index');
+        Route::post('/addupdate', [EmployeeController::class, 'addupdate'])->name('addupdate');
+        Route::get('/details/{id}', [EmployeeController::class, 'employeeDetails'])->name('details');
+        Route::post('/detail', [EmployeeController::class, 'detail'])->name('detail');
+    });
+
+    // certificates
+    Route::prefix('certificate')->as('certificate.')->group(function () {
+        Route::get('/', [CertificateController::class, 'index'])->name('index');
+        Route::post('/addupdate', [CertificateController::class, 'addupdate'])->name('addupdate');
+        Route::get('/details/{id}', [CertificateController::class, 'certificateDetails'])->name('details');
+        Route::post('/detail', [CertificateController::class, 'detail'])->name('detail');
+        Route::post('/delete', [CertificateController::class, 'delete'])->name('delete');
+    });
+
+    // Tender Routes
+    Route::prefix('tender')->as('tender.')->group(function () {
+        Route::get('/', [TenderController::class, 'index'])->name('index');
+        Route::get('/get', [TenderController::class, 'get'])->name('list');
+        Route::get('/add', [TenderController::class, 'add'])->name('add');
+        Route::post('/createupdate', [TenderController::class, 'createUpdate'])->name('createupdate');
+        Route::post('/detail', [TenderController::class, 'detail'])->name('detail');
+        Route::post('/delete', [TenderController::class, 'delete'])->name('delete');
+    });
+
+    // reference
+    Route::prefix('reference')->as('reference.')->group(function () {
+        Route::get('/', [ReferenceController::class, 'index'])->name('index');
+        Route::get('/get', [ReferenceController::class, 'get'])->name('list');
+        Route::post('/addupdate', [ReferenceController::class, 'addupdate'])->name('addupdate');
+        Route::get('/details/{id}', [ReferenceController::class, 'referenceDetails'])->name('details');
+        Route::post('/detail', [ReferenceController::class, 'detail'])->name('detail');
+        Route::post('/delete', [ReferenceController::class, 'delete'])->name('delete');
+    });
+
+    // Tender
+    Route::prefix('ai')->as('ai.')->group(function () {
+        Route::get('/', [AiToolController::class, 'index'])->name('index');
+    });
+
+    // Documents
+    Route::prefix('document')->as('document.')->group(function () {
+        Route::get('/', [DocumentController::class, 'index'])->name('index');
+        // Route::get('/preview-word/{fileName}', [DocumentController::class, 'previewWordFile'])->name('preview');
+
+    });
+
+    // Templetes
+    Route::prefix('templete')->as('templete.')->group(function () {
+        Route::get('/', [TempleteController::class, 'index'])->name('index');
+    });
+
+
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/my-tenders', [TenderController::class, 'index'])->name('employee.tenders');
+});
