@@ -47,9 +47,9 @@ function handleFileUploads($request, $model, $filesConfig) {
             $model->{$field} = $fileData['filename'];
 
             // Assign the first-page PDF preview if available
-            if (isset($fileData['firstPagePdfPath'])) {
-                $model->docx_preview = $fileData['firstPagePdfPath'];
-            }
+            // if (isset($fileData['firstPagePdfPath'])) {
+            //     $model->docx_preview = $fileData['firstPagePdfPath'];
+            // }
         }
     }
     return $model;
@@ -87,21 +87,21 @@ if (!function_exists('uploadFile')) {
 
         $filePath = storage_path("app/{$dir}{$filename}");
 
-        if ($extension === 'doc') {
-            $convertedFilePath = convertDocToDocx($filePath);
-            if ($convertedFilePath) {
-                $filePath = $convertedFilePath;
-                $extension = 'docx'; // Update extension after conversion
-                $filename = $uniqueName. '.' . $extension;
-            } else {
-                throw new \Exception("Failed to convert .doc to .docx for file: {$filePath}");
-            }
-        }
+        // if ($extension === 'doc') {
+        //     $convertedFilePath = convertDocToDocx($filePath);
+        //     if ($convertedFilePath) {
+        //         $filePath = $convertedFilePath;
+        //         $extension = 'docx'; // Update extension after conversion
+        //         $filename = $uniqueName. '.' . $extension;
+        //     } else {
+        //         throw new \Exception("Failed to convert .doc to .docx for file: {$filePath}");
+        //     }
+        // }
 
         $firstPagePdfPath = null;
-        if ($extension === 'docx') {
-            $firstPagePdfPath = convertDocxtoPdf($filePath, $outputDir, $uniqueName);
-        }
+        // if ($extension === 'docx') {
+        //     $firstPagePdfPath = convertDocxtoPdf($filePath, $outputDir, $uniqueName);
+        // }
 
         return [
             'filename' => $filename,
@@ -117,11 +117,12 @@ if (!function_exists('convertDocToDocx')) {
     {
         $docxPath = str_replace('.doc', '.docx', $docPath);
 
-        $sofficePath = (PHP_OS_FAMILY === 'Windows')
-                ? '"C:\\Program Files\\LibreOffice\\program\\soffice.exe"'
-                : 'soffice';
+        // $sofficePath = (PHP_OS_FAMILY === 'Windows')
+        //         ? '"C:\\Program Files\\LibreOffice\\program\\soffice.exe"'
+        //         : 'soffice';
 
-        $command = $sofficePath . ' --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
+        // $command = $sofficePath . ' --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
+        $command = 'libreoffice --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
 
         // $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
         exec($command, $output, $resultCode);
@@ -138,11 +139,12 @@ if (!function_exists('convertDocxtoPdf')) {
     function convertDocxtoPdf($docxPath, $outputImagePath, $filenameonly)
     {
         // Convert DOCX to PDF using LibreOffice
-        $sofficePath = (PHP_OS_FAMILY === 'Windows')
-                ? '"C:\\Program Files\\LibreOffice\\program\\soffice.exe"'
-                : 'soffice';
+        // $sofficePath = (PHP_OS_FAMILY === 'Windows')
+        //         ? '"C:\\Program Files\\LibreOffice\\program\\soffice.exe"'
+        //         : 'soffice';
 
-        $command = $sofficePath . ' --headless --convert-to docx ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg(dirname($docxPath));
+        // $command = $sofficePath . ' --headless --convert-to docx ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg(dirname($outputImagePath));
+        $command = 'libreoffice --headless --convert-to docx ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg(dirname($outputImagePath));
 
         // $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to pdf ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg($outputImagePath);
         exec($command, $output, $resultCode);
@@ -173,11 +175,12 @@ if (!function_exists('extractFirstPageWithGhostscript')) {
     function extractFirstPageWithGhostscript($fullPdfPath, $firstPagePdfPath)
     {
         // Update this path if needed based on your installation
-        $gsPath = (PHP_OS_FAMILY === 'Windows')
-            ? '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe"'
-            : 'gs';
+        // $gsPath = (PHP_OS_FAMILY === 'Windows')
+        //     ? '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe"'
+        //     : 'gs';
 
-        $gsCommand = $gsPath . ' -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
+        // $gsCommand = $gsPath . ' -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
+        $gsCommand = 'gs -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
 
         // $gsCommand = '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe" -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
 
