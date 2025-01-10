@@ -14,9 +14,9 @@
                     <div class="titleBox">
                         <h5>Firmendaten</h5>
                     </div>
-                    <div class="detailsCompany">
-                        <ul>
-                            @if($companyData)
+                    @if($companyData)
+                        <div class="detailsCompany">
+                            <ul>
                                 <li><p>Name:</p><h6>{{ $companyData->name }}</h6></li>
                                 <li><p>Art:</p><h6>{{ $companyData->type }}</h6></li>
                                 <li><p>Adresse:</p><pre><h6 class="adress">{{ $companyData->address }}</h6></pre></li>
@@ -29,29 +29,29 @@
                                 <li><p>E-Mail:</p><h6>{{ $companyData->email }}</h6></li>
                                 <li><p>Telefon:</p><h6>{{ $companyData->phone }}</h6></li>
                                 <li><p>Web:</p><h6>{{ $companyData->website_url }}</h6></li>
-                            @endif
-                        </ul>
-                    </div>
-                    <div class="companyFile">
-                        <ul>
-                            <li>
-                                <a href="{{asset('storage/Company Documents/' . $companyData->company_presentation_word)}}"><i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung Word
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{asset('storage/Company Documents/' . $companyData->company_presentation_pdf)}}" target="_blank"><i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung PDF
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{asset('storage/Company Documents/' . $companyData->agile_framework_word)}}"><i class="fa-solid fa-file-lines"></i> Agile Framework Word
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{asset('storage/Company Documents/' . $companyData->agile_framework_pdf)}}"><i class="fa-solid fa-file-lines" target="_blank"></i> Agile Framework PDF
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                        <div class="companyFile">
+                            <ul>
+                                <li>
+                                    <a href="{{asset('storage/Company Documents/' . $companyData->company_presentation_word)}}"><i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung Word
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('storage/Company Documents/' . $companyData->company_presentation_pdf)}}" target="_blank"><i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung PDF
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('storage/Company Documents/' . $companyData->agile_framework_word)}}"><i class="fa-solid fa-file-lines"></i> Agile Framework Word
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('storage/Company Documents/' . $companyData->agile_framework_pdf)}}"><i class="fa-solid fa-file-lines" target="_blank"></i> Agile Framework PDF
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
