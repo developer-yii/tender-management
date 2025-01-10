@@ -1,0 +1,259 @@
+@media (max-width: 1699px) {
+
+}
+
+@media (max-width: 1599px) {
+
+    .header {
+        width: calc(100% - 40px);
+    }
+    
+    .home-section {
+        width: 100% !important;
+    }
+
+    .header .header-part .headContent .menuClick {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .header .header-part .headContent .menuClick .mobileIcon {
+        display: block;
+    }
+
+    .header .header-part .headContent .menuClick .mobileIcon a {
+        background-color: var(--white-color);
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header .header-part .headContent .menuClick .mobileIcon a i {
+        color: var(--sky-color);
+        font-size: 20px;
+    }
+
+    .sidebar {
+        width: 100%;
+        left: -100% ;
+        position: absolute !important;
+        transition: 0.5s;
+        z-index: 9999;
+    }
+
+    .sidebar.show {
+        left: 0%;
+        background-color: #000000be;
+    }
+
+    .sidebar .sidebar-fix {
+        left: -320px;
+        transition: 0.5s;
+        background-color: var(--light-color);
+        z-index: 99999;
+    }
+
+    .sidebar.show .sidebar-fix {
+        left: 0;
+        padding: 25px 15px 10px 15px;
+    }
+
+    .sidebar .sidebar-fix .logo-box {
+        text-align: center;
+    }
+}
+
+@media (max-width: 1399px) {
+    #sign_in .sign_inBox .rightBox .layer-img {
+        height: 650px;
+    }
+
+    #sign_in .sign_inBox .rightBox .logoImg img {
+        max-width: 280px;
+    }
+
+    .mainSection .tenderDetails .commonBackview {
+        padding: 20px;
+    }
+
+    .myTendersSec .myTenderBox .tenderInnerBox {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .homeSectionPart .tenderDetails {
+        gap: 30px;
+        grid-template-columns: 1fr;
+    }
+
+    .employMainBox,
+    .allEmploysSec .employsBoxList .listAllemploys,
+    .document_confirmSec .insurance_confirm .innerConfirm,
+    .referanceMainSec .referancePart .projectType  {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 1199px) {
+    
+}
+
+@media (max-width:1079px) {
+    .mainSection .certificationsMain .ceritesBgBox,
+    .referanceMainSec .referancePart .projectType {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 1024px) {
+   
+}
+
+@media (max-width: 991px) {
+    #sign_in .sign_inBox .rightBox .logoImg img {
+        max-width: 250px;
+    }
+
+    .myTendersSec .myTenderBox .tenderInnerBox,
+    .allEmploysSec .employsBoxList .listAllemploys,
+    .document_confirmSec .insurance_confirm .innerConfirm,
+    .referanceMainSec .referancePart .projectType,
+    .templetsSecMain {
+        grid-template-columns: 1fr;
+    }
+
+    .employsSection .profiledetails {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    #sign_in .sign_inBox {
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
+    
+    #sign_in .sign_inBox .leftBox, #sign_in .sign_inBox .rightBox {
+        min-height: 100%;
+        width: 100%;
+    }
+
+    #sign_in .sign_inBox .rightBox {
+        padding-bottom: 40px;
+    }
+
+    #sign_in .sign_inBox .rightBox .layer-img {
+        display: none;
+    }
+
+    #sign_in .sign_inBox .rightBox .logoImg img {
+        max-width: 240px;
+    }
+
+    #sign_in {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+    }
+    
+    .tenderInner .tenderName {
+        grid-template-columns: 1fr 60px 70px 110px;
+    }
+
+    .employMainBox {
+        grid-template-columns: 1fr;
+    }
+
+    .mainSection .tenderDetails .commonBackview {
+        height: 100%;
+    }
+
+    .header .userHeader .userHeaderBox {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* .header .userHeader {
+        bottom: -70px;
+    } */
+
+    .mainSection .certificationsMain .ceritesBgBox,
+    .aitools_mainSec {
+        grid-template-columns: 1fr;
+    }
+    
+}
+
+@media (max-width: 575px) {
+    h4 {
+        font-size: 26px;
+    }
+
+    .allEmploysSec .employsBoxList .listAllemploys .employcardBox .imgBox img {
+        height: 170px;
+        width: 170px;
+    }
+
+    .company_details .companySec .detailsCompany ul {
+        padding-left: 0px;
+    }
+
+    .company_details .companySec .detailsCompany ul li {
+        grid-template-columns: 130px 1fr;
+    }
+}
+
+@media (max-width: 479px) {
+    #sign_in .sign_inBox .rightBox .logoImg img {
+        max-width: 200px;
+    }
+
+    .allEmploysSec .employsBoxList .listAllemploys .employcardBox,
+    .employsSection .profiledetails .mainSec,
+    .addCommonBtn.newAdd {
+        flex-wrap: wrap;
+        row-gap: 15px;
+    }
+
+    .allEmploysSec .employsBoxList .listAllemploys .employcardBox .textbox {
+        text-align: center;
+    }
+
+    .allEmploysSec .employsBoxList .listAllemploys .employcardBox .textbox .btnDetails {
+        margin: 0 auto;
+    }
+
+    .allEmploysSec .employsBoxList .listAllemploys .employcardBox,
+    .employsSection .profiledetails .mainSec {
+        justify-content: center;
+    }
+   
+    .employsSection .profiledetails .mainSec .textSec {
+        align-items: center;
+        text-align: center;
+    }
+
+    .company_details .companySec .detailsCompany ul li {
+        grid-template-columns: 1fr;
+        gap: 0;
+        margin-bottom: 10px;
+    }
+
+    .company_details .companySec .detailsCompany ul li p {
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 375px) {
+    #sign_in .sign_inBox .rightBox .logoImg img {
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 360px) {
+   
+}
