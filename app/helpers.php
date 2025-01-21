@@ -142,14 +142,19 @@ if (!function_exists('uploadFile')) {
         }
 
         $dir = "public/{$mainFolder}/{$subFolder}/";
+        $outputDir = storage_path("app/{$dir}");
+
+        // Ensure the directory exists and set permissions to 755
+        if (!is_dir($outputDir)) {
+            mkdir($outputDir, 0755, true); // Create directory with 755 permission
+        }
+
+        $dir = "public/{$mainFolder}/{$subFolder}/";
         $extension = $file->getClientOriginalExtension();
         $uniqueName = uniqid() . "_" . time();
         $filename = $uniqueName . '.' . $extension;
 
         Storage::disk('local')->put($dir . $filename, File::get($file));
-
-        $outputDir = storage_path("app/{$dir}");
-
         $filePath = storage_path("app/{$dir}{$filename}");
 
         if ($extension === 'doc') {
@@ -203,12 +208,9 @@ if (!function_exists('convertDocToDocx')) {
         // $command = 'libreoffice --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
 
         // $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
-        exec($command, $output, $resultCode);
-
-        // if ($resultCode !== 0) {
-        //     return false;
-        // }
-        exec($command, $output, $resultCode);
+        putenv('HOME=/tmp');
+        putenv('DISPLAY=:0');
+        exec($command . ' 2>&1', $output, $resultCode);
         if ($resultCode !== 0) {
             \Log::error("LibreOffice conversion failed for {$docPath}: " . implode("\n", $output));
             return false;
@@ -227,13 +229,21 @@ if (!function_exists('convertDocxtoPdf')) {
                 ? '"C:\\Program Files\\LibreOffice\\program\\soffice.exe"'
                 : 'soffice';
 
-        $command = $sofficePath . ' --headless --convert-to docx ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg(dirname($outputImagePath));
-        // $command = 'libreoffice --headless --convert-to docx ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg(dirname($outputImagePath));
+        // $command = $sofficePath . ' --headless --convert-to pdf ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg(dirname($outputImagePath));
+        // $command = 'libreoffice --headless --convert-to pdf ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg(dirname($outputImagePath));
 
-        // $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to pdf ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg($outputImagePath);
+        $command = $sofficePath . ' --headless --convert-to pdf ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg($outputImagePath);
         exec($command, $output, $resultCode);
 
         // Check if the conversion was successful
+        putenv('HOME=/tmp');
+        putenv('DISPLAY=:0');
+        // exec($command, $output, $resultCode);
+        exec($command . ' 2>&1', $output, $resultCode);
+        \Log::info("pdf command : ".$command);
+        \Log::info("pdf output : ".json_encode($output));
+        \Log::info("pdf resultCode : ".json_encode($resultCode));
+
         if ($resultCode !== 0) {
             throw new \Exception("Failed to convert DOCX to PDF. Command output: " . implode("\n", $output));
         }
