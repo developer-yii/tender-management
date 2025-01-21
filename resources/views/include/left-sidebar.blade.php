@@ -175,7 +175,7 @@
             @endif
         </div>
         <div class="startTenerbtn">
-            <button class="btn startBtn"><i class="fa-solid fa-plus"></i> Ausschreibung starten</button>
+            <a href="{{route('tender.start')}}" class="btn startBtn"><i class="fa-solid fa-plus"></i> Ausschreibung starten</a>
         </div>
     </div>
 </div>

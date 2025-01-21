@@ -27,9 +27,9 @@ return new class extends Migration
             $table->timestamp('question_ask_last_date')->nullable();
             $table->string('procurement_regulations')->nullable();
             $table->string('procurement_procedures')->nullable();
-            $table->enum('is_subdivision_lots', ['true', 'false'])->default('true');
-            $table->enum('is_side_offers_allowed', ['true', 'false'])->default('true');
-            $table->enum('is_main_offers_allowed', ['true', 'false'])->default('true');
+            $table->integer('is_subdivision_lots')->default(0)->comment('0=no, 1=yes');
+            $table->integer('is_side_offers_allowed')->default(0)->comment('0=no, 1=yes');
+            $table->integer('is_main_offers_allowed')->default(0)->comment('0=no, 1=yes');
             $table->timestamps();
             $table->softDeletes();
         });

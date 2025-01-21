@@ -75,11 +75,21 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     // Tender Routes
     Route::prefix('tender')->as('tender.')->group(function () {
         Route::get('/', [TenderController::class, 'index'])->name('index');
+        Route::get('/details/{id}', [TenderController::class, 'tenderDetails'])->name('details');
         Route::get('/get', [TenderController::class, 'get'])->name('list');
-        Route::get('/add', [TenderController::class, 'add'])->name('add');
+        Route::get('/add-edit', [TenderController::class, 'addEdit'])->name('add');
         Route::post('/createupdate', [TenderController::class, 'createUpdate'])->name('createupdate');
         Route::post('/detail', [TenderController::class, 'detail'])->name('detail');
         Route::post('/delete', [TenderController::class, 'delete'])->name('delete');
+        Route::get('/employee-tenders', [TenderController::class, 'getTenders'])->name('assign-tenders');
+        Route::get('/start', [TenderController::class, 'start'])->name('start');
+        Route::post('/documents', [TenderController::class, 'tenderDocuments'])->name('documents');
+        // Route::post('/preview', [TenderController::class, 'preview'])->name('preview');
+        // Route::post('/add-preview', [TenderController::class, 'addPreview'])->name('add-preview');
+        Route::post('/merge-docx', [TenderController::class, 'mergeDocx'])->name('merge-docx');
+        Route::get('/preview-docx', [TenderController::class, 'previewDocx'])->name('preview-docx');
+        Route::post('/merge-pdf', [TenderController::class, 'mergePdf'])->name('merge-pdf');
+        Route::get('/preview-pdf', [TenderController::class, 'previewPdf'])->name('preview-pdf');
     });
 
     // reference
@@ -100,6 +110,10 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     // Documents
     Route::prefix('document')->as('document.')->group(function () {
         Route::get('/', [DocumentController::class, 'index'])->name('index');
+        Route::post('/addupdate', [DocumentController::class, 'addupdate'])->name('addupdate');
+        Route::get('/details/{id}', [DocumentController::class, 'documentDetails'])->name('details');
+        Route::post('/detail', [DocumentController::class, 'detail'])->name('detail');
+        Route::post('/delete', [DocumentController::class, 'delete'])->name('delete');
         // Route::get('/preview-word/{fileName}', [DocumentController::class, 'previewWordFile'])->name('preview');
 
     });
@@ -107,6 +121,10 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     // Templetes
     Route::prefix('templete')->as('templete.')->group(function () {
         Route::get('/', [TempleteController::class, 'index'])->name('index');
+        Route::post('/addupdate', [TempleteController::class, 'addupdate'])->name('addupdate');
+        Route::get('/details/{id}', [TempleteController::class, 'templeteDetails'])->name('details');
+        Route::post('/detail', [TempleteController::class, 'detail'])->name('detail');
+        Route::post('/delete', [TempleteController::class, 'delete'])->name('delete');
     });
 
 

@@ -7,7 +7,7 @@
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn">
-            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addEmployeeModal"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</button>
+            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</button>
         </div>
         {{-- @foreach($tags as $tag)
             <a href="#{{$tag->name}}">{{$tag->name}}</a>
@@ -46,7 +46,7 @@
                     @foreach($employeesWithoutTags as $employee)
                         <div class="employcardBox">
                             <div class="imgBox">
-                                <img src="{{ $user->getProfilePicUrl() }}" alt="{{ $employee->first_name}}">
+                                <img src="{{ $employee->getProfilePicUrl() }}" alt="{{ $employee->first_name}}">
                             </div>
                             <div class="textbox">
                                 <h6>{{ $employee->first_name }} {{ $employee->last_name }}</h6>
@@ -67,9 +67,9 @@
 @endsection
 @section('js')
     <script>
-        var createEmployeeUrl = "{{ route('employee.addupdate') }}";
-        var getEmployeeUrl = "{{ route('employee.detail') }}";
-        var employeeListUrl = "{{ route('employee.index') }}";
+        var createUrl = "{{ route('employee.addupdate') }}";
+        var getUrl = "{{ route('employee.detail') }}";
+        var listUrl = "{{ route('employee.index') }}";
     </script>
     <script src="{{ $baseUrl }}custom/js/common.js"></script>
     <script src="{{ $baseUrl }}custom/js/employees.js"></script>

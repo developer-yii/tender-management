@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -16,7 +18,6 @@
     --light-gray: #C4C4C4;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
 
 @font-face {
     src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-Bold.ttf);
@@ -399,6 +400,7 @@ button {
     font-size: 14px;
     color: var(--text-gray);
     font-family: 'BricolageGrotesque-SemiBold';
+    width: 100%;
 }
 
 .menu-box .navbar-box li {
@@ -512,6 +514,9 @@ button {
     background-color: var(--sky-color);
     border-radius: 15px;
     font-family: 'BricolageGrotesque-SemiBold';
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .startTenerbtn .startBtn i {
@@ -519,6 +524,20 @@ button {
     vertical-align: middle;
     padding-right: 15px;
 }
+
+ul.dropDownInner {
+    padding-left: 15px;
+    display: none;
+}
+
+.dropDownInner.show li a span {
+    margin-right: 0px !important;
+}
+
+.dropDownInner.show {
+    display: block;
+}
+
 
 /* ------------ home-section css start ------------- */
 
@@ -1387,8 +1406,21 @@ button {
 }
 
 .service_provider .serviceDetails .rightMap {
-    height: 100%;
+    height: 240px;
     width: 100%;
+}
+
+.service_provider .serviceDetails .rightMap .mapTextNew {
+    border: 1px solid #c4c4c480;
+    height: 100%;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.service_provider .serviceDetails .rightMap .mapTextNew p {
+    font-size: 12px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Medium';
 }
 
 .service_provider .serviceDetails .rightMap h6,
@@ -1399,13 +1431,13 @@ button {
     margin-bottom: 10px;
 }
 
-.service_provider .serviceDetails .rightMap iframe {
+/* .service_provider .serviceDetails .rightMap iframe {
     min-height: 240px;
     width: 100%;
     padding: 3px;
     border: 1px solid var(--light-gray);
     border-radius: 3px;
-}
+} */
 
 .service_provider .awardDetails {
     margin-top: 30px;
@@ -1505,6 +1537,99 @@ button {
     transform: none;
 }
 
+.refInnerDetail .refCenterBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.refInnerDetail .refCenterBox .recenterleft ul {
+    list-style: disc;
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.refInnerDetail .refCenterBox .recenterleft ul li p {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Regular';
+    margin-bottom: 5px;
+    color: var(--text-black);
+}
+
+.refInnerDetail .refCenterBox .comTextmusic:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.refInnerDetail .refCenterBox .comTextmusic h6 {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 10px;
+    color: var(--text-black);
+}
+
+.refInnerDetail .refCenterBox .comTextmusic p {
+    font-size: 13px;
+    font-family: 'BricolageGrotesque-Regular';
+    margin-bottom: 10px;
+    color: var(--text-black);
+}
+
+.refcenterright .comWhiteBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px 2px #0000001c;
+    padding: 30px;
+}
+
+.refcenterright .comWhiteBox:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.refcenterright .comWhiteBox h6 {
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.refcenterright .comWhiteBox p {
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    font-size: 14px;
+}
+
+.refcenterright .comWhiteBox.whiteFirst ul {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.refcenterright .comWhiteBox ul li .btnCommonTag {
+    padding: 5px 20px;
+}
+
+.refcenterright .comWhiteBox.whiteSecond ul,
+.refcenterright .comWhiteBox.whiteThird ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.refcenterright .comWhiteBox.whiteSecond ul li span,
+.refcenterright .comWhiteBox.whiteThird ul li span {
+    font-size: 12px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.refcenterright .comWhiteBox.whiteThird .box {
+    margin-bottom: 20px;
+}
+
+.refcenterright .comWhiteBox.whiteThird .box p {
+    margin-bottom: 5px;
+}
+
 .service_provider .editBox {
     margin-top: 50px;
 }
@@ -1522,6 +1647,7 @@ button {
     outline: none !important;
     box-shadow: none !important;
     margin-left: auto;
+    width: fit-content;
 }
 
 /* ---------- tender_detail page css end ---------- */
@@ -1613,10 +1739,9 @@ button {
 .employsSection .btncenterSec {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 8px;
     margin-bottom: 20px;
-    flex-wrap: wrap;
 }
 
 .employsSection .btncenterSec .btnCom {
@@ -2108,6 +2233,63 @@ button {
     padding: 10px 20px 5px 30px;
 }
 
+.selectTender .dataBoxFiled .accordion-body .clickTo  {
+    position: relative;
+    padding-left: 40px;
+    margin-bottom: 12px;
+}
+
+.selectTender .dataBoxFiled .accordion-body .clickTo input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    margin-right: 0px;
+    left: 0;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 2px;
+    z-index: 55;
+    cursor: pointer;
+}
+
+.selectTender .dataBoxFiled .accordion-body .clickTo .keyword-label {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Regular';
+    color: var(--text-black) !important;
+}
+
+.selectTender .dataBoxFiled .accordion-body .clickTo input[type="checkbox"]+.keyword-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    cursor: pointer;
+    height: 20px;
+    border: 1px solid var(--sky-color);
+    background-color: var(--white-color);
+    border-radius: 2px;
+    box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.123)
+}
+
+.selectTender .dataBoxFiled .accordion-body .clickTo input[type="checkbox"]:checked+.keyword-label::after {
+    content: '\f00c';
+    position: absolute;
+    font-family: 'fontawesome';
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: var(--white-color);
+    background-color: var(--sky-color);
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 4px;
+    padding-top: 1px;
+}
+
 .selectTender .dataBoxFiled .accordion-body p {
     margin-bottom: 10px;
     display: grid;
@@ -2147,9 +2329,9 @@ button {
     transform: none;
 }
 
-.selectTender .dataBoxFiled {
+/* .selectTender .dataBoxFiled {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
     width: 100%;
     gap: 15px;
@@ -2158,10 +2340,11 @@ button {
 
 .selectTender .dataBoxFiled .treeView {
     width: calc(100% - 25%);
-}
+} */
 
 .selectTender .allSeriesBox {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 40px;
 }
@@ -2270,9 +2453,22 @@ button {
     gap: 15px;
 }
 
-.referanceMainSec .referancePart .titleBox h5,
-.referanceDetailsSec .refInnerDetail .titleBox h5 {
+.referanceMainSec .referancePart .titleBox h5{
     font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.referanceDetailsSec .refInnerDetail .titleBox h5 {
+    font-size: 24px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 5px;
+}
+
+.referanceDetailsSec .refInnerDetail .titleBox h6 {
+    font-size: 20px;
     color: var(--text-black);
     font-family: 'BricolageGrotesque-SemiBold';
     margin-bottom: 20px;
@@ -2303,11 +2499,12 @@ button {
 .referanceMainSec .referancePart .projectDetailsBox .projectBox .btnDetails {
     margin-left: auto;
     margin-top: 10px;
+    float: right;
 }
 
-.refInnerDetail .spaceBox {
+/* .refInnerDetail .spaceBox {
     min-height: 150px;
-}
+} */
 
 .refInnerDetail .multyTagsBox {
     background-color: var(--white-color);
@@ -2406,6 +2603,7 @@ button {
 .document_confirmSec .insurance_confirm .innerConfirm .insuranceBox .btnDetails {
     margin-left: auto;
     margin-top: 30px;
+    float: right;
 }
 
 /* -------- document confirmation page css ---------- */
@@ -2612,8 +2810,9 @@ button {
 }
 
 .leftnewBox .topPlusBox img {
-    height: auto;
-    width: auto;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
 }
 
 .leftnewBox  .centerBox {
@@ -3041,3 +3240,371 @@ button {
 }
 
 /* -------- New-tender page css ---------- */
+
+
+/* -------- softwareDevlop page css ---------- */
+
+.softwareDevlop {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+}
+
+.softwareDevlop .titleBox h5 {
+    font-size: 18px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 40px;
+}
+
+.softwareDevlop .softwareDevlopBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.softwareDevlop .softwareDevlopBox .softwareRightBox .imgBox img {
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid #9C9B9B;
+    border-radius: 10px;
+}
+
+.softwareDevlop .softwareDevlopBox .integrationBox {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.softwareDevlop .softwareDevlopBox .integrationBox .imgBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.softwareDevlop .softwareDevlopBox .integrationBox .textBox h6 {
+    font-size: 20px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.softwareDevlop .integratiDetail ul li p {
+    font-size: 16px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Regular';
+    margin-bottom: 5px;
+}
+
+.softwareDevlop .integratiDetail ul li span {
+    font-size: 16px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-black);
+}
+
+.softwareDevlop .integratiDetail ul li:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.softwareDevlop .endbtnSection {
+    margin-top: 60px;
+    gap: 40px;
+}
+
+/* -------- softwareDevlop page css ---------- */
+
+
+/* -------- certifications add new certificate page css ---------- */
+
+.addNewDocuments {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+}
+
+.addNewDocuments .titleBox h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 30px;
+}
+
+.addNewDocuments .insertDocumnt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.addNewDocuments .addNewDropdown select {
+    width: 100%;
+    height: 40px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Regular';
+    background-color: #fff;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    box-shadow: 0px 2px 4px 2px #00000021;
+}
+
+.addNewDocuments .insertDocumnt .addNewDocumentsLeft {
+    width: 100%;
+    max-width: 70%;
+}
+
+.addNewDocuments .addNewDocumentsLeft .addNewDropdown {
+    margin-bottom: 50px;
+}
+
+.addNewDocumentsRight .importFileBox {
+    height: 590px;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: inset 0px 2px 4px #00000021;
+    border: 1px solid #9C9B9B;
+    margin-bottom: 30px;
+    position: relative;
+    object-fit: cover;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.addNewDocumentsRight .importFileBox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.addNewDocumentsRight .importFileBox p {
+    font-size: 13px;
+    font-family: 'BricolageGrotesque-Regular';
+    margin-bottom: 10px;
+    color: var(--text-black);
+}
+
+.addNewDocumentsRight .importFileBox img {
+    width: 100%;
+    max-width: 50px;
+}
+
+.addNewDocumentsLeft label {
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-black);
+}
+
+.addNewDocumentsLeft input {
+    width: 100%;
+    min-height: 40px;
+    padding: 5px 15px;
+    border-radius: 15px;
+    outline: none;
+    box-shadow: 0px 2px 4px 2px #00000021;
+    border: none;
+}
+
+.addNewDocumentsLeft input::placeholder {
+    color: #9C9B9B;
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.addNewDocumentsLeft .btmSpace {
+    margin-bottom: 30px;
+}
+
+.addNewDocumentsLeft .distanceBox .dateFill {
+    display: flex;
+    gap: 30px;
+}
+
+.addNewDocumentsLeft .fileBoxImport input {
+    padding-bottom: 40px;
+}
+
+.addNewDocumentsLeft .certification_body input {
+    padding-bottom: 20px;
+}
+
+.imageImport .imgFill {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    box-shadow: inset 0px 2px 4px #00000033 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.addNewDocumentsLeft .imageImport .imgFill img {
+    width: 100%;
+    max-width: 30px;
+}
+
+.addNewDocumentsLeft .imageImport .imgFill input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.addNewDocuments .endbtnSection {
+    gap: 40px;
+}
+
+/* -------- certifications add new certificate page css ---------- */
+
+
+
+
+
+/* -------- References Add new project page css ---------- */
+
+.referencesAddNewProject {
+    padding-bottom: 30px;
+}
+
+.referencesAddNewProject .referencesAddNew {
+    display: flex;
+    gap: 60px;
+}
+
+.referencesAddNew .referencesAddNewLeft {
+    width: 55%;
+}
+
+.referencesAddNew .referencesAddNewReight {
+    width: 45%;
+}
+
+.referencesAddNew .referencesWhiteBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 4px 2px #00000021;
+    padding: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.referencesAddNew .referencesWhiteBox .detailsNewInner {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 4px 2px #00000021;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.referencesAddNew .referencesWhiteBox input.same,
+.referencesAddNew .referencesWhiteBox textarea {
+    width: 100%;
+    max-width: 85%;
+    min-height: 52px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    outline: none;
+    box-shadow: inset 2px 4px 2px #00000021;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.referencesAddNew .referencesWhiteBox p {
+    font-size: 20px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Regular';
+    margin-bottom: 20px;
+}
+
+.referencesAddNew .referencesWhiteBox h6 {
+    font-size: 20px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.referencesAddNew .referencesWhiteBox input.inputFive {
+    padding-bottom: 60px;
+}
+
+.referencesAddNew .referencesWhiteBox input.inputOne::placeholder {
+    font-size: 24px;
+    color: #9C9B9B;
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.referencesAddNew .referencesWhiteBox input.inputTwo::placeholder  {
+    font-size: 20px;
+    color: #9C9B9B;
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.referencesAddNew .referencesWhiteBox input.inputFour::placeholder,
+.referencesAddNew .referencesWhiteBox input.inputNine::placeholder {
+    font-size: 14px;
+    color: #9C9B9B;
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.referencesAddNew .referencesWhiteBox input.inputFive::placeholder,
+.referencesAddNew .referencesWhiteBox input.inputTen::placeholder {
+    font-size: 12px;
+    color: #9C9B9B;
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.referencesAddNew .referencesWhiteBox input.inputTen {
+    padding-bottom: 20px;
+}
+
+.referencesAddNew .referencesWhiteBox textarea.inputSix {
+    min-height: 113px;
+    resize: none;
+}
+
+
+.referencesAddNew .plusBtn {
+    text-align: center;
+}
+
+.referencesAddNew .plusBtn .btnPlus {
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.referencesAddNew .plusBtn .btnPlus img {
+    width: 100%;
+    max-width: 60px;
+}
+
+
+
+
+
+
+
+/* -------- References Add new project page css ---------- */

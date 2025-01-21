@@ -1,4 +1,4 @@
-<div class="modal fade addEmployModal" id="addEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade addEmployModal" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -6,7 +6,7 @@
                 <h1 class="modal-title" id="exampleModalLabel">Mitarbeiter hinzuhügen</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="addemployee">
+            <form id="addForm">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">

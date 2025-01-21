@@ -8,7 +8,7 @@
     <div class="homeSectionPart">
         <div class="addCommonBtn newAdd">
             <a href="{{ route('employee.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück Zu Allen</a>
-            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addEmployeeModal"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</button>
+            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</button>
         </div>
         <div class="employsSection">
             <div class="row">
@@ -41,7 +41,7 @@
                                 <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> DOKUMENT HERUNTERLADEN
                                 <a id="download-doc" href="{{ $employee->document_url }}" download style="display:none;"></a>
                             </button>
-                            <button class="btn btnGray edit-employee" data-bs-toggle="modal" data-bs-target="#addEmployeeModal" data-id="{{ $employee->id }}">INFOS BEARBEITEN</button>
+                            <button class="btn btnGray edit-employee" data-bs-toggle="modal" data-bs-target="#addModal" data-id="{{ $employee->id }}">INFOS BEARBEITEN</button>
                         </div>
                         <div class="multyBnt">
                             @foreach($employee->tags as $employeeTag)
@@ -130,14 +130,13 @@
 @endsection
 @section('js')
 <script>
-    var employeeListUrl = "{{ route('employee.index') }}";
-    var createEmployeeUrl = "{{ route('employee.addupdate') }}";
-    var getEmployeeUrl = "{{ route('employee.detail') }}";
+    var createUrl = "{{ route('employee.addupdate') }}";
+    var getUrl = "{{ route('employee.detail') }}";
+    var listUrl = "{{ route('employee.index') }}";
     var fileUrl = "{{ $employee->getCvUrl() }}";
 </script>
 <script src="{{ $baseUrl }}custom/js/common.js"></script>
 <script src="{{ $baseUrl }}custom/js/employees.js"></script>
-<script src="{{ $baseUrl }}custom/js/employee-details.js"></script>
 @endsection
 
 

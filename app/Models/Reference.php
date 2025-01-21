@@ -35,4 +35,16 @@ class Reference extends Model
             }
         }
     }
+
+    public function getDocxPreviewUrl()
+    {
+        if ($this->docx_preview) {
+            $subFolder = "reference" . $this->id;  // Match the subfolder logic
+            $filePath = "public/references/{$subFolder}/{$this->docx_preview}";  // Updated path
+            if (Storage::disk('local')->exists($filePath)) {
+                return asset('storage/references/' . $subFolder . '/' . $this->docx_preview);  // Correct URL structure
+            }
+        }
+        return '';
+    }
 }
