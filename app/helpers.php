@@ -205,9 +205,15 @@ if (!function_exists('convertDocToDocx')) {
         // $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
         exec($command, $output, $resultCode);
 
+        // if ($resultCode !== 0) {
+        //     return false;
+        // }
+        exec($command, $output, $resultCode);
         if ($resultCode !== 0) {
+            \Log::error("LibreOffice conversion failed for {$docPath}: " . implode("\n", $output));
             return false;
         }
+
         unlink($docPath);
         return $docxPath;
     }
