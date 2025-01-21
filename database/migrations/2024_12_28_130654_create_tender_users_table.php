@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('tender_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('tender_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->index(['user_id', 'tender_id']);
+            $table->index(['tender_id', 'user_id']);
         });
     }
 

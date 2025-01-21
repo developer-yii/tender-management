@@ -63,7 +63,7 @@
                             <div class="col-md-6">
                                 <div class="form-group boxForm">
                                     <label for="server-password" class="control-label">Password*</label>
-                                    <input type="text" id="server-password" name="server-password">
+                                    <input type="password" id="server-password" name="server-password">
                                     <span class="error"></span>
                                 </div>
                             </div>

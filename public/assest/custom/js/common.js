@@ -29,22 +29,22 @@ function handleFormSubmission(formSelector, url, modalId, listUrl) {
                 $("#loaderOverlay").fadeIn();
             },
             success: function (result) {
-                $("#loaderOverlay").fadeOut();
+                // $("#loaderOverlay").fadeOut();
                 if (result.status === true) {
                     $form[0].reset();
                     toastr.success(result.message);
                     $(`#${modalId}`).modal('hide');
                     if (result.isNew) {
-                        window.location.href = listUrl;
+                        // window.location.href = listUrl;
                     } else {
-                        window.location.reload();
+                        // window.location.reload();
                     }
                 } else {
                     handleErrors(result.error, formSelector);
                 }
             },
             error: function () {
-                $("#loaderOverlay").fadeOut();
+                // $("#loaderOverlay").fadeOut();
                 alert('Something went wrong!', 'error');
             }
         });
@@ -87,6 +87,8 @@ document.getElementById('previewBtn').addEventListener('click', function(event) 
         previewBody.innerHTML = `<embed src="${fileUrl}" type="application/pdf" width="100%" height="600px" />`;
     } else if (fileExtension === 'doc' || fileExtension === 'docx') {
         previewBody.innerHTML = "<p>No preview available for this file.</p>";
+    } else if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
+        previewBody.innerHTML = `<img src="${fileUrl}" alt="Image" style="width: 100%; height: auto; cursor: pointer;">`;
     } else {
         previewBody.innerHTML = "<p>No preview available for this file type.</p>";
     }

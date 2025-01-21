@@ -75,9 +75,9 @@ class EmployeeController extends Controller
             $subFolderName = "employee" . $employee->id;
 
             $files = [
-                'profile_photo' => ['folder' => 'employees', 'subFolder' => $subFolderName],
-                'cv' => ['folder' => 'employees','subFolder' => $subFolderName],
-                'document' => ['folder' => 'employees', 'subFolder' => $subFolderName],
+                'profile_photo' => ['multiple' => false, 'folder' => 'employees', 'subFolder' => $subFolderName],
+                'cv' => ['multiple' => false, 'folder' => 'employees','subFolder' => $subFolderName],
+                'document' => ['multiple' => false, 'folder' => 'employees', 'subFolder' => $subFolderName],
             ];
 
             $employee = handleFileUploads($request, $employee, $files);

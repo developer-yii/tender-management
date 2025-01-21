@@ -22,7 +22,7 @@ class Certificate extends Model
                 return asset('storage/certificates/' . $subFolder . '/' . $this->logo);  // Correct URL structure
             }
         }
-        return asset('img/image_not_available.png');
+        return asset('assest/images/image_not_available.png');
     }
 
     public function getCertificateWordUrl()
@@ -44,5 +44,17 @@ class Certificate extends Model
                 return asset('storage/certificates/' . $subFolder . '/' . $this->certificate_pdf);  // Correct URL structure
             }
         }
+    }
+
+    public function getDocxPreviewUrl()
+    {
+        if ($this->docx_preview) {
+            $subFolder = "certificate" . $this->id;  // Match the subfolder logic
+            $filePath = "public/certificates/{$subFolder}/{$this->docx_preview}";  // Updated path
+            if (Storage::disk('local')->exists($filePath)) {
+                return asset('storage/certificates/' . $subFolder . '/' . $this->docx_preview);  // Correct URL structure
+            }
+        }
+        return '';
     }
 }

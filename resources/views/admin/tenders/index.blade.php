@@ -2,12 +2,12 @@
     $baseUrl = asset('assest')."/";
 @endphp
 @extends('layouts.app-main')
-
+@section('title', 'Admin | Tender List ')
 @section('content')
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn">
-            <a href="{{route('tender.add')}}" class="btn btnAdd"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</a>
+            <a href="{{route('tender.add')}}" class="btn btnAdd"><i class="fa-solid fa-plus"></i> Zart hinzufügen</a>
         </div>
         <div class="tenderDetails">
             <div class="allTenderBox commonBackview">
@@ -17,27 +17,35 @@
                 <div class="tenderInner">
                     @foreach ($tenders as $tender)
                         <div class="tenderName">
-                            <div class="offerLeft">
-                                <div class="imgBox">
-                                    <img src="assest/images/offerimg1.png" alt="offerimg1">
+                            <a href="{{ route('tender.details', [$tender->id])}}">
+                                <div class="offerLeft">
+                                    <div class="imgBox">
+                                        <img src="{{ getTenderMainImage($tender) }}" alt="{{$tender->tender_name}}">
+                                    </div>
+                                    <div class="textBox">
+                                        <h5>{{ $tender->tender_name }}</h5>
+                                        <p>Ausführungszeitraum {{ formatDate($tender->period_from, 'd/m/Y') }} bis {{ formatDate($tender->period_to, 'd/m/Y') }}</p>
+                                    </div>
                                 </div>
-                                <div class="textBox">
-                                    <h5>Museum für Naturkunde Berlin</h5>
-                                    <p>Ausführungszeitraum 01/2025 bis 12/2026</p>
-                                </div>
-                            </div>
+                            </a>
                             <div class="textName">
-                                <h6>Kathrin <br>Julia</h6>
+                                <h6>
+                                    @if($tender->users && $tender->users->isNotEmpty())
+                                        {{ $tender->users->map(fn($user) => $user->first_name . ' ' . $user->last_name)->implode(', ') }}
+                                    @else
+                                        No users associated
+                                    @endif
+                                </h6>
                             </div>
                             <div class="dateTime">
-                                <p>15.01.2025  |  <span>13:00</span></p>
+                                <p> {{ formatDate($tender->offer_period_expiration, 'd.m.Y | h:i') }}</p>
                             </div>
                             <div class="viewstatus">
                                 <div class="statusIcon">
-                                    <img src="assest/images/Wait.png" alt="Wait">
+                                    <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" alt="{{ $tender->status_text }}">
                                 </div>
                                 <div class="text">
-                                    <p>in Bearbeitung</p>
+                                    <p>{{ $tender->status_text }}</p>
                                 </div>
                             </div>
                         </div>
@@ -52,13 +60,14 @@
                     <div class="employMainBox">
                         <div class="employViewBox">
                             @foreach ($employees as $employee)
-                                <div class="employProfile">
+                                <div class="employProfile" data-employee-id="{{ $employee->id }}">
                                     <div class="imgBox">
-                                        <img src="{{ Storage::url('employee/profile-photo/' . $employee->profile_pic) }}">
+                                        <img src="{{ $employee->getProfilePicUrl() }}" alt="Profile Picture">
                                     </div>
                                     <div class="textBox">
                                         <h5>{{ $employee->first_name }} {{ $employee->last_name }}</h5>
                                         <p>{{ $employee->email }}</p>
+                                        <button class="btn iconEdit"><i class="bi bi-eye-fill"></i></button>
                                     </div>
                                 </div>
                             @endforeach
@@ -66,89 +75,23 @@
                         <div class="markusTender">
                             <div class="tenderAll">
                                 <div class="titleBox">
-                                    <h5>Markus Ausschreibungen:</h5>
+                                    <h5 id="employee-name"></h5>
                                 </div>
-                                <ul>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/Wait.png" alt="Wait">
-                                        </div>
-                                        <div class="text">
-                                            <p>Staatliches Bau- und Liegenschaftsamt</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/orange-dot.png" alt="orange-dot">
-                                        </div>
-                                        <div class="text">
-                                            <p>Universitätsstadt Siegen</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/orange-dot.png" alt="orange-dot">
-                                        </div>
-                                        <div class="text">
-                                            <p>Stadt Ulm, Zentrale Vergabestelle VOB</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/green-dot.png" alt="green-dot">
-                                        </div>
-                                        <div class="text">
-                                            <p>LHM, Baureferat, Verwaltung und Recht </p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/gray-dot.png" alt="gray-dot">
-                                        </div>
-                                        <div class="text">
-                                            <p>Senatsverwaltung für Stadtentwicklung, Bauen...</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/Wait.png" alt="Wait">
-                                        </div>
-                                        <div class="text">
-                                            <p>Staatliches Bau- und Liegenschaftsamt</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/orange-dot.png" alt="orange-dot">
-                                        </div>
-                                        <div class="text">
-                                            <p>Universitätsstadt Siegen</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/orange-dot.png" alt="orange-dot">
-                                        </div>
-                                        <div class="text">
-                                            <p>Stadt Ulm, Zentrale Vergabestelle VOB</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/green-dot.png" alt="green-dot">
-                                        </div>
-                                        <div class="text">
-                                            <p>LHM, Baureferat, Verwaltung und Recht </p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="assest/images/gray-dot.png" alt="gray-dot">
-                                        </div>
-                                        <div class="text">
-                                            <p>Senatsverwaltung für Stadtentwicklung, Bauen...</p>
-                                        </div>
-                                    </li>
+                                <ul id="tenderList">
+                                    @foreach ($employees as $employee)
+                                        @if($employee->tenders)
+                                            @foreach ($employee->tenders as $tender)
+                                                <li data-employee-id="{{$employee->id}}">
+                                                    <div class="statusIcon">
+                                                        <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" alt="{{ $tender->status_text }}">
+                                                    </div>
+                                                    <div class="text">
+                                                        <p>{{ $tender->tender_name }}</p>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -162,7 +105,9 @@
 @section('js')
 <script>
     var tenderListUrl = "{{ route('tender.list') }}";
+    var assignTenderListUrl = "{{ route('tender.assign-tenders') }}";
+    const baseUrl = "{{ $baseUrl }}";
 </script>
-<script src="{{ $baseUrl }}custom-js/tenders.js"></script>
+<script src="{{ $baseUrl }}custom/js/tenders.js"></script>
 @endsection
 

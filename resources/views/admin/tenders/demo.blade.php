@@ -4,37 +4,6 @@
 @extends('layouts.app-main')
 
 @section('content')
-{{-- <section class="mainSection">
-    <div class="homeSectionPart">
-        <div class="selectTenerSec">
-            <div class="selectTender">
-                <div class="allSeriesBox">
-                    @foreach($documents as $document)
-                    <div class="secriesBox">
-                        <label>{{$document->certificate_file}}</label>
-                        <div class="seriestext">
-                            <div id="preview-{{$document->id}}" class="docx-preview"></div>
-                            <p>{{$document->title}}</p>
-                        </div>
-                    </div>
-                    <script>
-                        fetch("http://tender-management.test/storage/certificates/certificate/{{$document->certificate_file}}") // Use the dynamic document file
-                        .then(response => response.arrayBuffer())
-                        .then(data => {
-                            mammoth.convertToHtml({arrayBuffer: data})
-                                .then(result => {
-                                    document.getElementById("preview-{{$document->id}}").innerHTML = result.value;
-                                })
-                                .catch(err => console.error("Error converting DOCX:", err));
-                        })
-                        .catch(err => console.error("Error fetching DOCX:", err));
-                    </script>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
 
 {{-- <section class="mainSection">
     <div class="homeSectionPart">
@@ -167,7 +136,7 @@
                     </div>
                     <script>
                         // Fetch the PDF file and render the first page using PDF.js
-                        fetch("http://tender-management.test/storage/certificates/certificate/{{$document->certificate_file}}")
+                        fetch("http://tender-management.test/storage/certificates/certificate{{$document->id}}/{{$document->docx_preview}}")
                         .then(response => response.arrayBuffer())
                         .then(data => {
                             const loadingTask = pdfjsLib.getDocument({data: data});
@@ -236,29 +205,53 @@
     </script>
 @endsection
 
+{{-- complete work --}}
 {{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mammoth.js DOCX to HTML</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <title>PDF First Page Preview</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 </head>
 <body>
-    <h1>DOCX Preview with Mammoth.js</h1>
-    <div id="docx-preview"></div>
+    <h1>PDF First Page Preview</h1>
+
+    <!-- Container to display the PDF first page -->
+    <canvas id="pdf-preview"></canvas>
+
+    <ul>
+        <li>
+            <a href="http://tender-management.test/storage/employees/employee2/67810af49efe4_1736510196_first_page.pdf" target="_blank">View Full PDF</a>
+        </li>
+    </ul>
 
     <script>
-        fetch("http://tender-management.test/storage/certificates/certificate/certificates1.docx") // Replace with your DOCX URL
-            .then(response => response.arrayBuffer())
-            .then(data => {
-                mammoth.convertToHtml({arrayBuffer: data})
-                    .then(result => {
-                        document.getElementById("docx-preview").innerHTML = result.value;
-                    })
-                    .catch(err => console.error("Error converting DOCX:", err));
-            })
-            .catch(err => console.error("Error fetching DOCX:", err));
+        // PDF.js loading and rendering
+        var url = 'http://tender-management.test/storage/employees/employee2/67810af49efe4_1736510196_first_page.pdf';
+
+        // The canvas element where the first page will be rendered
+        var canvas = document.getElementById('pdf-preview');
+        var context = canvas.getContext('2d');
+
+        // Loading the PDF
+        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+            // Get the first page
+            pdf.getPage(1).then(function(page) {
+                var viewport = page.getViewport({ scale: 1.5 });
+
+                // Set canvas size to match PDF's page size
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                // Render the page
+                page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                });
+            });
+        });
     </script>
 </body>
 </html> --}}
+

@@ -18,6 +18,12 @@
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <!-- Include flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+
+
     {{--start multiple select2 --}}
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
@@ -25,6 +31,7 @@
     {{--end multiple select2 --}}
 
     <link href="{{ $baseUrl }}plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ $baseUrl }}plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" /> --}}
     {{-- <link rel="stylesheet" href="{{ $baseUrl }}custom/plugins/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{ $baseUrl }}custom/plugins/bootstrap-tagsinput.css">
     <link rel="stylesheet" href="{{ $baseUrl }}custom/plugins/multi-select.css"> --}}
@@ -71,12 +78,12 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
     <script src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap5.js"></script>
-
     {{--start multiple select2 --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
     {{--end multiple select2 --}}
 
     <script src="{{ $baseUrl }}plugins/bower_components/custom-select/custom-select.min.js" type="text/javascript"></script>
+    {{-- <script src="{{ $baseUrl }}plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script> --}}
     {{-- <script src="{{ $baseUrl }}custom/plugins/custom-select.min.js"></script>
     <script src="{{ $baseUrl }}custom/plugins/bootstrap-select.min.js"></script>
     <script src="{{ $baseUrl }}custom/plugins/bootstrap-tagsinput.min.js"></script>
@@ -85,6 +92,7 @@
 
     <script src="{{ $baseUrl }}custom/js/toastr.min.js"></script>
     <script src="{{ $baseUrl }}js/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ $baseUrl }}js/custom.js"></script>
 
     <script>

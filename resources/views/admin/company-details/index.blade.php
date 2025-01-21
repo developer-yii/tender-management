@@ -34,19 +34,23 @@
                         <div class="companyFile">
                             <ul>
                                 <li>
-                                    <a href="{{asset('storage/Company Documents/' . $companyData->company_presentation_word)}}"><i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung Word
+                                    <a href="{{ getDocumentPath($companyData->company_presentation_word) }}">
+                                        <i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung Word
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{asset('storage/Company Documents/' . $companyData->company_presentation_pdf)}}" target="_blank"><i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung PDF
+                                    <a href="{{ getDocumentPath($companyData->company_presentation_pdf) }}" target="_blank">
+                                        <i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung PDF
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{asset('storage/Company Documents/' . $companyData->agile_framework_word)}}"><i class="fa-solid fa-file-lines"></i> Agile Framework Word
+                                    <a href="{{ getDocumentPath($companyData->agile_framework_word) }}">
+                                        <i class="fa-solid fa-file-lines"></i> Agile Framework Word
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{asset('storage/Company Documents/' . $companyData->agile_framework_pdf)}}"><i class="fa-solid fa-file-lines" target="_blank"></i> Agile Framework PDF
+                                    <a href="{{ getDocumentPath($companyData->agile_framework_pdf) }}" target="_blank">
+                                        <i class="fa-solid fa-file-lines"></i> Agile Framework PDF
                                     </a>
                                 </li>
                             </ul>

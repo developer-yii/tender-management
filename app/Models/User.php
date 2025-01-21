@@ -54,7 +54,7 @@ class User extends Authenticatable
                 return asset('storage/employees/' . $subFolder . '/' . $this->profile_photo);  // Correct URL structure
             }
         }
-        return asset('img/image_not_available.png');
+        return asset('assest/images/default-user.jpg');
     }
 
     public function getCvUrl()
@@ -66,7 +66,7 @@ class User extends Authenticatable
                 return asset('storage/employees/' . $subFolder . '/' . $this->cv);  // Correct URL structure
             }
         }
-        return asset('img/image_not_available.png');
+        return '';
     }
 
     public function getDocumentUrl()
@@ -78,14 +78,32 @@ class User extends Authenticatable
                 return asset('storage/employees/' . $subFolder . '/' . $this->document);  // Correct URL structure
             }
         }
-        return asset('img/image_not_available.png');
+        return '';
     }
 
-    public function tenderUsers()
+    public function getDocxPreviewUrl()
     {
-        return $this->hasMany(TenderUser::class);
+        if ($this->docx_preview) {
+            $subFolder = "employee" . $this->id;  // Match the subfolder logic
+            $filePath = "public/employees/{$subFolder}/{$this->docx_preview}";  // Updated path
+            if (Storage::disk('local')->exists($filePath)) {
+                return asset('storage/employees/' . $subFolder . '/' . $this->docx_preview);  // Correct URL structure
+            }
+        }
+        return '';
     }
 
+    // public function tenderUsers()
+    // {
+    //     return $this->hasMany(TenderUser::class);
+    // }
+
+    public function tenders()
+    {
+        return $this->belongsToMany(Tender::class, 'tender_users', 'user_id', 'tender_id')
+                    ->withTimestamps()
+                    ->withTrashed(); // Use withTrashed() instead of withSoftDeletes
+    }
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'tag_users');
@@ -96,8 +114,8 @@ class User extends Authenticatable
         return $this->morphMany(File::class, 'fileable');
     }
 
-    public function addresses()
-    {
-        return $this->morphMany(Address::class, 'addressable');
-    }
+    // public function addresses()
+    // {
+    //     return $this->morphMany(Address::class, 'addressable');
+    // }
 }

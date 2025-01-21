@@ -94,9 +94,9 @@ class CertificateController extends Controller
             $subFolderName = "certificate" . $certificate->id;
 
             $files = [
-                'logo' => ['folder' => 'certificates', 'subFolder' => $subFolderName],
-                'certificate_word' => ['folder' => 'certificates','subFolder' => $subFolderName],
-                'certificate_pdf' => ['folder' => 'certificates', 'subFolder' => $subFolderName],
+                'logo' => ['multiple' => false, 'folder' => 'certificates', 'subFolder' => $subFolderName],
+                'certificate_word' => ['multiple' => false, 'folder' => 'certificates','subFolder' => $subFolderName],
+                'certificate_pdf' => ['multiple' => false, 'folder' => 'certificates', 'subFolder' => $subFolderName],
             ];
 
             $certificate = handleFileUploads($request, $certificate, $files);

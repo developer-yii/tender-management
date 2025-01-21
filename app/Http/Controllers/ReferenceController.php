@@ -79,8 +79,8 @@ class ReferenceController extends Controller
                 $subFolderName = "reference" . $reference->id;
 
                 $files = [
-                    'file_word' => ['folder' => 'references','subFolder' => $subFolderName],
-                    'file_pdf' => ['folder' => 'references', 'subFolder' => $subFolderName],
+                    'file_word' => ['multiple' => false, 'folder' => 'references','subFolder' => $subFolderName],
+                    'file_pdf' => ['multiple' => false, 'folder' => 'references', 'subFolder' => $subFolderName],
                 ];
 
                 $reference = handleFileUploads($request, $reference, $files);

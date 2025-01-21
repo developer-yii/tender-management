@@ -1,0 +1,3043 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/*--- common css ---*/
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --light-color: #F8F9FA;
+    --sky-color: #7BA7D7;
+    --text-gray: #9C9B9B;
+    --text-black: #514F4F;
+    --light-gray: #C4C4C4;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+
+@font-face {
+    src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-Bold.ttf);
+    font-family: 'BricolageGrotesque-Bold';
+    font-display: swap;
+}
+@font-face {
+    src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-SemiBold.ttf);
+    font-family: 'BricolageGrotesque-SemiBold';
+    font-display: swap;
+}
+@font-face {
+    src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-Medium.ttf);
+    font-family: 'BricolageGrotesque-Medium';
+    font-display: swap;
+}
+@font-face {
+    src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-Regular.ttf);
+    font-family: 'BricolageGrotesque-Regular';
+    font-display: swap;
+}
+@font-face {
+    src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-ExtraBold.ttf);
+    font-family: 'BricolageGrotesque-ExtraBold';
+    font-display: swap;
+}
+
+h1 {
+    font-size: 60px;
+}
+
+h2 {
+    font-size: 55px;
+}
+
+h3 {
+    font-size: 45px;
+}
+
+h4 {
+    font-size: 32px;
+}
+
+h5 {
+    font-size: 22px;
+}
+
+h6 {
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 1.2;
+    margin-bottom: 0;
+}
+
+
+p {
+    font-size: 18px;
+    line-height: 1.1;
+    word-break: break-word;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+span {
+    display: inline-block;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+image,
+video {
+    width: 100%;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.desktop {
+    display: none !important;
+}
+
+.mobile {
+    display: block !important;
+}
+
+body {
+    font-family: "Bricolage Grotesque", serif !important;
+    background-color: var(--light-color);
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.errorCommon {
+    position: absolute;
+    bottom: -10px;
+    left: 0px;
+    color: red;
+    font-family: 'BricolageGrotesque-Regular';
+    font-size: 14px;
+}
+
+.error{
+    color: red;
+}
+
+button {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.addCommonBtn {
+    text-align: end;
+    margin-bottom: 30px;
+}
+
+.btnCommonTag {
+    font-size: 12px;
+    min-height: 42px;
+    color: var(--white-color) !important;
+    background-color: var(--sky-color);
+    border-radius: 12px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    padding: 5px 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addCommonBtn .btnAdd, .addCommonBtn .btnBack, .btnCom {
+    font-size: 16px;
+    min-height: 52px;
+    color: var(--white-color) !important;
+    background-color: var(--sky-color);
+    border-radius: 15px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    align-items: center;
+    justify-content: center;
+    outline: none !important;
+    box-shadow: none !important;
+    display: inline-flex;
+}
+
+.addCommonBtn .btnAdd {
+    margin-left: auto;
+}
+
+.addCommonBtn.newAdd {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.addCommonBtn .btnAdd i,
+.addCommonBtn .btnBack i {
+    font-size: 18px;
+    vertical-align: middle;
+    padding-right: 10px;
+}
+
+.btnDetails {
+    font-size: 13px;
+    min-height: 42px;
+    width: 100%;
+    max-width: 160px;
+    color: var(--white-color) !important;
+    background-color: var(--sky-color);
+    border-radius: 15px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    outline: none !important;
+    box-shadow: none !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ------ sign in page css start -------- */
+
+#sign_in {
+    min-height: 100vh;
+    background-color: var(--sky-color);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#sign_in .sign_inBox {
+    display: flex;
+    align-items: center;
+}
+
+#sign_in .sign_inBox .leftBox,
+#sign_in .sign_inBox .rightBox {
+    width: 50%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sign_in .sign_inBox .rightBox {
+    position: relative;
+}
+
+#sign_in .sign_inBox .rightBox .logoImg {
+    position: relative;
+    z-index: 55;
+    text-align: center;
+}
+
+#sign_in .sign_inBox .rightBox .logoImg img {
+    width: 100%;
+    max-width: 350px;
+}
+
+#sign_in .sign_inBox .rightBox .layer-img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 750px;
+    width: 100%;
+    object-fit: cover;
+}
+
+#sign_in .sign_inBox .rightBox .layer-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.signMainbox .titlebox h4 {
+    color: var(--white-color);
+    font-family: 'BricolageGrotesque-Bold';
+    margin-bottom: 30px;
+}
+
+.commonFillBox .comLable {
+    width: 100%;
+    padding-bottom: 10px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    font-size: 16px;
+    color: var(--white-color);
+}
+
+.commonFillBox .comInput {
+    width: 100%;
+    box-shadow: none;
+    outline: none;
+    min-height: 48px;
+    border-radius: 15px;
+    background-color: var(--sky-color);
+    border: 1px solid var(--white-color);
+    padding: 10px 15px 10px 25px;
+    color: var(--white-color);
+}
+
+.commonFillBox .comInput::placeholder {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Regular';
+    color: var(--white-color);
+}
+
+.signMainbox .commonFillBox {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.checkBoxSec label {
+    color: var(--white-color);
+    font-family: 'BricolageGrotesque-Medium';
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.checkBoxSec input#flexSwitchCheckDefault {
+    height: 20px;
+    width: 40px;
+    box-shadow: none !important;
+}
+
+.checkBoxSec .form-check-input:checked {
+    background-color: var(--white-color) !important;
+    border-color: var(--white-color) !important;
+}
+
+.form-switch .form-check-input:checked {
+    background-image: url(../images/checkdot.png) !important;
+    background-size: 14px;
+}
+
+.regBtn .btnReg {
+    width: 100%;
+    max-width: 350px;
+    background-color: var(--white-color);
+    color: var(--text-black);
+    border-radius: 15px;
+    box-shadow: none;
+    outline: none;
+    font-family: 'BricolageGrotesque-SemiBold';
+    min-height: 48px;
+    margin-top: 20px;
+}
+
+/* ------ sign in page css end -------- */
+
+
+
+/*--- sidebar css start ---*/
+
+.main-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1920px;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+}
+
+.sidebar {
+    width: 320px;
+    background-color: var(--light-bg);
+    min-height: 100vh;
+    transition: 0.3s all;
+    border-right: 1px solid var(--border-color);
+    height: 100%;
+}
+
+.sidebar .sidebar-fix {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 25px 5px 10px 30px;
+    width: 320px;
+    gap: 40px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.sidebar .sidebar-fix .logo-box {
+    padding-bottom: 20px;
+}
+
+.sidebar .sidebar-fix .logo-box img {
+    max-width: 200px;
+    transition: 0.3s;
+}
+
+.sidebar .sidebar-fix .logo-box img.close {
+    display: none;
+}
+
+.menu-box .navbar-box {
+    padding-top: 20px;
+}
+
+.menu-box .navbar-box ul li a {
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.menu-box .navbar-box li {
+    margin-bottom: 0 !important;
+}
+
+.menu-box .navbar-box ul li a.main-active {
+    border-radius: 15px;
+    min-width: 250px;
+    color: var(--text-black);
+    background-color: var(--white-color);
+    border: 2px solid var(--light-blue);
+    transition: 0.3s;
+    box-shadow: 0px 2px 4.8px #0000001c;
+}
+
+.menu-box .navbar-box li a {
+    font-size: 16px;
+    color: var(--text-color);
+    padding: 10px 12px;
+    transition: 0.3s all;
+}
+
+.menu-box .navbar-box ul li a span {
+    margin-right: 15px;
+    padding: 5px 6px;
+    border-radius: 12px;
+}
+
+.menu-box .navbar-box ul li a.main-active span {
+    background-color: var(--sky-color);
+}
+
+.menu-box .navbar-box ul li a.main-active span img {
+    width: 25px;
+    filter: invert(1) brightness(8);
+}
+
+.sidebar .currentOffer {
+    background-color: var(--white-color);
+    padding: 20px 20px;
+    box-shadow: 0px 2px 5px #0000001c;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+.sidebar .currentOffer .offerComBox {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.sidebar .currentOffer .offertitle h6 {
+    font-size: 14px;
+    color: var(--text-black);
+}
+
+.sidebar .offerComBox .offerLeft {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .offerComBox .offerLeft .imgBox {
+    margin-right: 10px;
+}
+
+.sidebar .offerComBox .offerLeft .imgBox img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px #0000001c;
+}
+
+.sidebar .offerComBox .offerLeft .textBox p {
+    font-size: 12px;
+    color: var(--text-gray);
+}
+
+.sidebar .offerRight .tagBox {
+    background-color: #7ba7d7cc;
+    border: 2px solid var(--sky-color);
+    border-radius: 5px;
+    padding: 4px 12px;
+}
+
+.sidebar .offerRight .tagBox h5 {
+    text-align: center;
+    font-size: 20px;
+    color: var(--white-color);
+    line-height: 0.9;
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.sidebar .offerRight .tagBox h5 span {
+    font-size: 13px;
+    font-family: 'BricolageGrotesque-Regular' !important;
+}
+
+.startTenerbtn {
+    width: 100%;
+}
+
+.startTenerbtn .startBtn {
+    font-size: 16px;
+    min-height: 52px;
+    width: 100%;
+    color: var(--white-color);
+    background-color: var(--sky-color);
+    border-radius: 15px;
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.startTenerbtn .startBtn i {
+    font-size: 22px;
+    vertical-align: middle;
+    padding-right: 15px;
+}
+
+/* ------------ home-section css start ------------- */
+
+/* ===== header css start ==== */
+
+.header {
+    position: fixed;
+    top: 10px;
+    width: calc(100% - 365px);
+    z-index: 55;
+}
+
+.header .header-part {
+    min-height: 160px;
+    background-color: var(--sky-color);
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+}
+
+.header .header-part::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/layerBg.png);
+    background-repeat: no-repeat;
+    background-size: initial;
+    background-position: center center;
+    border-radius: 15px;
+}
+
+.header .header-part .header-box {
+    position: relative;
+    z-index: 55;
+}
+
+.header .header-part .headContent {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.header .header-part .header-box .searchBox {
+    position: relative;
+}
+
+.header .header-part .headContent .menuClick .mobileIcon {
+    display: none;
+}
+
+.header .header-part .header-box .searchBox i {
+    font-size: 18px;
+    color: var(--blue-color);
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--light-gray);
+}
+
+.header .header-part .header-box .searchBox input {
+    border: none !important;
+    box-shadow: none !important;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    padding: 8px 5px 8px 40px;
+    width: 100%;
+    outline: none;
+    max-width: 180px;
+}
+
+.header .header-part .header-box .searchBox input::placeholder {
+    color: var(--light-gray);
+    font-size: 16px;
+}
+
+.header .header-part .header-box .sittingBox a {
+    color: var(--white-color);
+}
+
+.header .header-part .header-box .sittingBox a i {
+    color: var(--white-color);
+    font-size: 20px;
+}
+
+.header .userHeader {
+    background-color: #ffffffdb;
+    border-radius: 15px;
+    padding: 15px 15px;
+    width: 100%;
+    max-width: 97%;
+    margin: -55px auto 0;
+    z-index: 55555;
+    position: relative;
+}
+
+.header .userHeader .userProfile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header .userHeader .userProfile .userimg img {
+    height: 75px;
+    width: 75px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.header .userHeader .userProfile .username h6 {
+    font-size: 18px;
+    color: var(--black-color);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.header .userHeader .userProfile .username p {
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.header .userHeader .userHeaderBox {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.header .userHeader .tenderStatus {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.header .userHeader .tenderStatus .comstatusBox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header .userHeader .tenderStatus .comstatusBox .statusIcon img {
+    width: 100%;
+    max-width: 20px;
+}
+
+.header .userHeader .tenderStatus .comstatusBox .text p {
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.header .userHeader .tenderStatus .comstatusBox .countPro span {
+    color: var(--white-color);
+    background-color: var(--text-gray);
+    height: 20px;
+    width: 20px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* ===== header css end ==== */
+
+/* ==== mainContent section css start === */
+
+.home-section {
+    transition: 0.3s all;
+    width: calc(100% - 250px);
+    padding: 10px 20px;
+}
+
+.home-section .mainSection {
+    padding-top: 250px;
+    padding-bottom: 10px;
+}
+
+.mainSection .tenderDetails .commonBackview {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    height: 410px;
+    padding: 30px;
+}
+
+.mainSection .tenderDetails .employsBox.commonBackview {
+    padding: 20px;
+}
+
+.homeSectionPart .tenderDetails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.tenderName .offerLeft {
+    display: flex;
+    align-items: center;
+}
+
+.tenderName .offerLeft .imgBox {
+    margin-right: 10px;
+}
+
+.tenderName .offerLeft .imgBox img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+}
+
+.tenderName .offerLeft .textBox h5 {
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.tenderName .offerLeft .textBox p,
+.tenderInner .tenderName .dateTime p {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.tenderInner .tenderName {
+    display: grid;
+    grid-template-columns: 1fr 90px 100px 130px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.tenderInner .tenderName .textName h6 {
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.dateTime p {
+    font-size: 13px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.tenderInner .tenderName .viewstatus {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tenderInner .tenderName .viewstatus .statusIcon img {
+    width: 100%;
+    max-width: 20px;
+}
+
+.tenderInner .tenderName .viewstatus .text p {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.mainSection .tenderDetails .commonBackview .tenderInner {
+    margin-top: 30px;
+    overflow-y: scroll;
+    height: calc(400px - 100px);
+}
+
+.mainSection .tenderDetails .commonBackview .tenderInner::-webkit-scrollbar-track,
+.employMainBox .employViewBox::-webkit-scrollbar-track,
+.markusTender .tenderAll ul::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px var(--light-gray);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.mainSection .tenderDetails .commonBackview .tenderInner::-webkit-scrollbar,
+.employMainBox .employViewBox::-webkit-scrollbar,
+.markusTender .tenderAll ul::-webkit-scrollbar {
+    width: 3px;
+    background-color: #F5F5F5;
+}
+
+.mainSection .tenderDetails .commonBackview .tenderInner::-webkit-scrollbar-thumb,
+.employMainBox .employViewBox::-webkit-scrollbar-thumb,
+.markusTender .tenderAll ul::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px var(--sky-color);
+    background-color: var(--light-color);
+}
+
+.mainSection .tenderDetails .commonBackview .titleBox h5,
+.myTendersSec .myTenderBox .tenderTitle h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.employMainBox {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.employMainBox .employViewBox {
+    overflow-y: scroll;
+    height: calc(400px - 70px);
+}
+
+.employMainBox .employProfile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.employMainBox .employProfile.active {
+    background-color: var(--sky-color);
+}
+
+.employMainBox .employProfile .imgBox img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.employMainBox .employProfile .textBox {
+    width: 100%;
+}
+
+.employMainBox .employProfile .textBox h5 {
+    font-size: 16px;
+    color: var(--black-color);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.employMainBox .employProfile.active .textBox h5,
+.employMainBox .employProfile.active .textBox p {
+    color: var(--white-color) !important;
+}
+
+.employMainBox .employProfile .textBox p {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+    transition: 0.3s;
+    margin-bottom: 0px;
+}
+
+.markusTender .tenderAll .titleBox h5 {
+    font-size: 16px !important;
+    color: var(--text-gray) !important;
+    font-family: 'BricolageGrotesque-SemiBold' !important;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.employMainBox .employProfile .textBox .iconEdit {
+    padding: 0;
+    margin-left: auto;
+    font-size: 18px;
+    color: var(--white-color);
+    display: block;
+    height: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.employMainBox .employProfile.active .textBox .iconEdit {
+    opacity: 1;
+    visibility: visible;
+}
+
+.markusTender {
+    background-color: var(--light-color);
+    box-shadow: 0px 2px 5px #0000001c;
+    border-radius: 15px;
+    padding: 20px 30px;
+}
+
+.markusTender .tenderAll ul {
+    overflow-y: scroll;
+    height: calc(400px - 170px);
+}
+
+.markusTender .tenderAll ul li {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    align-items: center;
+    gap: 15px;
+}
+
+.markusTender .tenderAll ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.markusTender .tenderAll ul li .statusIcon img {
+    max-width: 15px;
+    width: 100%;
+}
+
+.markusTender .tenderAll ul li .text p {
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.myTendersSec {
+    margin: 30px 0 10px;
+}
+
+.myTendersSec .myTenderBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 2px 4px 2px #0000001c;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon {
+    padding: 10px;
+    box-shadow: 0px 2px 4px 2px #0000001c;
+    border-radius: 15px;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .imgBox img {
+    height: 160px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .tenderName h6 {
+    margin: 10px 0;
+    font-size: 16px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsFull ul li p {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-gray);
+    word-break: break-all;
+    line-height: 1.3;
+}
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsFull ul {
+    display: flex;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsFull ul li {
+    padding: 0 8px;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsFull ul li:not(:last-child) {
+    border-right: 1px solid var(--light-gray);
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsView {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsView .btnDetails {
+    font-size: 13px;
+    min-height: 52px;
+    width: 100%;
+    max-width: 160px;
+    color: var(--white-color);
+    background-color: var(--sky-color);
+    border-radius: 15px;
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsView .viewstatus {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsView .viewstatus .statusIcon img {
+    width: 100%;
+    max-width: 20px;
+    vertical-align: middle;
+}
+
+.myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsView .viewstatus .text p {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+/* ==== mainContent section css end === */
+
+/* ===== Data table css === */
+
+.homeSectionPart .adminTable {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+}
+/* ===== Data table css === */
+
+/* ------------ home-section css end ------------- */
+
+
+/* ---------- tender_detail page css start ---------- */
+
+.mainTenderDetails {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+}
+
+.mainTenderDetails .propertySec {
+    margin-bottom: 30px;
+}
+
+.mainTenderDetails .propertySec .imgbox img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+}
+
+.mainTenderDetails .propertySec .textDetails {
+    padding: 20px;
+}
+
+.mainTenderDetails .propertySec .textDetails .propName h6 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Bold';
+    margin-bottom: 20px;
+}
+
+.mainTenderDetails .propertySec .textDetails ul {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.mainTenderDetails .propertySec .textDetails ul li:not(:last-child) {
+    border-right: 1px solid var(--light-gray);
+}
+
+.mainTenderDetails .propertySec .textDetails ul li {
+    padding: 0 15px;
+}
+
+.mainTenderDetails .propertySec .textDetails ul li p.gray {
+    color: var(--text-gray);
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+    margin-bottom: 5px;
+}
+
+.mainTenderDetails .propertySec .textDetails ul li p {
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.mainTenderDetails .ourThreeBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.mainTenderDetails .ourThreeBox .box-box {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 10px;
+}
+
+.mainTenderDetails .ourThreeBox .firstBox p {
+    font-size: 13px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-black);
+    margin-bottom: 5px;
+}
+
+.mainTenderDetails .ourThreeBox .firstBox,
+.mainTenderDetails .ourThreeBox .secondBox {
+    text-align: center;
+}
+
+.mainTenderDetails .ourThreeBox .firstBox h6 {
+    font-size: 30px;
+    font-family: 'BricolageGrotesque-Bold';
+    color: var(--text-black);
+}
+
+.mainTenderDetails .ourThreeBox .firstBox span {
+    font-family: 'BricolageGrotesque-Medium';
+    font-size: 12px;
+    color: var(--text-black);
+}
+
+.mainTenderDetails .ourThreeBox .secondBox h6 {
+    font-family: 'BricolageGrotesque-Bold';
+    color: var(--text-black);
+    font-size: 13px;
+}
+
+.mainTenderDetails .ourThreeBox .secondBox img {
+    width: 100%;
+    max-width: 40px;
+    margin: 10px 0;
+}
+
+.mainTenderDetails .ourThreeBox .secondBox p {
+    color: var(--text-black);
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.mainTenderDetails .ourThreeBox .thirdBox p {
+    color: var(--text-gray);
+    font-size: 11px;
+}
+
+.mainTenderDetails .ourThreeBox .thirdBox .newBox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mainTenderDetails .ourThreeBox .thirdBox .newBox img {
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.mainTenderDetails .ourThreeBox .thirdBox .newBox h6 {
+    font-size: 13px;
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.mainSection .certificationsMain {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.mainSection .certificationsMain .titleBox h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 30px;
+}
+
+.mainSection .certificationsMain .ceritesBgBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 4px 2px #0000001c;
+    padding: 30px;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox .topBox {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox .leftsec h6 {
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 15px;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox .leftsec p {
+    font-size: 14px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    word-break: break-word;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox .endBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox .endBox p {
+    font-size: 12px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Medium';
+    margin-bottom: 0;
+    padding-top: 10px;
+}
+
+.mainSection .collectDocumentSec {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 2px #0000001c;
+    padding: 30px;
+}
+
+.mainSection .collectDocumentSec .docListOur ul li:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.mainSection .collectDocumentSec .docListOur ul li p {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Regular';
+    color: var(--text-black);
+}
+
+.mainSection .collectDocumentSec .docListOur ul li p i {
+    font-size: 22px;
+    vertical-align: middle;
+    color: var(--sky-color);
+    margin-right: 15px;
+}
+
+.mainSection .collectDocumentSec .docTitle h5 {
+    font-size: 16px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Medium';
+    margin-bottom: 20px;
+}
+
+.mainSection .collectDocumentSec .openDocBtn .btnOpen {
+    border-top: 1px solid #c4c4c480;
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 0;
+    color: var(--sky-color);
+    height: 30px;
+    padding: 0;
+}
+
+.mainSection .collectDocumentSec .openDocBtn .btnOpen i {
+    font-size: 24px;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox .topBox .rightSec img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox .topBox .leftsec {
+    width: 100%;
+    max-width: 70%;
+}
+
+.mainSection .certificationsMain .ceritesBgBox .comBox .topBox .rightSec {
+    width: 30%;
+}
+
+.docListOur ul li.hidden {
+    display: none;
+}
+
+.endbtnSection {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.endbtnSection .btnCom {
+    font-size: 12px !important;
+}
+
+.endbtnSection .btnCom span {
+    vertical-align: middle;
+}
+
+.endbtnSection .btnCom span img {
+    width: 100%;
+    max-width: 25px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.service_provider {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px 2px #0000001c;
+    padding: 30px;
+    height: 100%;
+}
+
+.service_provider .titleBox {
+    margin-bottom: 30px;
+}
+
+.service_provider .titleBox h5 {
+    font-size: 18px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-black);
+    margin-bottom: 30px;
+}
+
+.service_provider .titleBox p {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-black);
+}
+
+.service_provider .serviceDetails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.service_provider .serviceDetails .lefDetail h6 {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-black);
+    margin-bottom: 10px;
+}
+
+.service_provider .serviceDetails .lefDetail p {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-black);
+}
+
+.service_provider .serviceDetails .lefDetail p a {
+    text-decoration: underline;
+    color: var(--text-black);
+}
+
+.service_provider .serviceDetails .lefDetail .devliverBox {
+    margin-top: 60px;
+}
+
+.service_provider .serviceDetails .lefDetail .devliverBox .btnDetails {
+    max-width: 180px;
+}
+
+.service_provider .serviceDetails .rightMap {
+    height: 100%;
+    width: 100%;
+}
+
+.service_provider .serviceDetails .rightMap h6,
+.service_provider .awardDetails .awardtitle h5 {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-black);
+    margin-bottom: 10px;
+}
+
+.service_provider .serviceDetails .rightMap iframe {
+    min-height: 240px;
+    width: 100%;
+    padding: 3px;
+    border: 1px solid var(--light-gray);
+    border-radius: 3px;
+}
+
+.service_provider .awardDetails {
+    margin-top: 30px;
+}
+
+.service_provider .awardDetails ul {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.service_provider .awardDetails ul li {
+    padding: 10px 15px;
+}
+
+.service_provider .awardDetails ul li:first-child {
+    padding-left: 0 !important;
+}
+
+.service_provider .awardDetails ul li:last-child {
+    padding-right: 0;
+}
+
+.service_provider .awardDetails ul li:not(:last-child) {
+    border-right: 1px solid var(--light-gray);
+}
+
+.service_provider .awardDetails ul li p {
+    color: var(--text-gray);
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+    margin-bottom: 5px;
+}
+
+.service_provider .awardDetails ul li span {
+    color: var(--text-black) !important;
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.service_provider .fileSection {
+    margin-top: 50px;
+}
+
+.fileSection .accordion-item {
+    border: none !important;
+}
+
+.fileSection .accordion-item:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.fileSection .accordion-button::after {
+    background-image: url(../images/close-folder.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 25px;
+    height: 25px;
+    left: 0;
+    position: absolute;
+}
+
+.fileSection .accordion-body {
+    padding: 10px 20px 5px 30px;
+}
+
+.fileSection .accordion-body a {
+    font-size: 13px;
+    font-family: 'BricolageGrotesque-Regular';
+    color: var(--text-black) !important;
+    text-decoration: underline;
+}
+
+.fileSection .accordion-body a i {
+    color: var(--sky-color);
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.fileSection .accordion-button {
+    color: var(--text-black) !important;
+    font-family: 'BricolageGrotesque-Regular';
+    padding: 12px 20px 12px 35px;
+}
+
+.fileSection .accordion-button:not(.collapsed) {
+    background: var(--white-color) !important;
+    color: var(--text-black) !important;
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.fileSection .accordion-button:not(.collapsed)::after {
+    background-image: url(../images/open-folder.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transform: none;
+}
+
+.service_provider .editBox {
+    margin-top: 50px;
+}
+
+.service_provider .editBox .editBtn {
+    font-size: 12px;
+    min-height: 52px;
+    color: var(--white-color) !important;
+    background-color: var(--light-gray);
+    border-radius: 15px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none !important;
+    box-shadow: none !important;
+    margin-left: auto;
+}
+
+/* ---------- tender_detail page css end ---------- */
+
+/* ----------- employs details page css start --------- */
+
+.employsSection .profiledetails {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+}
+
+.employsSection .profiledetails .mainSec {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.employsSection .profiledetails .mainSec .user-img img {
+    width: 200px;
+    border-radius: 15px;
+    object-fit: contain;
+}
+
+.employsSection .profiledetails .mainSec .textSec {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.employsSection .profiledetails .mainSec .textSec .topText h6 {
+    font-size: 16px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.employsSection .profiledetails .mainSec .textSec .topText span {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-gray);
+}
+
+.employsSection .profiledetails .mainSec .textSec .bottomText p {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-gray);
+}
+
+.employsSection .profiledetails .multyBnt {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.employsSection .markusTender {
+    height: 100% !important;
+}
+
+.employsSection  .markusTender .tenderAll ul {
+    height: 100%;
+}
+
+.employsSection .multyTagsBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.employsSection .multyTagsBox .titleBox h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 30px;
+}
+
+.employsSection .multyTagsBox .multyBtntag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.employsSection .btncenterSec {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.employsSection .btncenterSec .btnCom {
+    font-size: 11px;
+}
+
+.employsSection .btncenterSec .btnCom span img {
+    width: 100%;
+    max-width: 22px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.employsSection .btncenterSec .btnGray {
+    font-size: 12px;
+    min-height: 52px;
+    color: var(--white-color) !important;
+    background-color: var(--light-gray);
+    border-radius: 15px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ----------- employs details page css end --------- */
+
+
+/* ----------- employs page css start --------- */
+
+.allEmploysSec .employsBoxList {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.allEmploysSec .employsBoxList .titleBox h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 30px;
+}
+
+.allEmploysSec .employsBoxList .listAllemploys {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.allEmploysSec .employsBoxList .listAllemploys .employcardBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.allEmploysSec .employsBoxList .listAllemploys .employcardBox .textbox {
+    width: 100%;
+}
+
+.allEmploysSec .employsBoxList .listAllemploys .employcardBox .imgBox img {
+    width: 200px;
+    border-radius: 15px;
+    object-fit: contain;
+}
+
+.allEmploysSec .employsBoxList .listAllemploys .employcardBox .textbox h6 {
+    font-size: 16px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.allEmploysSec .employsBoxList .listAllemploys .employcardBox .textbox span {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-gray);
+}
+
+.allEmploysSec .employsBoxList .listAllemploys .employcardBox .textbox p {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-gray);
+    margin: 20px 0;
+}
+
+.allEmploysSec .employsBoxList .listAllemploys .employcardBox .textbox .btnDetails {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* add employ modal css */
+
+.addEmployModal .modal-dialog {
+    max-width: 650px;
+}
+
+.addEmployModal .modal-title {
+    font-size: 16px;
+}
+
+.addEmployModal .modal-body label {
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.addEmployModal .modal-body {
+    padding: 20px 30px;
+}
+
+/* .addEmployModal .modal-body .boxForm {
+    padding-bottom: 10px;
+} */
+
+.addEmployModal .modal-body input,
+.addEmployModal .modal-body textarea {
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    min-height: 40px;
+}
+
+.addEmployModal .modal-body input,
+.addEmployModal .modal-body select,
+.addEmployModal .modal-body textarea {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+}
+
+.addEmployModal .modal-body select {
+    width: 100%;
+    min-height: 40px;
+    /* margin-bottom: 10px; */
+    outline: none;
+    box-shadow: none;
+}
+
+.addEmployModal .modal-body textarea {
+    resize: none;
+}
+
+.dateSelect .range {
+    display: flex;
+}
+
+.dateSelect .range input {
+    width: 100%;
+    max-width: 45%;
+}
+
+.dateSelect .range span {
+    width: 10%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sky-color);
+    color: var(--white-color);
+}
+
+.dateSelect .flat {
+    position: relative;
+}
+
+.dateSelect .flat::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+}
+
+.dateSelect .flat:focus::before,
+.dateSelect .flat:valid::before {
+    content: "";
+}
+
+/* add employ modal css */
+
+/* ----------- employs page css end --------- */
+
+/* -------- login to portal page css ---------- */
+
+.loginSection .logBoxFill {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.loginSection .logBoxFill .fillDetailsBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    height: 100%;
+}
+
+.loginSection .logBoxFill .fillDetailsBox .editForm {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.loginSection .logBoxFill .fillDetailsBox .editForm h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.loginSection .logBoxFill .fillDetailsBox .editForm .editBtn {
+    font-size: 12px;
+    min-height: 52px;
+    color: var(--white-color) !important;
+    background-color: var(--light-gray);
+    border-radius: 15px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.loginSection .logBoxFill .fillDetailsBox h6 {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Regular';
+    color: var(--text-black);
+    margin-bottom: 20px;
+}
+
+.loginSection .logBoxFill .fillDetailsBox .innerFilltier {
+    padding: 0 20px;
+}
+
+.loginSection .logBoxFill .fillDetailsBox .innerFilltier .commonFill {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.loginSection .logBoxFill .fillDetailsBox .innerFilltier .commonFill:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.loginSection .logBoxFill .innerFilltier .commonFill label{
+    font-size: 13px;
+    font-family: 'BricolageGrotesque-Regular';
+    color: var(--text-black);
+}
+
+.loginSection .logBoxFill .innerFilltier .commonFill input {
+    border: none !important;
+    outline: none;
+    height: 40px;
+    box-shadow: inset 0px 2px 8px 1px rgba(0, 0, 0, 0.123);
+    border-radius: 10px;
+    padding: 5px 10px;
+    max-width: 185px;
+}
+
+.loginSection .logBoxFill .innerFilltier .commonFill input.password {
+    padding-right: 35px !important;
+}
+
+.loginSection .logBoxFill .innerFilltier .commonFill input::placeholder {
+    font-size: 12px;
+}
+
+.loginSection .logBoxFill .innerFilltier .commonFill .btnCopy {
+    font-size: 12px;
+    color: var(--white-color);
+    background-color: var(--sky-color);
+    border-radius: 15px;
+    min-height: 40px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    max-width: 90px;
+}
+
+.loginSection .logBoxFill .commonFill .passwordShow {
+    position: relative;
+}
+
+.loginSection .logBoxFill .commonFill .passwordShow a {
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    line-height: 1;
+}
+
+.loginSection .logBoxFill .commonFill .passwordShow a i {
+    color: var(--sky-color);
+}
+
+/* -------- login to portal page css ---------- */
+
+
+/* -------- tender appendix page css ---------- */
+
+.selectTenerSec {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px 60px;
+    height: 100%;
+}
+
+.selectTenerSec .selectTender .titleBox h5 {
+    font-size: 16px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.selectTenerSec .selectTender .dropdown {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    margin-top: 20px;
+}
+
+.selectTenerSec .selectTender .dropdown-button {
+    width: 100%;
+    height: 40px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Regular';
+    background-color: #fff;
+    box-shadow: inset 0px 2px 8px 1px rgba(0, 0, 0, 0.123);
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.selectTenerSec .selectTender .dropdown-button::after {
+    content: "\f0d7";
+    position: absolute;
+    font-family: 'fontawesome';
+    font-size: 25px;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    color: var(--white-color);
+    background-color: var(--sky-color);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: inset 0px 0px 8px 0px rgba(0, 0, 0, 0.123);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selectTenerSec .selectTender .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    z-index: 10;
+    margin-top: 5px;
+}
+
+.selectTenerSec .selectTender .dropdown-list li {
+    padding: 10px 16px;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+}
+
+.selectTenerSec .selectTender .dropdown-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.selectTender .requiredField {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.selectTender .requiredField .reduiredBox h5 {
+    font-size: 16px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.selectTender .requiredField .fieldSelect .clickTo {
+    position: relative;
+    padding-left: 40px;
+    margin-bottom: 12px;
+}
+
+.selectTender .requiredField .fieldSelect .clickTo input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    margin-right: 0px;
+    left: 0;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 2px;
+    z-index: 55;
+    cursor: pointer;
+}
+
+.selectTender .requiredField .fieldSelect .clickTo .keyword-label {
+    font-size: 14px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.selectTender .requiredField .fieldSelect .clickTo input[type="checkbox"]+.keyword-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    cursor: pointer;
+    height: 20px;
+    border: 1px solid var(--sky-color);
+    background-color: var(--white-color);
+    border-radius: 2px;
+    box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.123)
+}
+
+.selectTender .requiredField .fieldSelect .clickTo input[type="checkbox"]:checked+.keyword-label::after {
+    content: '\f00c';
+    position: absolute;
+    font-family: 'fontawesome';
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: var(--white-color);
+    background-color: var(--sky-color);
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 4px;
+    padding-top: 1px;
+}
+
+.selectTender .multyFileTab {
+    margin-bottom: 40px;
+}
+
+.selectTender .dataBoxFiled .accordion-item {
+    border: none !important;
+}
+
+.selectTender .dataBoxFiled .accordion-item:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.selectTender .dataBoxFiled .accordion-button::after {
+    background-image: url(../images/close-folder.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 25px;
+    height: 25px;
+    left: 0;
+    position: absolute;
+}
+
+.selectTender .dataBoxFiled .accordion-body {
+    padding: 10px 20px 5px 30px;
+}
+
+.selectTender .dataBoxFiled .accordion-body p {
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    align-items: center;
+}
+
+.selectTender .dataBoxFiled .accordion-body p span{
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Regular';
+    color: var(--text-black) !important;
+    padding-left: 20px;
+}
+
+.selectTender .dataBoxFiled .accordion-body p i {
+    color: var(--sky-color);
+    font-size: 20px;
+}
+
+.selectTender .dataBoxFiled .accordion-button {
+    color: var(--text-black) !important;
+    font-family: 'BricolageGrotesque-Regular';
+    padding: 12px 20px 12px 35px;
+}
+
+.selectTender .dataBoxFiled .accordion-button:not(.collapsed) {
+    background: var(--white-color) !important;
+    color: var(--text-black) !important;
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.selectTender .dataBoxFiled .accordion-button:not(.collapsed)::after {
+    background-image: url(../images/open-folder.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transform: none;
+}
+
+.selectTender .dataBoxFiled {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.selectTender .dataBoxFiled .treeView {
+    width: calc(100% - 25%);
+}
+
+.selectTender .allSeriesBox {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.selectTender .secriesPart {
+    padding-bottom: 50px;
+}
+
+.selectTender .allSeriesBox .secriesBox {
+    width: 100%;
+    max-width: 120px;
+}
+
+.selectTender .allSeriesBox .secriesBox .imgbox img {
+    width: 120px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.selectTender .allSeriesBox .secriesBox .seriestext p {
+    padding-top: 15px;
+    font-size: 13px;
+    text-align: center;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.selectTenerSec .selectTender .endbtnSection {
+    justify-content: start !important;
+}
+
+/* -------- tender appendix page css ---------- */
+
+
+/* -------- company detail page css ---------- */
+
+.company_details .companySec {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    height: 100%;
+}
+
+.company_details .companySec .titleBox h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Medium';
+    margin-bottom: 30px;
+}
+
+.company_details .companySec .detailsCompany ul {
+    padding-left: 40px;
+}
+
+.company_details .companySec .detailsCompany ul li {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 15px;
+}
+
+.company_details .companySec .detailsCompany ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.company_details .companySec .detailsCompany ul li p,
+.company_details .companySec .detailsCompany ul li h6 {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.company_details .companySec .detailsCompany ul li p {
+    color: var(--text-black);
+}
+
+.company_details .companySec .detailsCompany ul li h6 {
+    color: var(--black-color);
+}
+
+.company_details .companySec .detailsCompany ul li h6.adress {
+    max-width: 160px;
+}
+
+
+/* -------- company detail page css ---------- */
+
+
+
+/* -------- referance page css ---------- */
+
+.referanceMainSec .referancePart .projectType .projectDetailsBox,
+.referanceMainSec .referancePart {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+}
+
+.referanceMainSec .referancePart {
+    margin-bottom: 30px;
+}
+
+.referanceMainSec .referancePart .projectType {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.referanceMainSec .referancePart .titleBox h5,
+.referanceDetailsSec .refInnerDetail .titleBox h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.referanceMainSec .referancePart .projectDetailsBox h6 {
+    font-size: 14px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.referanceMainSec .referancePart .projectDetailsBox .projectBox p {
+    margin-bottom: 0px;
+}
+
+.referanceMainSec .referancePart .projectDetailsBox .projectBox p,
+.referanceMainSec .referancePart .projectDetailsBox .projectBox ul li span {
+    font-size: 13px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-regular';
+}
+
+.referanceMainSec .referancePart .projectDetailsBox .projectBox p.date {
+    margin-top: 20px;
+}
+
+.referanceMainSec .referancePart .projectDetailsBox .projectBox .btnDetails {
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+.refInnerDetail .spaceBox {
+    min-height: 150px;
+}
+
+.refInnerDetail .multyTagsBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.refInnerDetail .multyTagsBox .multyBtntag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* -------- referance page css ---------- */
+
+
+/* -------- document confirmation page css ---------- */
+
+.document_confirmSec .insurance_confirm{
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.document_confirmSec .insurance_confirm .titleBox h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    width: 100%;
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox h6 {
+    font-size: 14px;
+    color: var(--text-black);
+    margin-bottom: 10px;
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox p {
+    font-size: 14px;
+    color: var(--text-black);
+    margin-bottom: 0px;
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox span {
+    font-size: 12px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Regular';
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox .imgDoc {
+    height: 150px;
+    width: 100%;
+    border-radius: 15px;
+    position: relative;
+    margin: 15px 0;
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox .imgDoc::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #605d5d1f;
+    border-radius: 15px;
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox .imgDoc img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox .btnDetails {
+    margin-left: auto;
+    margin-top: 30px;
+}
+
+/* -------- document confirmation page css ---------- */
+
+
+/* -------- AI-Tools page css ---------- */
+
+.aitools_mainSec {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.aitools_mainSec .toolsInner {
+    background-color: var(--sky-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    width: 100%;
+}
+
+.aitools_mainSec .toolsInner .aiTitle h5 {
+    font-size: 14px;
+    color: var(--white-color);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.aitools_mainSec .toolsInner .typeMsgBox {
+    position: relative;
+}
+
+.aitools_mainSec .toolsInner .typeMsgBox textarea {
+    min-height: 180px;
+    width: 100%;
+    resize: none;
+    border-radius: 15px;
+    padding: 15px;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    box-shadow: 0px 2px 5px #0000001c;
+}
+
+.aitools_mainSec .toolsInner .typeMsgBox textarea::placeholder {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.aitools_mainSec .toolsInner .typeMsgBox .btnTelegram {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+}
+
+.aitools_mainSec .toolsInner .typeMsgBox .btnTelegram img {
+    height: 35px;
+    width: 35px;
+}
+
+/* -------- AI-Tools page css ---------- */
+
+
+/* -------- Templet page css ---------- */
+
+.templetsSecMain {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.templetsSecMain .tepmletBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    width: 100%;
+}
+
+.templetsSecMain .tepmletBox .titleBox h5 {
+    font-size: 14px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.templetsSecMain .tepmletBox .chartImg img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0px 2px 4.8px 2px #0000001c;
+}
+
+.templetsSecMain .tepmletBox .templeBtn {
+    display: flex;
+    gap: 15px;
+    justify-content: end;
+    margin-top: 30px;
+}
+
+/* -------- Templet page css ---------- */
+
+
+/* -------- preview tender page css ---------- */
+
+.previewSec {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+    width: 100%;
+}
+
+.previewSec .addCommonBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.previewSec .addCommonBtn h5 {
+    font-size: 18px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-SemiBold';
+    margin-bottom: 20px;
+}
+
+.previewSec .addCommonBtn .btnAdd {
+    font-size: 13px !important;
+    line-height: 1;
+}
+
+.previewSec .addCommonBtn .btnAdd span {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.previewSec .addCommonBtn .btnAdd span img {
+    width: 100%;
+    max-width: 25px;
+}
+
+.previewBox .imgPreview {
+    text-align: center;
+    margin: 0 auto 20px;
+    width: 100%;
+    max-width: 450px;
+}
+
+.previewBox .imgPreview img {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 2px 4.8px 2px #0000001c;
+}
+
+/* -------- preview tender page css ---------- */
+
+
+/* -------- New-tender page css ---------- */
+
+
+.new-TenderSec {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+}
+
+.new-TenderSec .leftnewBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 2px #0000001c;
+    padding-bottom: 20px;
+}
+
+.leftnewBox .topPlusBox {
+    height: 200px;
+    width: auto;
+    background-color: #7ba7d7e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px 2px #0000001c;
+    margin-bottom: 30px;
+    position: relative;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.leftnewBox .topPlusBox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.leftnewBox .topPlusBox img {
+    height: auto;
+    width: auto;
+}
+
+.leftnewBox  .centerBox {
+    padding: 0 20px;
+}
+
+.leftnewBox .centerBox .titleBox input {
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    outline: none;
+    min-height: 40px;
+}
+
+.leftnewBox .centerBox .titleBox input::placeholder {
+    font-size: 18px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--light-gray);
+}
+
+.new-TenderSec .leftnewBox .multyDateBox ul {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.new-TenderSec .leftnewBox .multyDateBox ul li:not(:last-child) {
+    border-right: 1px solid var(--light-gray);
+}
+
+.new-TenderSec .leftnewBox .multyDateBox ul li {
+    padding: 0 10px;
+    position: relative;
+}
+
+.new-TenderSec .leftnewBox .multyDateBox ul li label{
+    width: 100%;
+    font-size: 11px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Medium';
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.new-TenderSec .leftnewBox .multyDateBox ul li input::placeholder,
+.new-TenderSec .leftnewBox .ourThreeBox .firstBox input::placeholder {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-gray);
+    text-align: center;
+}
+
+.new-TenderSec .leftnewBox .multyDateBox ul li input,
+.new-TenderSec .leftnewBox .ourThreeBox .firstBox input {
+    width: 100%;
+    border: 1px solid var(--text-gray);
+    padding: 6px 15px;
+    border-radius: 5px;
+}
+
+/* .new-TenderSec .leftnewBox .multyDateBox ul li i {
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--sky-color);
+    font-size: 20px;
+} */
+
+.new-TenderSec .leftnewBox .ourThreeBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 0 40px;
+    margin-bottom: 50px;
+}
+
+.new-TenderSec .leftnewBox .ourThreeBox .firstBox {
+    position: relative;
+}
+
+.new-TenderSec .leftnewBox .ourThreeBox .firstBox,
+.new-TenderSec .leftnewBox .ourThreeBox .secondBox {
+    text-align: center;
+}
+
+.new-TenderSec .leftnewBox .ourThreeBox .box-box {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 10px;
+}
+
+.new-TenderSec .leftnewBox .ourThreeBox .firstBox i {
+    color: var(--sky-color);
+    font-size: 20px;
+    margin-top: -25px;
+    display: block;
+}
+
+.new-TenderSec .leftnewBox .ourThreeBox .firstBox label {
+    font-size: 12px;
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.new-TenderSec .leftnewBox .ourThreeBox .secondBox label {
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Bold';
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.new-TenderSec .leftnewBox .ourThreeBox .secondBox select {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-gray);
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--text-gray);
+    padding: 10px 5px;
+    position: relative;
+    text-align: center;
+    outline: none;
+}
+
+/* .new-TenderSec .leftnewBox .ourThreeBox .secondBox select i {
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--sky-color);
+    font-size: 20px;
+} */
+
+.new-TenderSec .leftnewBox .ourThreeBox .thirdBox p {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Medium';
+    text-align: center;
+}
+
+/* .new-TenderSec .leftnewBox .ourThreeBox .thirdBox .newBox a img {
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    margin-right: 10px;
+} */
+
+.new-TenderSec .leftnewBox .ourThreeBox .thirdBox .newBox select {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-gray);
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--text-gray);
+    padding: 10px 5px;
+    position: relative;
+    text-align: center;
+    outline: none;
+}
+
+.new-TenderSec .leftnewBox .endbtnSection {
+    justify-content: start !important;
+}
+
+.new-TenderSec .leftnewBox .endbtnSection .btnCom {
+    width: 100%;
+    max-width: 160px;
+}
+
+.mainSection .collectDocumentSec .docListOur ul li a {
+    color: var(--text-gray);
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Medium';
+    text-decoration: underline;
+}
+
+.mainSection .collectDocumentSec .docListOur ul li a i {
+    font-size: 22px;
+    vertical-align: middle;
+    color: var(--sky-color);
+    margin-right: 15px;
+}
+
+.rightnewBox {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px 2px #0000001c;
+    padding: 30px;
+    height: 100%;
+}
+
+.rightnewBox .shortDiscription .sameBox {
+    margin-bottom: 20px;
+}
+
+.rightnewBox .shortDiscription .sameBox h6 {
+    font-size: 18px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-black);
+    margin-bottom: 10px;
+}
+
+.rightnewBox .shortDiscription .sameBox textarea,
+.rightnewBox .shortDiscription .sameBox input {
+    width: 100%;
+    border: 1px solid var(--text-gray);
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    box-shadow: none;
+}
+
+.rightnewBox .shortDiscription .sameBox textarea::placeholder,
+.rightnewBox .shortDiscription .sameBox input::placeholder,
+.rightnewBox .addRegister textarea::placeholder {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.rightnewBox .shortDiscription .sameBox textarea{
+    resize: none;
+    min-height: 80px;
+}
+
+.rightnewBox .addRegister {
+    margin-bottom: 50px;
+}
+
+.rightnewBox .addRegister textarea {
+    width: 100%;
+    resize: none;
+    max-width: 200px;
+    padding: 10px;
+    min-height: 130px;
+    border-radius: 10px;
+    border: 1px solid var(--text-gray);
+    box-shadow: none;
+    outline: none;
+}
+
+.rightnewBox .addRegister select {
+    width: 100%;
+    max-width: 200px;
+    height: 40px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Regular';
+    background-color: #fff;
+    border-radius: 15px;
+    border: 1px solid var(--text-gray);
+    outline: none;
+}
+
+.rightnewBox .newaddRegister {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.rightnewBox .addRightText textarea {
+    width: 320px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Regular';
+    background-color: #fff;
+    border-radius: 15px;
+    border: 1px solid var(--text-gray);
+    outline: none;
+    resize: none;
+    height: 220px;
+}
+
+/* .rightnewBox .addRegister .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-width: 200px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    z-index: 10;
+    margin-top: 5px;
+}
+
+.rightnewBox .addRegister .dropdown-button::after {
+    content: "\f0d7";
+    position: absolute;
+    font-family: 'fontawesome';
+    font-size: 25px;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    color: var(--sky-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rightnewBox .addRegister .dropdown-list li {
+    padding: 10px 16px;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+} */
+
+.rightnewBox .addRegister h6 {
+    margin: 10px 0;
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-black);
+}
+
+.rightnewBox .fileSection {
+    margin-top: 50px;
+}
+
+
+.rightnewBox  .fileSection .accordion-button::after {
+    content: '\f65e';
+    font-family: 'fontawesome';
+    background: none;
+    font-size: 22px;
+    color: var(--sky-color);
+}
+
+.rightnewBox .fileSection .accordion-button:not(.collapsed),
+.fileSection .accordion-button {
+    color: var(--text-gray) !important;
+    font-family: 'BricolageGrotesque-Medium';
+}
+
+.new-TenderSec .rightnewBox .endbtnSection {
+    justify-content: end !important;
+    margin-top: 40px;
+}
+
+.new-TenderSec .rightnewBox .endbtnSection .btnCom {
+    width: 100%;
+    max-width: 160px;
+}
+
+.new-TenderSec .awardInputSec h6 {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-black);
+    margin-bottom: 10px;
+}
+
+.new-TenderSec .awardInputSec ul {
+    display: flex;
+    margin-bottom: 40px;
+    justify-content: start;
+}
+
+.new-TenderSec .awardInputSec ul li{
+    padding: 0 10px;
+    text-align: center;
+}
+
+.new-TenderSec .awardInputSec ul li:first-child {
+    padding-left: 0 !important;
+}
+
+.new-TenderSec .awardInputSec ul li:not(:last-child) {
+    border-right: 1px solid var(--light-gray);
+}
+
+.new-TenderSec .awardInputSec ul li label {
+    width: 100%;
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-Medium';
+    color: var(--text-gray);
+}
+
+.new-TenderSec .awardInputSec ul li input {
+    max-width: 90px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--text-gray);
+}
+
+.new-TenderSec .awardInputSec ul li select{
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-gray);
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--text-gray);
+    padding: 5px 5px;
+    position: relative;
+    text-align: center;
+    outline: none;
+}
+
+.company_details .companyFile ul {
+    padding-left: 40px;
+    margin-top: 30px;
+}
+
+.company_details .companyFile ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.company_details .companyFile ul li a{
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-Regular';
+    color: var(--text-black);
+}
+
+.company_details .companyFile ul li a i {
+    font-size: 22px;
+    vertical-align: middle;
+    color: var(--sky-color);
+    margin-right: 15px;
+}
+
+/* -------- New-tender page css ---------- */

@@ -24,7 +24,7 @@
         "spatie/browsershot": "^3.61",
         "spatie/image": "^2.2",
         "spatie/pdf-to-text": "^1.54",
-        "tecnickcom/tcpdf": "^6.8",
+        "tecnickcom/tcpdf": "6.8",
         "webklex/laravel-pdfmerger": "^1.3",
         "yajra/laravel-datatables-oracle": "^10.11"
     },

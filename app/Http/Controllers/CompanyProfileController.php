@@ -75,10 +75,10 @@ class CompanyProfileController extends Controller
         ]);
 
         $files = [
-            'company_presentation_word' => ['folder' => 'Company Documents', 'name' => 'company-presentation'],
-            'company_presentation_pdf' => ['folder' => 'Company Documents', 'name' => 'company-presentation'],
-            'agile_framework_word' => ['folder' => 'Company Documents', 'name' => 'agile-framework'],
-            'agile_framework_pdf' => ['folder' => 'Company Documents', 'name' => 'agile-framework'],
+            'company_presentation_word' => ['folder' => 'company-documents', 'name' => 'company-presentation'],
+            'company_presentation_pdf' => ['folder' => 'company-documents', 'name' => 'company-presentation'],
+            'agile_framework_word' => ['folder' => 'company-documents', 'name' => 'agile-framework'],
+            'agile_framework_pdf' => ['folder' => 'company-documents', 'name' => 'agile-framework'],
         ];
 
         foreach ($files as $field => $config) {

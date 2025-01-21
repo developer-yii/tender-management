@@ -2,59 +2,90 @@
     $baseUrl = asset('assest')."/";
 @endphp
 @extends('layouts.app-main')
-@section('title', 'Admin | Mitarbeiter ')
+@section('title', 'Admin | Bescheinigung ')
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+</script>
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn">
-            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addEmployeeModal"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</button>
+            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addDocumentModal"><i class="fa-solid fa-plus"></i> Bescheinigung hinzufügen</button>
         </div>
+        <div class="document_confirmSec">
+            @foreach($categoriesWithDocuments as $category => $documents)
+                <div class="insurance_confirm">
+                    <div class="titleBox">
+                        <h5>{{ $category }}</h5>
+                    </div>
+                    <div class="innerConfirm">
+                        @foreach ($documents as $document)
+                            <div class="insuranceBox">
+                                <h6>{{ $document->title }}</h6>
+                                @foreach ($document->parameters as $parameter)
+                                    <p>{{ $parameter->param_name }}: {{ $parameter->param_value }}</p>
+                                @endforeach
+                                <div class="imgDoc">
+                                    <canvas id="preview-{{$document->id}}" style="height: 150px; width: 100%;"></canvas>
+                                </div>
+                                <a href="{{ route('document.details', [$document->id])}}" class="btn btnDetails">DETAILS ANSEHEN</a>
+                            </div>
 
-        <div class="allEmploysSec">
+                            <script>
+                                fetch("{{$document->getDocumentPdfUrl()}}")
+                                .then(response => response.arrayBuffer())
+                                .then(data => {
+                                    const loadingTask = pdfjsLib.getDocument({data: data});
+                                    loadingTask.promise.then(pdf => {
+                                        // Get the first page of the PDF
+                                        pdf.getPage(1).then(page => {
+                                            // Prepare the canvas for rendering
+                                            const canvas = document.getElementById("preview-{{$document->id}}");
+                                            const context = canvas.getContext('2d');
 
-            {{-- {!! $htmlContent !!} --}}
+                                            // Get the full viewport size
+                                            const viewport = page.getViewport({ scale: 0.5 }); // Scale to fit the canvas size
+                                            canvas.height = viewport.height / 4;  // Only render half of the page (top half)
+                                            canvas.width = viewport.width;
 
+                                            // Define the viewport for only the top half of the page
+                                            const halfViewport = page.getViewport({
+                                                scale: 0.5,
+                                                offsetY: 0 // To display the top half
+                                            });
 
-            <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Preview</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-</head>
-<body>
-    <h1>PDF Preview</h1>
-    <canvas id="pdfCanvas"></canvas>
+                                            // Render the top half of the page onto the canvas
+                                            page.render({
+                                                canvasContext: context,
+                                                viewport: halfViewport
+                                            });
+                                        });
+                                    }).catch(err => {
+                                        console.error("Error loading PDF:", err);
+                                    });
+                                })
+                                .catch(err => {
+                                    console.error("Error fetching PDF:", err);
+                                });
+                            </script>
 
-    <script>
-        var url = 'http://tender-management.test/storage/documents/ss.pdf'; // Your PDF file path here
-
-        console.log(url);
-        // Initialize PDF.js
-        pdfjsLib.getDocument(url).promise.then(function (pdf) {
-            // Fetch the first page of the PDF
-            pdf.getPage(1).then(function (page) {
-                var canvas = document.getElementById('pdfCanvas');
-                var context = canvas.getContext('2d');
-
-                var viewport = page.getViewport({ scale: 1 });
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-
-                // Render the page into the canvas context
-                page.render({
-                    canvasContext: context,
-                    viewport: viewport
-                });
-            });
-        });
-    </script>
-</body>
-</html>
-
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
+@endsection
+@section('modal')
+    @include('include.document-modal')
+@endsection
+@section('js')
+<script>
+    var createtUrl = "{{ route('document.addupdate') }}";
+    var listUrl = "{{ route('document.index') }}";
+</script>
+<script src="{{ $baseUrl }}custom/js/documents.js"></script>
 @endsection
 
