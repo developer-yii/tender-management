@@ -551,30 +551,30 @@ class TenderController extends Controller
                     $filePath = getDocumentPath($file->agile_framework_pdf);
                 }
 
-                if ($filePath) {
-                    try {
-                        // Download the file to a temporary location
-                        $tempPath = public_path('storage/tempPdfFile/' . uniqid() . '.pdf');
-                        if (!is_dir(dirname($tempPath))) {
-                            mkdir(dirname($tempPath), 0755, true);
-                        }
-
-                        $response = Http::get($filePath);
-                        if ($response->successful()) {
-                            file_put_contents($tempPath, $response->body());
-                            $pdfFiles[] = $tempPath;
-                        } else {
-                            logger()->warning("Failed to download file: $filePath");
-                        }
-                    } catch (\Exception $e) {
-                        logger()->error("Error downloading file: $filePath, Exception: " . $e->getMessage());
-                    }
-                }
-
                 // if ($filePath) {
-                //     // $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
-                //     $pdfFiles[] = $filePath;
+                //     try {
+                //         // Download the file to a temporary location
+                //         $tempPath = public_path('storage/tempPdfFile/' . uniqid() . '.pdf');
+                //         if (!is_dir(dirname($tempPath))) {
+                //             mkdir(dirname($tempPath), 0755, true);
+                //         }
+
+                //         $response = Http::get($filePath);
+                //         if ($response->successful()) {
+                //             file_put_contents($tempPath, $response->body());
+                //             $pdfFiles[] = $tempPath;
+                //         } else {
+                //             logger()->warning("Failed to download file: $filePath");
+                //         }
+                //     } catch (\Exception $e) {
+                //         logger()->error("Error downloading file: $filePath, Exception: " . $e->getMessage());
+                //     }
                 // }
+
+                if ($filePath) {
+                    // $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
+                    $pdfFiles[] = $filePath;
+                }
             }
         }
 
@@ -658,11 +658,11 @@ class TenderController extends Controller
                 echo "Error merging PDFs: " . $e->getMessage();
             }
 
-            foreach ($pdfFiles as $file) {
-                if (file_exists($file)) {
-                    unlink($file);
-                }
-            }
+            // foreach ($pdfFiles as $file) {
+            //     if (file_exists($file)) {
+            //         unlink($file);
+            //     }
+            // }
 
             // Respond with the merged PDF details
             return response()->json([
