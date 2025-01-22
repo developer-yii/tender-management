@@ -554,7 +554,7 @@ class TenderController extends Controller
                 if ($filePath) {
                     try {
                         // Download the file to a temporary location
-                        $tempPath = public_path('storage/tempFile/' . uniqid() . '.pdf');
+                        $tempPath = public_path('storage/temp/' . uniqid() . '.pdf');
                         if (!is_dir(dirname($tempPath))) {
                             mkdir(dirname($tempPath), 0755, true);
                         }
@@ -650,18 +650,18 @@ class TenderController extends Controller
                 }
             }
 
-            foreach ($pdfFiles as $file) {
-                if (file_exists($file)) {
-                    unlink($file);
-                }
-            }
-
             // Merge and save the output file
             try {
                 $pdfMerger->merge();
                 $pdfMerger->save($mergedFilePath);
             } catch (\Exception $e) {
                 echo "Error merging PDFs: " . $e->getMessage();
+            }
+
+            foreach ($pdfFiles as $file) {
+                if (file_exists($file)) {
+                    unlink($file);
+                }
             }
 
             // Respond with the merged PDF details
