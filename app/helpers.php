@@ -99,7 +99,12 @@ function handleFileUploads($request, $model, $filesConfig) {
             } else {
                 // Handle a single file upload
                 $oldFile = $model->{$field};
-                $fileData = uploadFile($request->file($field), $config['folder'], $config['subFolder'], $oldFile);
+                $oldDocPreview = '';
+
+                if ($oldFile && strpos($oldFile, '.pdf') !== false) {
+                    $oldDocPreview = str_replace('.pdf', '_first_page.pdf', $oldFile);
+                }
+                $fileData = uploadFile($request->file($field), $config['folder'], $config['subFolder'], $oldFile, $oldDocPreview);
 
                 // Save the file name or path
                 $model->{$field} = $fileData['filename'];
@@ -134,28 +139,32 @@ function handleFileUploads($request, $model, $filesConfig) {
 // }
 
 if (!function_exists('uploadFile')) {
-    function uploadFile($file, $mainFolder, $subFolder = null, $oldFile = null)
+    function uploadFile($file, $mainFolder, $subFolder = null, $oldFile = null, $oldDocPreview = null)
     {
-        // Delete old file if exists
-        if ($oldFile) {
-            Storage::delete("public/{$mainFolder}/{$subFolder}/{$oldFile}");
-        }
 
         $dir = "public/{$mainFolder}/{$subFolder}/";
         $outputDir = storage_path("app/{$dir}");
 
-        // Ensure the directory exists and set permissions to 755
-        if (!is_dir($outputDir)) {
-            mkdir($outputDir, 0755, true); // Create directory with 755 permission
+        if ($oldFile) {
+            Storage::delete("public/{$mainFolder}/{$subFolder}/{$oldFile}");
         }
 
-        $dir = "public/{$mainFolder}/{$subFolder}/";
+        if($oldDocPreview){
+            Storage::delete("public/{$mainFolder}/{$subFolder}/{$oldFile}");
+        }
+
+        // foreach ([$oldFile, $oldDocPreview] as $oldFilePath) {
+        //     if ($oldFilePath) {
+        //         Storage::delete($dir . $oldFilePath);
+        //     }
+        // }
+
         $extension = $file->getClientOriginalExtension();
         $uniqueName = uniqid() . "_" . time();
         $filename = $uniqueName . '.' . $extension;
+        $filePath = storage_path("app/{$dir}{$filename}");
 
         Storage::disk('local')->put($dir . $filename, File::get($file));
-        $filePath = storage_path("app/{$dir}{$filename}");
 
         if ($extension === 'doc') {
             $convertedFilePath = convertDocToDocx($filePath);
@@ -178,21 +187,8 @@ if (!function_exists('uploadFile')) {
             'firstPagePdfPath' => $firstPagePdfPath,
         ];
 
-        // return $filename;
     }
 }
-
-// if (!function_exists('handleFileUploads')) {
-//     function handleFileUploads($request, $model, $filesConfig) {
-//         foreach ($filesConfig as $field => $config) {
-//             if ($request->hasFile($field)) {
-//                 $oldFile = $model->{$field};
-//                 $model->{$field} = uploadFile($request->file($field), $config['folder'], $config['subFolder'], $oldFile);
-//             }
-//         }
-//         return $model;
-//     }
-// }
 
 if (!function_exists('convertDocToDocx')) {
     function convertDocToDocx($docPath)
@@ -212,7 +208,7 @@ if (!function_exists('convertDocToDocx')) {
         putenv('DISPLAY=:0');
         exec($command . ' 2>&1', $output, $resultCode);
         if ($resultCode !== 0) {
-            \Log::error("LibreOffice conversion failed for {$docPath}: " . implode("\n", $output));
+            throw new \Exception("Failed to convert DOC to DOCX. Command output: " . implode("\n", $output));
             return false;
         }
 
@@ -238,12 +234,7 @@ if (!function_exists('convertDocxtoPdf')) {
         // Check if the conversion was successful
         putenv('HOME=/tmp');
         putenv('DISPLAY=:0');
-        // exec($command, $output, $resultCode);
         exec($command . ' 2>&1', $output, $resultCode);
-        \Log::info("pdf command : ".$command);
-        \Log::info("pdf output : ".json_encode($output));
-        \Log::info("pdf resultCode : ".json_encode($resultCode));
-
         if ($resultCode !== 0) {
             throw new \Exception("Failed to convert DOCX to PDF. Command output: " . implode("\n", $output));
         }
@@ -278,11 +269,15 @@ if (!function_exists('extractFirstPageWithGhostscript')) {
 
         // $gsCommand = '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe" -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
 
-        exec($gsCommand, $output, $resultCode);
 
+        // exec($gsCommand, $output, $resultCode);
+        exec($gsCommand . ' 2>&1', $output, $resultCode);
+
+
+        if ($resultCode !== 0) {
+            throw new \Exception("sfsefsdfgdg: " . implode("\n", $output));
+        }
         // Log the result
-        error_log("Ghostscript command output: " . implode("\n", $output));
-        error_log("Ghostscript command result code: " . $resultCode);
 
         unlink($fullPdfPath);
         return $resultCode === 0;

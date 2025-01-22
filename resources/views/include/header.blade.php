@@ -35,39 +35,27 @@
                 </div>
             </div>
             <div class="tenderStatus">
-                <div class="comstatusBox">
-                    <div class="statusIcon">
-                        <img src="{{$baseUrl}}images/Wait.png" alt="Wait">
+                @php
+                    $statuses = [
+                        1 => ['label' => 'in Bearbeitung', 'icon' => 'Wait.png'],
+                        2 => ['label' => 'in Betracht', 'icon' => 'orange-dot.png'],
+                        3 => ['label' => 'Erhalten', 'icon' => 'green-dot.png']
+                    ];
+                @endphp
+
+                @foreach ($statuses as $status => $details)
+                    <div class="comstatusBox">
+                        <div class="statusIcon">
+                            <img src="{{ $baseUrl }}images/{{ $details['icon'] }}" alt="{{ $details['label'] }}">
+                        </div>
+                        <div class="text">
+                            <p>{{ $details['label'] }}</p>
+                        </div>
+                        <div class="countPro">
+                            <span>{{ $statusCounts[$status] ?? 0 }}</span>
+                        </div>
                     </div>
-                    <div class="text">
-                        <p>in Bearbeitung</p>
-                    </div>
-                    <div class="countPro">
-                        <span>1</span>
-                    </div>
-                </div>
-                <div class="comstatusBox">
-                    <div class="statusIcon">
-                        <img src="{{$baseUrl}}images/orange-dot.png" alt="orange-dot">
-                    </div>
-                    <div class="text">
-                        <p>in Betracht</p>
-                    </div>
-                    <div class="countPro">
-                        <span>4</span>
-                    </div>
-                </div>
-                <div class="comstatusBox">
-                    <div class="statusIcon">
-                        <img src="{{$baseUrl}}images/green-dot.png" alt="green-dot">
-                    </div>
-                    <div class="text">
-                        <p>Erhalten</p>
-                    </div>
-                    <div class="countPro">
-                        <span>5</span>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

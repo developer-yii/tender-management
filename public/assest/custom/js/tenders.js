@@ -90,7 +90,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert('Failed to load tenders.');
+                // alert('Failed to load tenders.');
             }
         });
     }
