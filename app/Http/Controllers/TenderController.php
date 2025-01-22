@@ -908,7 +908,15 @@ class TenderController extends Controller
                     Storage::delete("public/tenders/tender{$request->tender_id}/{$oldTenderImg}");
                 }
             }
+
             $dir = "public/tenders/tender" . $tender->id . "/";
+            $storagePath = storage_path("app/{$dir}");
+
+            // Check if the directory exists; if not, create it with 0755 permissions
+            if (!is_dir($storagePath)) {
+                mkdir($storagePath, 0755, true);
+            }
+
             $tenderImage = $request->file('file_upload');
             $originalFileName = $tenderImage->getClientOriginalName();
             $extension = $tenderImage->getClientOriginalExtension();
@@ -1054,7 +1062,10 @@ class TenderController extends Controller
             $folderFiles = $request->file('folder_doc');
             $dir = "public/tenders/tender" . $tender->id . "/";
             $subFolderName = "tender" . $tender->id;
-            Storage::disk("local")->makeDirectory($dir);
+            $storagePath = storage_path("app/{$dir}");
+            if (!is_dir($storagePath)) {
+                mkdir($storagePath, 0755, true);
+            }
 
             foreach ($request->folder_name as $folder => $folderName) {
                 if (isset($folderFiles[$folder]) && is_array($folderFiles[$folder])) {
