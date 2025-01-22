@@ -2,7 +2,7 @@
     $baseUrl = asset('assest')."/";
 @endphp
 @extends('layouts.app-main')
-
+@section('title', "Admin | Tag List")
 @section('content')
 <section class="mainSection">
     <div class="homeSectionPart">
