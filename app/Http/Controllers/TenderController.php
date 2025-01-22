@@ -530,25 +530,46 @@ class TenderController extends Controller
 
                 if($type == "tender"){
                     $file = TenderFile::find($id);
-                    $filePath = $file->getFilePathUrl222();
+                    $folder = "tenders";
+                    $subFolder = "tender" . $file->tender_id;
+                    $filePath = getPdfFilePathUrl($folder, $subFolder, $file->file_path);
+                    // $filePath = $file->getFilePathUrl();
                 }elseif($type == "team"){
                     $file = User::find($id);
-                    $filePath = $file->getCvUrl();
+                    $folder = "employees";
+                    $subFolder = "employee" . $file->id;
+                    $filePath = getPdfFilePathUrl($folder, $subFolder, $file->cv);
+                    // $filePath = $file->getCvUrl();
                 }elseif($type == "certificate"){
                     $file = Certificate::find($id);
-                    $filePath = $file->getCertificatePdfUrl();
+                    $folder = "certificates";
+                    $subFolder = "certificate" . $file->id;
+                    $filePath = getPdfFilePathUrl($folder, $subFolder, $file->certificate_pdf);
+                    // $filePath = $file->getCertificatePdfUrl();
                 }elseif($type == "reference"){
                     $file = Reference::find($id);
-                    $filePath = $file->getFilePdfUrl();
+                    $folder = "references";
+                    $subFolder = "reference" . $file->id;
+                    $filePath = getPdfFilePathUrl($folder, $subFolder, $file->file_pdf);
+                    // $filePath = $file->getFilePdfUrl();
                 } elseif($type == "document"){
                     $file = Document::find($id);
+                    $folder = "documents";
+                    $subFolder = "document" . $file->id;
+                    $filePath = getPdfFilePathUrl($folder, $subFolder, $file->document_pdf);
                     $filePath = $file->getDocumentPdfUrl();
                 }elseif($type == "presentation"){
                     $file = Company::find($id);
-                    $filePath = getDocumentPath($file->company_presentation_pdf);
+                    $folder = "company-documents";
+                    $subFolder = "";
+                    $filePath = getPdfFilePathUrl($folder, $subFolder, $file->company_presentation_pdf);
+                    // $filePath = getDocumentPath($file->company_presentation_pdf);
                 }elseif($type == "framework"){
                     $file = Company::find($id);
-                    $filePath = getDocumentPath($file->agile_framework_pdf);
+                    $folder = "company-documents";
+                    $subFolder = "";
+                    $filePath = getPdfFilePathUrl($folder, $subFolder, $file->agile_framework_pdf);
+                    // $filePath = getDocumentPath($file->agile_framework_pdf);
                 }
 
                 // if ($filePath) {
@@ -578,8 +599,6 @@ class TenderController extends Controller
                     // $pdfFiles[] = storage_path('app/public/tenders/tender1/6790899891ebd_1737525656_first_page.pdf');
                     // $pdfFiles[] = $filePath;
 
-
-                    \Log::info($filePath);
                     $pdfFiles[] = $filePath;
 
                 }
