@@ -551,6 +551,26 @@ class TenderController extends Controller
                     $filePath = getDocumentPath($file->agile_framework_pdf);
                 }
 
+                if ($filePath) {
+                    try {
+                        // Download the file to a temporary location
+                        $tempPath = storage_path('app/tempFile/' . uniqid() . '.pdf');
+                        if (!is_dir(dirname($tempPath))) {
+                            mkdir(dirname($tempPath), 0755, true);
+                        }
+
+                        $response = Http::get($filePath);
+                        if ($response->successful()) {
+                            file_put_contents($tempPath, $response->body());
+                            $pdfFiles[] = $tempPath;
+                        } else {
+                            logger()->warning("Failed to download file: $filePath");
+                        }
+                    } catch (\Exception $e) {
+                        logger()->error("Error downloading file: $filePath, Exception: " . $e->getMessage());
+                    }
+                }
+
                 // if ($filePath) {
                 //     // $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
                 //     $pdfFiles[] = $filePath;
@@ -558,25 +578,7 @@ class TenderController extends Controller
             }
         }
 
-        if ($filePath) {
-            try {
-                // Download the file to a temporary location
-                $tempPath = storage_path('app/tempFile/' . uniqid() . '.pdf');
-                if (!is_dir(dirname($tempPath))) {
-                    mkdir(dirname($tempPath), 0755, true);
-                }
 
-                $response = Http::get($filePath);
-                if ($response->successful()) {
-                    file_put_contents($tempPath, $response->body());
-                    $pdfFiles[] = $tempPath;
-                } else {
-                    logger()->warning("Failed to download file: $filePath");
-                }
-            } catch (\Exception $e) {
-                logger()->error("Error downloading file: $filePath, Exception: " . $e->getMessage());
-            }
-        }
 
         // foreach ($loadedPdf as $item) {
         //     $parts = explode('-', $item);
