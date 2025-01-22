@@ -554,7 +554,7 @@ class TenderController extends Controller
                 if ($filePath) {
                     try {
                         // Download the file to a temporary location
-                        $tempPath = storage_path('storage/tempFile/' . uniqid() . '.pdf');
+                        $tempPath = public_path('storage/tempFile/' . uniqid() . '.pdf');
                         if (!is_dir(dirname($tempPath))) {
                             mkdir(dirname($tempPath), 0755, true);
                         }
