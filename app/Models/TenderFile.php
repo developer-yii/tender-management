@@ -50,24 +50,4 @@ class TenderFile extends Model
         }
         return '';
     }
-    public function getFilePathUrl222()
-    {
-        if ($this->file_path) {
-            // $subFolder = "tender" . $this->tender_id;
-            // $filePath = "public/tenders/{$subFolder}/{$this->file_path}";
-            // if (Storage::disk('local')->exists($filePath)) {
-            //     return asset('storage/tenders/' . $subFolder . '/' . $this->file_path);
-            // }
-
-            $subFolder = "tender" . $this->tender_id;
-            $filePath = "public/tenders/{$subFolder}/{$this->file_path}";
-            if (Storage::disk('local')->exists($filePath)) {
-                // Return the full path to the file
-                return storage_path("app/{$filePath}");
-            }
-
-        }
-        return '';
-    }
-
 }
