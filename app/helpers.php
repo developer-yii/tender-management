@@ -57,6 +57,11 @@ function fileUploadWithId($request, $model, $filesConfig) {
             // }
 
             $dir = "public/{$config['folder']}/";
+            $storagePath = storage_path("app/{$dir}");
+            if (!is_dir($storagePath)) {
+                mkdir($storagePath, 0755, true);
+            }
+
             $extension = $request->file($field)->getClientOriginalExtension();
             $filename = $config['fileName'] .'_'. $model->id . '.' . $extension;
 
