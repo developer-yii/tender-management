@@ -22,13 +22,24 @@ class TenderController extends Controller
 {
     public function index()
     {
-        $tenders = Tender::with(['files', 'users'])->get();
+        if (isAdmin()) {
+            $tenders = Tender::with(['files', 'users'])->get();
+        } else {
+            // Employee: Fetch only tenders assigned to the logged-in user
+            $tenders = Tender::with(['files', 'users'])
+                ->whereHas('users', function ($query) {
+                    $query->where('users.id', Auth::id()); // Explicitly specify the 'users.id' column
+                })
+                ->get();
+        }
 
+        $statusCounts = $tenders->groupBy('status')->map->count();
         $employees = User::with(['tenders', 'tags', 'files'])->where('id', '!=', Auth::user()->id)->get();
+
         if(isAdmin()){
-            return view('admin.tenders.index', compact('tenders', 'employees'));
+            return view('admin.tenders.index', compact('tenders', 'employees', 'statusCounts'));
         }else{
-            return view('admin.tenders.my-tenders', compact('tenders'));
+            return view('admin.tenders.my-tenders', compact('tenders', 'statusCounts'));
         }
 
         // $documents = Certificate::all();

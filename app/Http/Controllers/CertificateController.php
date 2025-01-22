@@ -95,20 +95,18 @@ class CertificateController extends Controller
 
             $files = [
                 'logo' => ['multiple' => false, 'folder' => 'certificates', 'subFolder' => $subFolderName],
-                'certificate_word' => ['multiple' => false, 'folder' => 'certificates','subFolder' => $subFolderName],
                 'certificate_pdf' => ['multiple' => false, 'folder' => 'certificates', 'subFolder' => $subFolderName],
+                'certificate_word' => ['multiple' => false, 'folder' => 'certificates','subFolder' => $subFolderName],
             ];
 
             $certificate = handleFileUploads($request, $certificate, $files);
-            if ($certificate->save()) {
-                DB::commit();
-                $message = $request->certificate_id ? 'Certificate updated successfully.' : 'Certificate added successfully.';
-                $isNew = $request->certificate_id ? false : true;
-                return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
-            }else {
-                DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []]);
-            }
+            $certificate->save();
+
+            DB::commit();
+            $message = $request->certificate_id ? 'Certificate updated successfully.' : 'Certificate added successfully.';
+            $isNew = $request->certificate_id ? false : true;
+            return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
+
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['status' => false, 'message' => 'An error occurred: ' . $e->getMessage(), 'data' => []]);

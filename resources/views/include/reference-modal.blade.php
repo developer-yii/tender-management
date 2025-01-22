@@ -61,18 +61,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group boxForm">
-                                <label for="file_word" class="file-word-label" id="file-word-label">File(Word)*</label>
-                                <input type="file" name="file_word" id="file_word" value="">
-                                <span class="error"></span>
-                                <span id="oldFileWord" class="m-1"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group boxForm">
                                 <label for="file_pdf" class="file-pdf-label" id="file-pdf-label">File(PDF)*</label>
                                 <input type="file" name="file_pdf" id="file_pdf" value="">
                                 <span class="error"></span>
                                 <span id="oldFilePdf" class="m-1"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group boxForm">
+                                <label for="file_word" class="file-word-label" id="file-word-label">File(Word)*</label>
+                                <input type="file" name="file_word" id="file_word" value="">
+                                <span class="error"></span>
+                                <span id="oldFileWord" class="m-1"></span>
                             </div>
                         </div>
                     </div>

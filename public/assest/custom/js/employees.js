@@ -1,50 +1,50 @@
-// handleFormSubmission('#addForm', createEmployeeUrl, 'addReferenceModal', addModal);
-$('#addForm').submit(function (event) {
-    event.preventDefault();
-    $('.error').html("");
+handleFormSubmission('#addForm', createUrl, 'addModal', listUrl);
+// $('#addForm').submit(function (event) {
+//     event.preventDefault();
+//     $('.error').html("");
 
-    const $form = $(this);
-    const $submitButton = $form.find('button[type="submit"]');
-    const dataString = new FormData($form[0]);
+//     const $form = $(this);
+//     // const $submitButton = $form.find('button[type="submit"]');
+//     const dataString = new FormData($form[0]);
 
-    $.ajax({
-        type: "POST",
-        url: createUrl,
-        data: dataString,
-        contentType: false,
-        processData: false,
-        cache: false,
-        async: false,
-        beforeSend: function () {
-            $submitButton.prop('disabled', true);
-        },
-        success: function (result) {
-            $submitButton.prop('disabled', false);
-            if (result.status == true) {
-                $form[0].reset();
-                toastr.success(result.message);
-                $('#addModal').modal('hide');
-                if(result.isNew){
-                    window.location.href = listUrl;
-                }else{
-                    window.location.reload();
-                }
-            } else {
-                first_input = "";
-                $('.error').html("");
-                $.each(result.error, function (key) {
-                    if (first_input == "") first_input = key;
-                    $('#' + key).closest('.form-group').find('.error').html(result.error[key]);
-                });
-                $('#addForm').find("#" + first_input).focus();
-            }
-        },
-        error: function (error) {
-            $submitButton.prop('disabled', false);
-            alert('Something went wrong!', 'error');
-        }
-    });
-});
+//     $.ajax({
+//         type: "POST",
+//         url: createUrl,
+//         data: dataString,
+//         contentType: false,
+//         processData: false,
+//         cache: false,
+//         async: false,
+//         beforeSend: function () {
+//             $("#loaderOverlay").fadeIn();
+//         },
+//         success: function (result) {
+//             $("#loaderOverlay").fadeOut();
+//             if (result.status == true) {
+//                 $form[0].reset();
+//                 toastr.success(result.message);
+//                 $('#addModal').modal('hide');
+//                 if(result.isNew){
+//                     window.location.href = listUrl;
+//                 }else{
+//                     window.location.reload();
+//                 }
+//             } else {
+//                 first_input = "";
+//                 $('.error').html("");
+//                 $.each(result.error, function (key) {
+//                     if (first_input == "") first_input = key;
+//                     $('#' + key).closest('.form-group').find('.error').html(result.error[key]);
+//                 });
+//                 $('#addForm').find("#" + first_input).focus();
+//             }
+//         },
+//         error: function (error) {
+//             $("#loaderOverlay").fadeOut();
+//             alert('Something went wrong!', 'error');
+//         }
+//     });
+// });
 
 $('body').on('click', '.edit-employee', function () {
     var id = $(this).data('id');

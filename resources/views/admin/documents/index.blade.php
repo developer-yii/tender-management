@@ -83,7 +83,7 @@
 @endsection
 @section('js')
 <script>
-    var createtUrl = "{{ route('document.addupdate') }}";
+    var createUrl = "{{ route('document.addupdate') }}";
     var listUrl = "{{ route('document.index') }}";
 </script>
 <script src="{{ $baseUrl }}custom/js/documents.js"></script>

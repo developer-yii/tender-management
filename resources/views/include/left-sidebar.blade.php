@@ -28,9 +28,10 @@
                             'tenders' => ['tender.index', 'employee.tenders'],
                             'companyDetails' => ['company-details.index'],
                             'employees' => ['employee.index', 'employee.details'],
-                            'references' => ['reference.index', 'reference.details'],
                             'certificates' => ['certificate.index', 'certificate.details'],
-                            'documents' => ['certificate.index', 'certificate.details'],
+                            'references' => ['reference.index', 'reference.details'],
+                            'documents' => ['document.index', 'document.details'],
+                            'templetes' => ['templete.index', 'document.details'],
                             'tags' => ['tag.index'],
                             'servers' => ['server.index'],
                         ];
@@ -80,7 +81,7 @@
 
                             {{-- Documents --}}
                             <li>
-                                <a href="{{ route('document.index') }}">
+                                <a href="{{ route('document.index') }}" class="{{ isActiveRoute($activeRoutes['documents']) ? 'main-active' : '' }}">
                                     <span><img src="{{$baseUrl}}images/Verified-Account.png" alt="Verified-Account"></span>
                                     Unterlagen / Bestätigungen
                                 </a>
@@ -88,7 +89,7 @@
 
                             {{-- templete --}}
                             <li>
-                                <a href="{{ route('templete.index') }}">
+                                <a href="{{ route('templete.index') }}" class="{{ isActiveRoute($activeRoutes['templetes']) ? 'main-active' : '' }}">
                                     <span><img src="{{$baseUrl}}images/Terms-and-Conditions.png" alt="Terms-and-Conditions"></span>
                                     Vorlage
                                 </a>
@@ -111,10 +112,17 @@
 
                             {{-- tags --}}
                             <li>
-                                <a href="{{ route('tag.index') }}" class="{{ isActiveRoute($activeRoutes['tags']) ? 'main-active' : '' }}">
-                                    <span><img src="{{$baseUrl}}images/Access.png" alt="Access"></span>
-                                    Admin
+                                <a class="kiTools {{ isActiveRoute($activeRoutes['tags']) ? 'main-active' : '' }}" href="javascript:void">
+                                    <span><img src="{{$baseUrl}}images/Artificial-Intelligence.png" alt="Artificial-Intelligence"></span> Admin
                                 </a>
+                                <ul class="dropDownInner {{ isActiveRoute($activeRoutes['tags']) ? 'show' : '' }}">
+                                    <li>
+                                        <a href="{{ route('tag.index') }}">
+                                            <span><img src="{{$baseUrl}}images/Artificial-Intelligence.png" alt="Artificial-Intelligence"></span>
+                                            Tags
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         @else
                             <li>
@@ -137,41 +145,41 @@
                 </div>
             </div>
             @if(isEmployee())
-            <div class="currentOffer">
-                <div class="offertitle">
-                    <h6>ANGEBOTFRIST DER AKTUELLEN AUSSCHREIBUNGEN</h6>
+                <div class="currentOffer">
+                    <div class="offertitle">
+                        <h6>ANGEBOTFRIST DER AKTUELLEN AUSSCHREIBUNGEN</h6>
+                    </div>
+                    <div class="offerComBox">
+                        <div class="offerLeft">
+                            <div class="imgBox">
+                                <img src="{{$baseUrl}}images/offerimg1.png" alt="offerimg1">
+                            </div>
+                            <div class="textBox">
+                                <p>Museum für Naturkunde Berlin</p>
+                            </div>
+                        </div>
+                        <div class="offerRight">
+                            <div class="tagBox">
+                                <h5>28 <br><span>Tage</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offerComBox">
+                        <div class="offerLeft">
+                            <div class="imgBox">
+                                <img src="{{$baseUrl}}images/offerimg2.png" alt="offerimg2">
+                            </div>
+                            <div class="textBox">
+                                <p>Kaleidico</p>
+                            </div>
+                        </div>
+                        <div class="offerRight">
+                            <div class="tagBox">
+                                <h5>2 <br><span>Tage</span></h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="offerComBox">
-                    <div class="offerLeft">
-                        <div class="imgBox">
-                            <img src="{{$baseUrl}}images/offerimg1.png" alt="offerimg1">
-                        </div>
-                        <div class="textBox">
-                            <p>Museum für Naturkunde Berlin</p>
-                        </div>
-                    </div>
-                    <div class="offerRight">
-                        <div class="tagBox">
-                            <h5>28 <br><span>Tage</span></h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="offerComBox">
-                    <div class="offerLeft">
-                        <div class="imgBox">
-                            <img src="{{$baseUrl}}images/offerimg2.png" alt="offerimg2">
-                        </div>
-                        <div class="textBox">
-                            <p>Kaleidico</p>
-                        </div>
-                    </div>
-                    <div class="offerRight">
-                        <div class="tagBox">
-                            <h5>2 <br><span>Tage</span></h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
             @endif
         </div>
         <div class="startTenerbtn">

@@ -131,6 +131,21 @@ $(document).ready(function () {
         }
     });
 
+    $('.all-pdf-preview').on('dragover', function (event) {
+        event.preventDefault(); // Necessary to allow drop
+    });
+
+    $('.all-pdf-preview').on('drop', function (event) {
+        event.preventDefault();
+        const draggedId = event.originalEvent.dataTransfer.getData('text/plain');
+        const draggedElement = document.getElementById(draggedId);
+
+        const targetElement = $(event.target).closest('.secriesBox')[0];
+        if (targetElement && targetElement !== draggedElement) {
+            $(targetElement).before(draggedElement);
+        }
+    });
+
 
     // for docs merge, preview and download
     function handleFileAction(actionType, fileType) {

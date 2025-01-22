@@ -29,22 +29,22 @@ function handleFormSubmission(formSelector, url, modalId, listUrl) {
                 $("#loaderOverlay").fadeIn();
             },
             success: function (result) {
-                // $("#loaderOverlay").fadeOut();
+                $("#loaderOverlay").fadeOut();
                 if (result.status === true) {
                     $form[0].reset();
                     toastr.success(result.message);
                     $(`#${modalId}`).modal('hide');
                     if (result.isNew) {
-                        // window.location.href = listUrl;
+                        window.location.href = listUrl;
                     } else {
-                        // window.location.reload();
+                        window.location.reload();
                     }
                 } else {
                     handleErrors(result.error, formSelector);
                 }
             },
             error: function () {
-                // $("#loaderOverlay").fadeOut();
+                $("#loaderOverlay").fadeOut();
                 alert('Something went wrong!', 'error');
             }
         });

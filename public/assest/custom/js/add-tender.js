@@ -437,10 +437,10 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             beforeSend: function () {
-                $submitButton.prop('disabled', true);
+                $("#loaderOverlay").fadeIn();
             },
             success: function (result) {
-                $submitButton.prop('disabled', false);
+                $("#loaderOverlay").fadeOut();
                 if (result.status === true) {
                     $form[0].reset();
                     toastr.success(result.message);
@@ -474,8 +474,7 @@ $(document).ready(function () {
 
                         // Handle "folder_doc" field
                         if (key.startsWith("folder_doc") && !processedFields["folder_doc"]) {
-                            let errorMessage = errorMessages[0]; // Take the first error message for the field
-                            console.log(errorMessage);
+                            let errorMessage = errorMessages[0];
                             $('.accordion-item').closest('.form-group').find('.error').html(errorMessage);
                             processedFields["folder_doc"] = true;
                         }
@@ -483,7 +482,7 @@ $(document).ready(function () {
                 }
             },
             error: function (error) {
-                $submitButton.prop('disabled', false);
+                $("#loaderOverlay").fadeOut();
                 alert('Something went wrong!', 'error');
             }
         });
