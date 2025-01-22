@@ -573,7 +573,16 @@ class TenderController extends Controller
 
                 if ($filePath) {
                     // $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
-                    $pdfFiles[] = $filePath;
+                    // public_path(parse_url("/storage/demofile/test-1.pdf", PHP_URL_PATH)),
+                    // $pdfFiles[] = storage_path('app/public/tenders/tender1/6790899891ebd_1737525656_first_page.pdf');
+                    // $pdfFiles[] = $filePath;
+
+                    $parsedPath = parse_url($filePath, PHP_URL_PATH); // Get path from URL
+                    $storageRelativePath = str_replace('/storage', 'app/public', $parsedPath); // Adjust for storage path
+
+                    \Log::info($storageRelativePath);
+                    $pdfFiles[] = storage_path($storageRelativePath);
+
                 }
             }
         }
