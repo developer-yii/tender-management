@@ -551,8 +551,8 @@ class TenderController extends Controller
                 }
 
                 if ($filePath) {
-                    $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
-                    // $pdfFiles[] = $filePath;
+                    // $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
+                    $pdfFiles[] = $filePath;
                 }
             }
         }
@@ -617,35 +617,24 @@ class TenderController extends Controller
                 mkdir(dirname($mergedFilePath), 0755, true);
             }
 
-            \Log::info("11111111111");
             // Initialize the PDFMerger
             $pdfMerger = PDFMerger::init();
-            \Log::info("222222222222");
-
-            // Add each PDF to the merger
-
-            foreach ($pdfFiles as $file) {
-                \Log::info("3333333333");
-                if (!file_exists($file)) {
-                    \Log::error("File does not exist: $file");
-                } else {
-                    \Log::info("Adding file to merge: $file");
-                }
-            }
-
-            \Log::info("4444444444");
             foreach ($pdfFiles as $file) {
                 if (file_exists($file)) {
-                    $pdfMerger->addPDF($file);
+                    $pdfMerger->addPDF($file, 'all'); // Explicitly specify 'all' pages
+                } else {
+                    // Log or handle missing files
+                    logger()->warning("PDF file not found: $file");
                 }
             }
 
-            \Log::info("55555555555555");
             // Merge and save the output file
-            $pdfMerger->merge();
-            \Log::info("666666666666");
-            $pdfMerger->save($mergedFilePath);
-            \Log::info("777777777777");
+            try {
+                $pdfMerger->merge();
+                $pdfMerger->save($mergedFilePath);
+            } catch (\Exception $e) {
+                echo "Error merging PDFs: " . $e->getMessage();
+            }
 
             // Respond with the merged PDF details
             return response()->json([

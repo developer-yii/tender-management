@@ -145,6 +145,11 @@ if (!function_exists('uploadFile')) {
         $dir = "public/{$mainFolder}/{$subFolder}/";
         $outputDir = storage_path("app/{$dir}");
 
+        // Create the directory if it does not exist with the correct permissions
+        if (!is_dir($outputDir)) {
+            mkdir($outputDir, 0755, true); // Creates the directory with 0755 permissions recursively
+        }
+
         if ($oldFile) {
             Storage::delete("public/{$mainFolder}/{$subFolder}/{$oldFile}");
         }
@@ -152,12 +157,6 @@ if (!function_exists('uploadFile')) {
         if($oldDocPreview){
             Storage::delete("public/{$mainFolder}/{$subFolder}/{$oldFile}");
         }
-
-        // foreach ([$oldFile, $oldDocPreview] as $oldFilePath) {
-        //     if ($oldFilePath) {
-        //         Storage::delete($dir . $oldFilePath);
-        //     }
-        // }
 
         $extension = $file->getClientOriginalExtension();
         $uniqueName = uniqid() . "_" . time();
