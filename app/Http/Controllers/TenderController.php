@@ -617,19 +617,35 @@ class TenderController extends Controller
                 mkdir(dirname($mergedFilePath), 0755, true);
             }
 
+            \Log::info("11111111111");
             // Initialize the PDFMerger
             $pdfMerger = PDFMerger::init();
+            \Log::info("222222222222");
 
             // Add each PDF to the merger
+
+            foreach ($pdfFiles as $file) {
+                \Log::info("3333333333");
+                if (!file_exists($file)) {
+                    \Log::error("File does not exist: $file");
+                } else {
+                    \Log::info("Adding file to merge: $file");
+                }
+            }
+
+            \Log::info("4444444444");
             foreach ($pdfFiles as $file) {
                 if (file_exists($file)) {
                     $pdfMerger->addPDF($file);
                 }
             }
 
+            \Log::info("55555555555555");
             // Merge and save the output file
             $pdfMerger->merge();
+            \Log::info("666666666666");
             $pdfMerger->save($mergedFilePath);
+            \Log::info("777777777777");
 
             // Respond with the merged PDF details
             return response()->json([
