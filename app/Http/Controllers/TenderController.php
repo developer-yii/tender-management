@@ -427,26 +427,26 @@ class TenderController extends Controller
                 }
 
                 // Log the file path for debugging
-                Log::info('File path: ' . $filePath);
+                \Log::info('File path: ' . $filePath);
 
                 // Add the file path if found
                 if ($filePath) {
                     // Use public_path to resolve the file
                     $resolvedPath = public_path(parse_url($filePath, PHP_URL_PATH));
-                    Log::info('Resolved file path: ' . $resolvedPath); // Log resolved path
+                    \Log::info('Resolved file path: ' . $resolvedPath); // Log resolved path
 
                     // Check if the file exists before adding to the merge list
                     if (file_exists($resolvedPath)) {
                         $pdfFiles[] = $resolvedPath;
-                        Log::info('PDF added for merging: ' . $resolvedPath);
+                        \Log::info('PDF added for merging: ' . $resolvedPath);
                     } else {
-                        Log::error('File does not exist: ' . $resolvedPath); // Log if file does not exist
+                        \Log::error('File does not exist: ' . $resolvedPath); // Log if file does not exist
                     }
                 } else {
-                    Log::warning('No file found for ID: ' . $id); // Log if no file path found
+                    \Log::warning('No file found for ID: ' . $id); // Log if no file path found
                 }
             } else {
-                Log::warning('Invalid item format: ' . $item); // Log if item format is invalid
+                \Log::warning('Invalid item format: ' . $item); // Log if item format is invalid
             }
         }
 
@@ -462,9 +462,9 @@ class TenderController extends Controller
             if (!is_dir(dirname($mergedFilePath))) {
                 try {
                     mkdir(dirname($mergedFilePath), 0755, true);
-                    Log::info('Directory created: ' . dirname($mergedFilePath));
+                    \Log::info('Directory created: ' . dirname($mergedFilePath));
                 } catch (\Exception $e) {
-                    Log::error('Error creating directory: ' . $e->getMessage());
+                    \Log::error('Error creating directory: ' . $e->getMessage());
                     return response()->json([
                         'status' => false,
                         'message' => 'Failed to create directory for merged file.'
@@ -480,7 +480,7 @@ class TenderController extends Controller
                 if (file_exists($file)) {
                     $pdfMerger->addPDF($file);
                 } else {
-                    Log::error('File not found when adding to merge: ' . $file);
+                    \Log::error('File not found when adding to merge: ' . $file);
                 }
             }
 
@@ -496,7 +496,7 @@ class TenderController extends Controller
                     'file_name' => $uniqueFileName
                 ]);
             } catch (\Exception $e) {
-                Log::error('Error merging PDFs: ' . $e->getMessage());
+                \Log::error('Error merging PDFs: ' . $e->getMessage());
                 return response()->json([
                     'status' => false,
                     'message' => 'Failed to merge PDFs.'
@@ -505,7 +505,7 @@ class TenderController extends Controller
         }
 
         // Return error message if no PDFs to merge
-        Log::warning('No valid PDFs to merge.');
+        \Log::warning('No valid PDFs to merge.');
         return response()->json([
             'status' => false,
             'message' => 'No valid PDFs to merge.'
