@@ -13,6 +13,7 @@ use DocxMerge\DocxMerge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PdfMerger;
@@ -550,10 +551,30 @@ class TenderController extends Controller
                     $filePath = getDocumentPath($file->agile_framework_pdf);
                 }
 
-                if ($filePath) {
-                    // $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
-                    $pdfFiles[] = $filePath;
+                // if ($filePath) {
+                //     // $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
+                //     $pdfFiles[] = $filePath;
+                // }
+            }
+        }
+
+        if ($filePath) {
+            try {
+                // Download the file to a temporary location
+                $tempPath = storage_path('app/tempFile/' . uniqid() . '.pdf');
+                if (!is_dir(dirname($tempPath))) {
+                    mkdir(dirname($tempPath), 0755, true);
                 }
+
+                $response = Http::get($filePath);
+                if ($response->successful()) {
+                    file_put_contents($tempPath, $response->body());
+                    $pdfFiles[] = $tempPath;
+                } else {
+                    logger()->warning("Failed to download file: $filePath");
+                }
+            } catch (\Exception $e) {
+                logger()->error("Error downloading file: $filePath, Exception: " . $e->getMessage());
             }
         }
 
