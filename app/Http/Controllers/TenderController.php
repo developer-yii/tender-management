@@ -554,7 +554,7 @@ class TenderController extends Controller
                 if ($filePath) {
                     try {
                         // Download the file to a temporary location
-                        $tempPath = storage_path('app/tempFile/' . uniqid() . '.pdf');
+                        $tempPath = storage_path('storage/tempFile/' . uniqid() . '.pdf');
                         if (!is_dir(dirname($tempPath))) {
                             mkdir(dirname($tempPath), 0755, true);
                         }
@@ -626,7 +626,6 @@ class TenderController extends Controller
         //     }
         // }
 
-        \Log::info($pdfFiles);
         // Check if there are PDFs to merge
         if (!empty($pdfFiles)) {
             // Generate a unique filename
@@ -648,6 +647,12 @@ class TenderController extends Controller
                 } else {
                     // Log or handle missing files
                     logger()->warning("PDF file not found: $file");
+                }
+            }
+
+            foreach ($pdfFiles as $file) {
+                if (file_exists($file)) {
+                    unlink($file);
                 }
             }
 
