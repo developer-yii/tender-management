@@ -113,7 +113,7 @@
                             {{-- tags --}}
                             <li>
                                 <a class="kiTools {{ isActiveRoute($activeRoutes['tags']) ? 'main-active' : '' }}" href="javascript:void">
-                                    <span><img src="{{$baseUrl}}images/Artificial-Intelligence.png" alt="Artificial-Intelligence"></span> Admin
+                                    <span><i class="bi bi-gear-wide-connected setting-icon"></i></span> Admin
                                 </a>
                                 <ul class="dropDownInner {{ isActiveRoute($activeRoutes['tags']) ? 'show' : '' }}">
                                     <li>

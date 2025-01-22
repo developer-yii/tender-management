@@ -45,6 +45,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function isAdmin()
+    {
+        // Adjust the condition based on your application's logic for identifying admin users.
+        // For example, if you have a `role` column where "admin" indicates an admin user:
+        return $this->role == '1';
+    }
+
     public function getProfilePicUrl()
     {
         if ($this->profile_photo) {

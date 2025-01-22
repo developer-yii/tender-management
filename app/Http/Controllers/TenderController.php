@@ -33,13 +33,12 @@ class TenderController extends Controller
                 ->get();
         }
 
-        $statusCounts = $tenders->groupBy('status')->map->count();
         $employees = User::with(['tenders', 'tags', 'files'])->where('id', '!=', Auth::user()->id)->get();
 
         if(isAdmin()){
-            return view('admin.tenders.index', compact('tenders', 'employees', 'statusCounts'));
+            return view('admin.tenders.index', compact('tenders', 'employees'));
         }else{
-            return view('admin.tenders.my-tenders', compact('tenders', 'statusCounts'));
+            return view('admin.tenders.my-tenders', compact('tenders'));
         }
 
         // $documents = Certificate::all();
@@ -427,10 +426,27 @@ class TenderController extends Controller
                         break;
                 }
 
+                // Log the file path for debugging
+                Log::info('File path: ' . $filePath);
+
                 // Add the file path if found
                 if ($filePath) {
-                    $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
+                    // Use public_path to resolve the file
+                    $resolvedPath = public_path(parse_url($filePath, PHP_URL_PATH));
+                    Log::info('Resolved file path: ' . $resolvedPath); // Log resolved path
+
+                    // Check if the file exists before adding to the merge list
+                    if (file_exists($resolvedPath)) {
+                        $pdfFiles[] = $resolvedPath;
+                        Log::info('PDF added for merging: ' . $resolvedPath);
+                    } else {
+                        Log::error('File does not exist: ' . $resolvedPath); // Log if file does not exist
+                    }
+                } else {
+                    Log::warning('No file found for ID: ' . $id); // Log if no file path found
                 }
+            } else {
+                Log::warning('Invalid item format: ' . $item); // Log if item format is invalid
             }
         }
 
@@ -444,7 +460,16 @@ class TenderController extends Controller
 
             // Create the directory if it doesn't exist
             if (!is_dir(dirname($mergedFilePath))) {
-                mkdir(dirname($mergedFilePath), 0755, true);
+                try {
+                    mkdir(dirname($mergedFilePath), 0755, true);
+                    Log::info('Directory created: ' . dirname($mergedFilePath));
+                } catch (\Exception $e) {
+                    Log::error('Error creating directory: ' . $e->getMessage());
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Failed to create directory for merged file.'
+                    ]);
+                }
             }
 
             // Initialize the PDFMerger
@@ -454,26 +479,133 @@ class TenderController extends Controller
             foreach ($pdfFiles as $file) {
                 if (file_exists($file)) {
                     $pdfMerger->addPDF($file);
+                } else {
+                    Log::error('File not found when adding to merge: ' . $file);
                 }
             }
 
             // Merge and save the output file
-            $pdfMerger->merge();
-            $pdfMerger->save($mergedFilePath);
+            try {
+                $pdfMerger->merge();
+                $pdfMerger->save($mergedFilePath);
 
-            // Respond with the merged PDF details
-            return response()->json([
-                'status' => true,
-                'file_url' => asset('storage/mergedFile/' . $uniqueFileName),
-                'file_name' => $uniqueFileName
-            ]);
+                // Respond with the merged PDF details
+                return response()->json([
+                    'status' => true,
+                    'file_url' => asset('storage/mergedFile/' . $uniqueFileName),
+                    'file_name' => $uniqueFileName
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Error merging PDFs: ' . $e->getMessage());
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Failed to merge PDFs.'
+                ]);
+            }
         }
 
+        // Return error message if no PDFs to merge
+        Log::warning('No valid PDFs to merge.');
         return response()->json([
             'status' => false,
             'message' => 'No valid PDFs to merge.'
         ]);
     }
+
+
+    // public function mergePdf(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $loadedPdf = $data['loadedPdf'] ?? [];
+    //     $pdfFiles = [];
+
+    //     // Loop through the loaded PDFs and get their file paths
+    //     foreach ($loadedPdf as $item) {
+    //         $parts = explode('-', $item);
+    //         if (count($parts) === 2) {
+    //             $type = $parts[0];
+    //             $id = $parts[1];
+    //             $filePath = null;
+
+    //             // Determine the file path based on the type
+    //             switch ($type) {
+    //                 case 'tender':
+    //                     $file = TenderFile::find($id);
+    //                     $filePath = $file ? $file->getFilePathUrl() : null;
+    //                     break;
+    //                 case 'team':
+    //                     $file = User::find($id);
+    //                     $filePath = $file ? $file->getCvUrl() : null;
+    //                     break;
+    //                 case 'certificate':
+    //                     $file = Certificate::find($id);
+    //                     $filePath = $file ? $file->getCertificatePdfUrl() : null;
+    //                     break;
+    //                 case 'reference':
+    //                     $file = Reference::find($id);
+    //                     $filePath = $file ? $file->getFilePdfUrl() : null;
+    //                     break;
+    //                 case 'document':
+    //                     $file = Document::find($id);
+    //                     $filePath = $file ? $file->getDocumentPdfUrl() : null;
+    //                     break;
+    //                 case 'presentation':
+    //                     $file = Company::find($id);
+    //                     $filePath = $file ? getDocumentPath($file->company_presentation_pdf) : null;
+    //                     break;
+    //                 case 'framework':
+    //                     $file = Company::find($id);
+    //                     $filePath = $file ? getDocumentPath($file->agile_framework_pdf) : null;
+    //                     break;
+    //             }
+
+    //             // Add the file path if found
+    //             if ($filePath) {
+    //                 $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
+    //             }
+    //         }
+    //     }
+
+    //     // Check if there are PDFs to merge
+    //     if (!empty($pdfFiles)) {
+    //         // Generate a unique filename
+    //         $uniqueFileName = date('d_m_Y') . '_' . uniqid() . '.pdf';
+
+    //         // Set the path for the merged PDF
+    //         $mergedFilePath = public_path('storage/mergedFile/' . $uniqueFileName);
+
+    //         // Create the directory if it doesn't exist
+    //         if (!is_dir(dirname($mergedFilePath))) {
+    //             mkdir(dirname($mergedFilePath), 0755, true);
+    //         }
+
+    //         // Initialize the PDFMerger
+    //         $pdfMerger = PDFMerger::init();
+
+    //         // Add each PDF to the merger
+    //         foreach ($pdfFiles as $file) {
+    //             if (file_exists($file)) {
+    //                 $pdfMerger->addPDF($file);
+    //             }
+    //         }
+
+    //         // Merge and save the output file
+    //         $pdfMerger->merge();
+    //         $pdfMerger->save($mergedFilePath);
+
+    //         // Respond with the merged PDF details
+    //         return response()->json([
+    //             'status' => true,
+    //             'file_url' => asset('storage/mergedFile/' . $uniqueFileName),
+    //             'file_name' => $uniqueFileName
+    //         ]);
+    //     }
+
+    //     return response()->json([
+    //         'status' => false,
+    //         'message' => 'No valid PDFs to merge.'
+    //     ]);
+    // }
 
 
     // public function mergePdf(Request $request)
