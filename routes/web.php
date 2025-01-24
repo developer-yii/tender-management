@@ -66,7 +66,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     // Tender Routes
     Route::prefix('tender')->as('tender.')->group(function () {
         Route::get('/', [TenderController::class, 'index'])->name('index');
-        Route::get('/details/{id}', [TenderController::class, 'tenderDetails'])->name('details');
         Route::get('/get', [TenderController::class, 'get'])->name('list');
         Route::get('/add-edit', [TenderController::class, 'addEdit'])->name('add');
         Route::post('/createupdate', [TenderController::class, 'createUpdate'])->name('createupdate');
@@ -127,4 +126,5 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/my-tenders', [TenderController::class, 'index'])->name('employee.tenders');
+    Route::get('/tender/details/{id}', [TenderController::class, 'tenderDetails'])->name('tender.details');
 });

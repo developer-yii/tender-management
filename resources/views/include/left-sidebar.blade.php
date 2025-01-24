@@ -114,7 +114,7 @@
                                 <ul class="dropDownInner {{ isActiveRoute($activeRoutes['tags']) ? 'show' : '' }}">
                                     <li>
                                         <a href="{{ route('tag.index') }}">
-                                            <span><img src="{{$baseUrl}}images/tags.jpg" alt="Tags"></span>
+                                            <span><img src="{{$baseUrl}}images/tags.png" alt="Tags"></span>
                                             Tags
                                         </a>
                                     </li>
@@ -124,7 +124,7 @@
                             <li>
                                 <a href="{{ route('employee.tenders') }}" class="{{ isActiveRoute($activeRoutes['tenders']) ? 'main-active' : '' }}">
                                     <span><img src="{{$baseUrl}}images/Invite.png" alt="Invite"></span>
-                                    Ausschreibungen Employee
+                                    Ausschreibungen
                                 </a>
                             </li>
                         @endif
@@ -141,41 +141,7 @@
                 </div>
             </div>
             @if(isEmployee())
-                <div class="currentOffer">
-                    <div class="offertitle">
-                        <h6>ANGEBOTFRIST DER AKTUELLEN AUSSCHREIBUNGEN</h6>
-                    </div>
-                    <div class="offerComBox">
-                        <div class="offerLeft">
-                            <div class="imgBox">
-                                <img src="{{$baseUrl}}images/offerimg1.png" alt="offerimg1">
-                            </div>
-                            <div class="textBox">
-                                <p>Museum für Naturkunde Berlin</p>
-                            </div>
-                        </div>
-                        <div class="offerRight">
-                            <div class="tagBox">
-                                <h5>28 <br><span>Tage</span></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offerComBox">
-                        <div class="offerLeft">
-                            <div class="imgBox">
-                                <img src="{{$baseUrl}}images/offerimg2.png" alt="offerimg2">
-                            </div>
-                            <div class="textBox">
-                                <p>Kaleidico</p>
-                            </div>
-                        </div>
-                        <div class="offerRight">
-                            <div class="tagBox">
-                                <h5>2 <br><span>Tage</span></h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('include.tender_deadline_section')
             @endif
         </div>
         <div class="startTenerbtn">

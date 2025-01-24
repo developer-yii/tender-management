@@ -25,7 +25,7 @@
                                         </div>
                                         <div class="textBox">
                                             <h5>{{ $tender->tender_name }}</h5>
-                                            <p>Ausführungszeitraum {{ formatDate($tender->period_from, 'd/m/Y') }} bis {{ formatDate($tender->period_to, 'd/m/Y') }}</p>
+                                            <p>Ausführungszeitraum {{ formatDate($tender->period_from, 'm/Y') }} bis {{ formatDate($tender->period_to, 'm/Y') }}</p>
                                         </div>
                                     </div>
                                 </a>

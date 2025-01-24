@@ -20,7 +20,7 @@
                                 <ul>
                                     <li>
                                         <p class="gray">Ausführungszeitraum</p>
-                                        <p>{{ formatDate($tender->period_from, 'd/m/Y') }} bis {{ formatDate($tender->period_to, 'd/m/Y') }}</p>
+                                        <p>{{ formatDate($tender->period_from, 'm/Y') }} bis {{ formatDate($tender->period_to, 'm/Y') }}</p>
                                     </li>
                                     <li>
                                         <p class="gray">Ablauf Angebotsfrist</p>
@@ -73,7 +73,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                @if(count($documentFiles) > 9)
+                                @if(count($documentFiles) > 10)
                                     <div class="openDocBtn">
                                         <button class="btn btnOpen"><i class="bi bi-caret-down-fill"></i></button>
                                     </div>
@@ -154,9 +154,11 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="editBox">
-                                <a href="{{route('tender.add', ['id' => $tender->id])}}" class="btn editBtn">INFOS BEARBEITEN</a>
-                            </div>
+                            @if(isAdmin())
+                                <div class="editBox">
+                                    <a href="{{route('tender.add', ['id' => $tender->id])}}" class="btn editBtn">INFOS BEARBEITEN</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
