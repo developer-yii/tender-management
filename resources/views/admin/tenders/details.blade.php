@@ -63,26 +63,23 @@
                         </div>
                         <div class="collectDocumentSec">
                             <div class="docTitle">
-                                <h5>Gesammelte Dokumente:</h5>
+                                <h5>Gesammelte Dokumente: </h5>
                             </div>
                             <div class="docListOur">
                                 <ul>
-                                    @foreach($tender->files as $document)
-                                        @if($document->type == "documents")
-                                            <li>
-                                                <p><i class="fa-solid fa-file-lines"></i>{{ $document->original_file_name }}</p>
-                                            </li>
-                                        @endif
+                                    @foreach($documentFiles as $document)
+                                        <li>
+                                            <p><i class="fa-solid fa-file-lines"></i>{{ $document->original_file_name }}</p>
+                                        </li>
                                     @endforeach
                                 </ul>
-                                <div class="openDocBtn">
-                                    <button class="btn btnOpen"><i class="bi bi-caret-down-fill"></i></button>
-                                </div>
+                                @if(count($documentFiles) > 9)
+                                    <div class="openDocBtn">
+                                        <button class="btn btnOpen"><i class="bi bi-caret-down-fill"></i></button>
+                                    </div>
+                                @endif
                             </div>
                             <div class="endbtnSection">
-                                <button class="btn btnCom"><span><img src="{{$baseUrl}}images/eye-icon.png" alt="eye-icon"></span> VORSCHAU</button>
-                                <button class="btn btnCom"><span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> WORD HERUNTERLADEN</button>
-
                                 <a href="{{route('tender.add', ['id' => $tender->id])}}" class="btn btnCom"><span><img src="{{$baseUrl}}images/enter-file.png" alt="enter-file"></span> BEARBEITEN</a>
                             </div>
                         </div>
@@ -99,7 +96,7 @@
                                     <p>{{ $tender->vergabestelle }}</p>
                                     <div class="devliverBox">
                                         <h6>Abgabeform</h6>
-                                        <a href="javascript:void(0)" class="btn btnDetails">{{ $tender->abgabeform_text }}</a>
+                                        <a href="javascript:void(0)" class="btn btnDetails cursor-default">{{ $tender->abgabeform_text }}</a>
                                     </div>
                                 </div>
                                 <div class="rightMap">
@@ -107,7 +104,6 @@
                                     <div class="mapTextNew">
                                         <p>{{ $tender->place_of_execution }}</p>
                                     </div>
-                                    {{-- <iframe src="{{ $tender->place_of_execution }}"></iframe> --}}
                                 </div>
                             </div>
                             <div class="awardDetails">
@@ -142,23 +138,17 @@
                                     @foreach ($folder_files as $folder_name => $files)
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                        data-bs-target="#collapse{{ Str::slug($folder_name) }}"
-                                                        aria-expanded="true"
-                                                        aria-controls="collapse{{ Str::slug($folder_name) }}">
+                                                <button class="accordion-button" type="button">
                                                     {{ $folder_name ?? 'Unnamed Folder' }}
                                                 </button>
                                             </h2>
-                                            <div id="collapse{{ Str::slug($folder_name) }}" class="accordion-collapse collapse show"
-                                                data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    @foreach ($files as $file)
-                                                        <a href="{{ asset($file->file_path) }}" target="_blank" class="d-block mb-2">
-                                                            <i class="fa-solid fa-file-lines"></i>
-                                                            {{ $file->original_file_name ?? 'Untitled File' }}
-                                                        </a>
-                                                    @endforeach
-                                                </div>
+                                            <div class="accordion-body">
+                                                @foreach ($files as $file)
+                                                    <a href="{{ asset($file->file_path) }}" target="_blank" class="d-block mb-2 a-txt">
+                                                        <i class="fa-solid fa-file-lines"></i>
+                                                        {{ $file->original_file_name ?? 'Untitled File' }}
+                                                    </a>
+                                                @endforeach
                                             </div>
                                         </div>
                                     @endforeach

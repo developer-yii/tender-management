@@ -30,14 +30,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
 
-    // servers
-    Route::prefix('server')->as('server.')->group(function () {
-        Route::get('/', [ServerController::class, 'index'])->name('index');
-        Route::get('/get', [ServerController::class, 'get'])->name('list');
-        Route::post('/addupdate', [ServerController::class, 'addupdate'])->name('addupdate');
-        Route::post('/detail', [ServerController::class, 'detail'])->name('detail');
-    });
-
     // company Details
     Route::prefix('company-details')->as('company-details.')->group(function () {
         Route::get('/', [CompanyProfileController::class, 'index'])->name('index');
@@ -53,7 +45,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::post('/detail', [TagController::class, 'detail'])->name('detail');
         Route::post('/delete', [TagController::class, 'delete'])->name('delete');
     });
-
 
     // employees
     Route::prefix('employee')->as('employee.')->group(function () {
@@ -84,8 +75,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::get('/employee-tenders', [TenderController::class, 'getTenders'])->name('assign-tenders');
         Route::get('/start', [TenderController::class, 'start'])->name('start');
         Route::post('/documents', [TenderController::class, 'tenderDocuments'])->name('documents');
-        // Route::post('/preview', [TenderController::class, 'preview'])->name('preview');
-        // Route::post('/add-preview', [TenderController::class, 'addPreview'])->name('add-preview');
         Route::post('/merge-docx', [TenderController::class, 'mergeDocx'])->name('merge-docx');
         Route::get('/preview-docx', [TenderController::class, 'previewDocx'])->name('preview-docx');
         Route::post('/merge-pdf', [TenderController::class, 'mergePdf'])->name('merge-pdf');
@@ -114,7 +103,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::get('/details/{id}', [DocumentController::class, 'documentDetails'])->name('details');
         Route::post('/detail', [DocumentController::class, 'detail'])->name('detail');
         Route::post('/delete', [DocumentController::class, 'delete'])->name('delete');
-        // Route::get('/preview-word/{fileName}', [DocumentController::class, 'previewWordFile'])->name('preview');
 
     });
 
@@ -127,6 +115,13 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::post('/delete', [TempleteController::class, 'delete'])->name('delete');
     });
 
+    // servers
+    Route::prefix('server')->as('server.')->group(function () {
+        Route::get('/', [ServerController::class, 'index'])->name('index');
+        Route::get('/get', [ServerController::class, 'get'])->name('list');
+        Route::post('/addupdate', [ServerController::class, 'addupdate'])->name('addupdate');
+        Route::post('/detail', [ServerController::class, 'detail'])->name('detail');
+    });
 
 });
 

@@ -10,45 +10,48 @@
             <a href="{{ route('certificate.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück Zu Allen</a>
             <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addCertificateModal"><i class="fa-solid fa-plus"></i> Zertifizierung hinzufügen</button>
         </div>
-        <div class="employsSection">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="profiledetails">
-                        <div class="mainSec">
-                            <div class="user-img">
-                                <img src="{{ $certificate->getLogoUrl() }}" alt="{{$certificate->title}}">
-                            </div>
-                            <div class="textSec">
-                                <div class="topText">
-                                    <h6>{{$certificate->title}}</h6>
-                                    <span>{{$certificate->category_name}}</span>
-                                </div>
-                                <div class="bottomText">
-                                    <p>{{$certificate->description}}</p>
-                                </div>
-                                <br><br>
-                                <div class="bottomText">
-                                    <p>Gültig vom {{ formatDateToGerman($certificate->valid_from_date) }} bis {{ formatDateToGerman($certificate->valid_to_date) }}</p>
-                                </div>
-                            </div>
+        <div class="softwareDevlop">
+            <div class="titleBox">
+                <h5>{{$certificate->category_name}} - {{$certificate->title}}</h5>
+            </div>
+            <div class="softwareDevlopBox">
+                <div class="softwareLeftBox">
+                    <div class="integrationBox">
+                        <div class="imgBox">
+                            <img src="{{ $certificate->getLogoUrl() }}" alt="{{$certificate->title}}">
                         </div>
-
-                        <div class="btncenterSec">
-                            <button class="btn btnCom" id="previewBtn">
-                                <span><img src="{{$baseUrl}}images/eye-icon.png" alt="eye-icon"></span> ZERTIFIKAT VORSCHAU
-                            </button>
-                            <button class="btn btnCom" id="downloadPdf">
-                                <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> ZERTIFIKAT PDF HERUNTERLADEN
-                                <a id="download-pdf" href="{{ $certificate->certificate_pdf_url }}" download style="display:none;"></a>
-                            </button>
-                            <button class="btn btnCom" id="downloadDoc">
-                                <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> ZERTIFIKAT DOKUMENT HERUNTERLADEN
-                                <a id="download-doc" href="{{ $certificate->certificate_word_url }}" download style="display:none;"></a>
-                            </button>
-                            <button class="btn btnGray edit-certificate" data-bs-toggle="modal" data-bs-target="#addCertificateModal" data-id="{{ $certificate->id }}">INFOS BEARBEITEN</button>
+                        <div class="textBox">
+                            <h6>{{$certificate->description}}</h6>
                         </div>
                     </div>
+                    <div class="integratiDetail">
+                        <ul>
+                            <li>
+                                <p>Gültig vom {{ formatDateToGerman($certificate->valid_from_date) }} bis {{ formatDateToGerman($certificate->valid_to_date) }}</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <div class="softwareRightBox">
+                    <div class="imgBox">
+                        {{-- <img src="assest/images/doc1.jpg" alt="doc1"> --}}
+                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ $certificate->certificate_word_url }}" width="100%" style="min-height: 600px;"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="endbtnSection">
+                <button class="btn btnCom" id="previewBtn">
+                    <span><img src="{{$baseUrl}}images/eye-icon.png" alt="eye-icon"></span> VORSCHAU
+                </button>
+                <button class="btn btnCom" id="downloadPdf">
+                    <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> PDF HERUNTERLADEN
+                    <a id="download-pdf" href="{{ $certificate->certificate_pdf_url }}" download style="display:none;"></a>
+                </button>
+                <button class="btn btnCom" id="downloadDoc">
+                    <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> DOKUMENT HERUNTERLADEN
+                    <a id="download-doc" href="{{ $certificate->certificate_word_url }}" download style="display:none;"></a>
+                </button>
+                <button class="btn btnCom edit-certificate" data-bs-toggle="modal" data-bs-target="#addCertificateModal" data-id="{{ $certificate->id }}"><span><img src="{{$baseUrl}}images/replace.png" alt="enter-file"></span> BEARBEITEN</button>
             </div>
         </div>
     </div>

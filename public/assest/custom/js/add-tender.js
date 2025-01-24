@@ -11,6 +11,40 @@ function readURL(input) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const bindingPeriod = document.getElementById('binding_period');
+    const applicantQuestionsDate = document.getElementById('applicant_questions_date');
+    const expiryOfferDate = document.getElementById('expiry_offer_date');
+
+    flatpickr("#execution_period", {
+        mode: "range", // This makes it a date range picker
+        dateFormat: "d-m-Y", // You can adjust the format
+        locale: {
+            firstDayOfWeek: 1 // Optional: Set the first day of the week to Monday
+        }
+    });
+
+    flatpickr(bindingPeriod, {
+        dateFormat: "d-m-Y",
+        allowInput: false, // Disable manual typing
+    });
+
+    flatpickr(applicantQuestionsDate, {
+        enableTime: true, // Enable time selection
+        dateFormat: "d-m-Y H:i", // Set the date and time format
+        time_24hr: true, // Use 24-hour time format
+        allowInput: false, // Disable manual typing
+    });
+
+    flatpickr(expiryOfferDate, {
+        enableTime: true, // Enable time selection
+        dateFormat: "d-m-Y H:i", // Set the date and time format
+        time_24hr: true, // Use 24-hour time format
+        allowInput: false, // Disable manual typing
+    });
+});
+
+
 // start Folder with File
 document.addEventListener("DOMContentLoaded", function () {
     const addForm = document.getElementById("addFolder");
@@ -47,17 +81,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         newFolder.innerHTML = `
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${folderId}" aria-expanded="true" aria-controls="${folderId}">
+          <button class="accordion-button cursor-default" type="button">
             ${folderName}
             <a class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFolder(this)">X</a>
           </button>
         </h2>
-        <div id="${folderId}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
+        <div class="accordion-body">
             <div class="file-list"></div>
-            <input type="file" class="authorize_document" name="folder_doc[${folderId}][]">
-          </div>
+            <input type="file" class="authorize_document custom-file-input name="folder_doc[${folderId}][]">
         </div>
+
       `;
 
         // Append the folder to the accordion
@@ -104,10 +137,10 @@ function handleFolderFileInputChange(fileInput, fileList, folderId, folderName) 
             const fileLink = document.createElement("a");
             fileLink.href = "javascript:void(0)";
             fileLink.innerHTML = `
-                <i class="fa-solid fa-file-circle-plus"></i> ${fileName}
+                <span class="cursor-default"><i class="fa-solid fa-file-circle-plus"></i> ${fileName}</span>
                 <button type="button" class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFile(this)">X</button>
             `;
-            fileLink.classList.add("d-block", "mt-1");
+            fileLink.classList.add("d-block", "mt-1", "a-txt");
 
             // To ensure appending at the end, we move any additional logic that could interfere with the order
             fileList.appendChild(fileLink);
@@ -133,7 +166,7 @@ function handleFolderFileInputChange(fileInput, fileList, folderId, folderName) 
         // Create a new file input for future uploads
         const newFileInput = document.createElement("input");
         newFileInput.type = "file";
-        newFileInput.classList.add("authorize_document");
+        newFileInput.classList.add("authorize_document", "mt-1", "custom-file-input");
         newFileInput.name = `folder_doc[${folderId}][]`;
 
         // Add the new file input after the file list
@@ -165,83 +198,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-// function handleFolderFileInputChange(fileInput, fileList, folderId, folderName) {
-//     if (fileInput.files && fileInput.files.length > 0) {
-//         Array.from(fileInput.files).forEach((file) => {
-//             const fileName = file.name;
-
-//             Array.from(fileList.querySelectorAll("a")).forEach((link) => {
-//                 console.log("Checking file link:", link.innerText.trim());  // Log the innerText of each file link
-//             });
-
-//             // Check if the file already exists in the list
-//             const existingFile = Array.from(fileList.querySelectorAll("a")).find(
-//                 (link) => link.innerText.trim().includes(fileName)
-//             );
-//             if (existingFile) {
-//                 alert("This file is already added!");
-//                 return;
-//             }
-
-//             // Create a new file link and add it to the end of the file list
-//             const fileLink = document.createElement("a");
-//             fileLink.href = "javascript:void(0)";
-//             fileLink.innerHTML = `
-//                 <i class="fa-solid fa-file-circle-plus"></i> ${fileName}
-//                 <button type="button" class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFile(this)">X</button>
-//             `;
-//             fileLink.classList.add("d-block", "mt-1");
-
-//             // Append the file link to the end of the file list
-//             fileList.appendChild(fileLink); // This ensures the file is added at the end of the list
-
-//             // Add hidden input for the uploaded file
-//             const fileHiddenInput = document.createElement("input");
-//             fileHiddenInput.type = "hidden";
-//             fileHiddenInput.name = `folder_doc[${folderId}][]`;
-//             fileHiddenInput.value = fileName;
-//             fileList.closest(".accordion-item").appendChild(fileHiddenInput);
-
-//             // Create hidden input for folder name, indexed by folderId
-//             const folderHiddenInput = document.createElement("input");
-//             folderHiddenInput.type = "hidden";
-//             folderHiddenInput.name = `folder_name[${folderId}]`; // Use folderId as key
-//             folderHiddenInput.value = folderName; // Store the folder name
-//             fileList.closest('.accordion-item').appendChild(folderHiddenInput);
-//         });
-
-//         // Hide the current file input and add a new one for future uploads
-//         fileInput.style.display = "none";
-//         const newFileInput = document.createElement("input");
-//         newFileInput.type = "file";
-//         newFileInput.classList.add("authorize_document");
-//         newFileInput.name = `folder_doc[${folderId}][]`;
-//         fileList.closest(".accordion-body").appendChild(newFileInput);
-
-//         // Attach event listener to the new file input
-//         newFileInput.addEventListener("change", function () {
-//             handleFolderFileInputChange(newFileInput, fileList, folderId, folderName);
-//         });
-//     }
-// }
-
-// // Function to attach event listeners after page load
-// document.addEventListener("DOMContentLoaded", function () {
-//     const folderItems = document.querySelectorAll(".accordion-item");
-
-//     folderItems.forEach(folder => {
-//         const folderId = folder.getAttribute("data-folder-id");
-//         const fileInput = folder.querySelector(".authorize_document");
-//         const fileList = folder.querySelector(".file-list");
-//         const folderName = folder.querySelector(".accordion-button").textContent.trim();
-
-//         // Add event listener to file input for adding new files
-//         fileInput.addEventListener("change", function () {
-//             handleFolderFileInputChange(fileInput, fileList, folderId, folderName);
-//         });
-//     });
-// });
 
 // Function to remove file and corresponding hidden input
 function removeFile(button) {
@@ -374,12 +330,13 @@ $(document).ready(function () {
             // Create a link with the file name
             const link = document.createElement('a');
             link.href = 'javascript:void(0)';
-            link.innerHTML = `<i class="fa-solid fa-file-circle-plus"></i> ${file.name}`;
+            link.innerHTML = `<span class="cursor-default"><i class="fa-solid fa-file-circle-plus"></i> ${file.name}</span>`;
             link.style.flexGrow = '1';
+            link.classList.add("a-txt");
 
             // Create a remove button
             const removeButton = document.createElement('button');
-            removeButton.className = 'btn btn-sm btn-danger m-l-10 remove-btn';
+            removeButton.className = 'btn btn-sm btn-danger ms-2 remove-btn';
             removeButton.textContent = 'X';
 
             // Add event listener to remove the item
@@ -410,7 +367,7 @@ $(document).ready(function () {
         const newFileInput = document.createElement('input');
         newFileInput.type = 'file';
         newFileInput.name = 'documents[]';
-        newFileInput.className = 'file-input';
+        newFileInput.classList.add("file-input", "custom-file-input");
 
         // Add change event listener
         newFileInput.addEventListener('change', handleFileInputChange);
@@ -427,7 +384,6 @@ $(document).ready(function () {
         $('.error').html(""); // Clear previous errors
 
         const $form = $(this);
-        const $submitButton = $form.find('button[type="submit"]');
         const formData = new FormData($form[0]);
 
         $.ajax({

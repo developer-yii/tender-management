@@ -8,7 +8,7 @@
         $('.sidebar').click(function () {
             $(this).removeClass('show');
         });
-        
+
         $('.sidebar-fix').click(function (event) {
             event.stopPropagation();
         });
@@ -17,11 +17,11 @@
             $('.dropDownInner').toggleClass('show')
         });
 
-        const maxVisibleItems = 9; // Adjust this value as needed
+        const maxVisibleItems = 10; // Adjust this value as needed
 
         $('.btnOpen').click(function () {
             const hiddenItems = $('.docListOur li.hidden');
-    
+
             if (hiddenItems.is(':hidden')) {
                 hiddenItems.slideDown(300).removeClass('hidden');
                 $(this).html('<i class="bi bi-caret-up-fill"></i>');
@@ -32,6 +32,7 @@
                 $(this).html('<i class="bi bi-caret-down-fill"></i>');
             }
         });
+
     });
 
     // ==========
@@ -52,5 +53,5 @@
             }
     });
 
-  
+
 

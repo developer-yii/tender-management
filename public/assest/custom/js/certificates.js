@@ -13,3 +13,4 @@ $('#addCertificateModal').on('hidden.bs.modal', function () {
     $('#addCertificateModal').find('#certificate-word-label').html("Certificate(Word)*");
     $('#addCertificateModal').find('#certificate-pdf-label').html("Certificate(PDF)*");
 });
+
