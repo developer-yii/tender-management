@@ -22,8 +22,6 @@ class CertificateController extends Controller
         $categoriesWithCertificates = Certificate::all()
                     ->groupBy('category_name');
         $categories = Certificate::categories;
-
-        // $categories = Category::with('certificates')->get();
         return view('admin.certificates.index', compact('categories', 'categoriesWithCertificates'));
     }
 
@@ -113,107 +111,6 @@ class CertificateController extends Controller
         }
 
     }
-
-    // private function uploadFile($file, $mainFolder, $subFolder, $oldFile = null)
-    // {
-    //     // Delete old file if exists
-    //     if ($oldFile) {
-    //         Storage::delete("public/{$mainFolder}/{$subFolder}/{$oldFile}");
-    //     }
-
-    //     $dir = "public/{$mainFolder}/{$subFolder}/";
-    //     $extension = $file->getClientOriginalExtension();
-    //     $uniqueName = uniqid() . "_" . time();
-    //     $filename = $uniqueName . '.' . $extension;
-
-    //     Storage::disk('local')->put($dir . $filename, File::get($file));
-
-    //     $filePath = storage_path("app/{$dir}{$filename}");
-
-    //     if ($extension === 'doc') {
-    //         $convertedFilePath = convertDocToDocx($filePath);
-    //         if ($convertedFilePath) {
-    //             $filePath = $convertedFilePath;
-    //             $extension = 'docx'; // Update extension after conversion
-    //             $filename = $uniqueName. '.' . $extension;
-    //         } else {
-    //             throw new \Exception("Failed to convert .doc to .docx for file: {$filePath}");
-    //         }
-    //     }
-
-    //     return $filename;
-    // }
-
-
-    // protected function convertDocToDocx($docPath)
-    // {
-    //     $docxPath = str_replace('.doc', '.docx', $docPath);
-
-    //     // LibreOffice command to convert .doc to .docx
-    //     $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to docx ' . escapeshellarg($docPath) . ' --outdir ' . escapeshellarg(dirname($docPath));
-    //     exec($command, $output, $resultCode);
-
-    //     if ($resultCode !== 0) {
-    //         return false;
-    //     }
-    //     unlink($docPath);
-    //     return $docxPath;
-    // }
-
-    // function convertDocxtoPdf($docxPath, $outputImagePath, $filenameonly)
-    // {
-    //     // Convert DOCX to PDF using LibreOffice
-    //     $command = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to pdf ' . escapeshellarg($docxPath) . ' --outdir ' . escapeshellarg($outputImagePath);
-    //     exec($command, $output, $resultCode);
-
-    //     // Check if the conversion was successful
-    //     if ($resultCode !== 0) {
-    //         throw new \Exception("Failed to convert DOCX to PDF. Command output: " . implode("\n", $output));
-    //     }
-
-    //     // Full PDF path
-    //     $fullPdfPath = $outputImagePath . $filenameonly . '.pdf';
-
-    //     // Check if the PDF was created
-    //     if (!file_exists($fullPdfPath)) {
-    //         throw new \Exception("PDF file not found: " . $fullPdfPath);
-    //     }
-
-    //     // Extract only the first page using pdftk
-    //     $firstPagePdfPath = $outputImagePath . $filenameonly . '_first_page.pdf';
-    //     $this->extractFirstPageWithGhostscript($fullPdfPath, $firstPagePdfPath);
-    //     // $this->generatePdfToImage($firstPagePdfPath, $outputImagePath);
-
-    //     return $firstPagePdfPath;
-    // }
-
-    // function extractFirstPageWithGhostscript($fullPdfPath, $firstPagePdfPath)
-    // {
-    //     // Update this path if needed based on your installation
-    //     $gsCommand = '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe" -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -o ' . escapeshellarg($firstPagePdfPath) . ' ' . escapeshellarg($fullPdfPath);
-
-    //     exec($gsCommand, $output, $resultCode);
-
-    //     // Log the result
-    //     error_log("Ghostscript command output: " . implode("\n", $output));
-    //     error_log("Ghostscript command result code: " . $resultCode);
-
-    //     unlink($fullPdfPath);
-    //     return $resultCode === 0;
-    // }
-
-    // private function generatePdfToImage($pdfPath, $outputPath)
-    // {
-    //     $imagick = new Imagick();
-    //     $imagick->setResolution(300, 300); // Set DPI
-    //     // $imagick->setOption('gs', '"C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe"');
-    //     $imagick->readImage($pdfPath . '[0]'); // Read the first page
-    //     $imagick->setImageFormat('png');
-    //     $imagick->writeImage($outputPath);
-    //     $imagick->clear();
-    //     $imagick->destroy();
-    //     unlink($pdfPath);
-    // }
 
     public function certificateDetails(Request $request)
     {

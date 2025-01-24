@@ -33,28 +33,25 @@
                         </div>
                         <div class="companyFile">
                             <ul>
-                                <li>
-                                    <a href="{{ getDocumentPath($companyData->company_presentation_word) }}">
-                                        <i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung Word
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ getDocumentPath($companyData->company_presentation_pdf) }}" target="_blank">
-                                        <i class="fa-solid fa-file-lines"></i> Unternehmensvorstellung PDF
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ getDocumentPath($companyData->agile_framework_word) }}">
-                                        <i class="fa-solid fa-file-lines"></i> Agile Framework Word
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ getDocumentPath($companyData->agile_framework_pdf) }}" target="_blank">
-                                        <i class="fa-solid fa-file-lines"></i> Agile Framework PDF
-                                    </a>
-                                </li>
+                                @foreach([
+                                    'company_presentation_word' => 'Unternehmensvorstellung Word',
+                                    'company_presentation_pdf' => 'Unternehmensvorstellung PDF',
+                                    'agile_framework_word' => 'Agile Framework Word',
+                                    'agile_framework_pdf' => 'Agile Framework PDF'
+                                ] as $fileKey => $label)
+                                    @if(!empty($companyData->$fileKey))
+                                        <li>
+                                            <a href="{{ getDocumentPath($companyData->$fileKey) }}" {{ Str::endsWith($fileKey, '_pdf') ? 'target="_blank"' : '' }}>
+                                                <i class="fa-solid fa-file-lines"></i> {{ $label }}
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
                             </ul>
+
                         </div>
+                    @else
+                        <p>Company Profile Not Found</p>
                     @endif
                 </div>
             </div>

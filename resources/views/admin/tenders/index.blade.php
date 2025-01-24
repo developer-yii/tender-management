@@ -15,41 +15,45 @@
                     <h5>Alle Ausschreibungen</h5>
                 </div>
                 <div class="tenderInner">
-                    @foreach ($tenders as $tender)
-                        <div class="tenderName">
-                            <a href="{{ route('tender.details', [$tender->id])}}">
-                                <div class="offerLeft">
-                                    <div class="imgBox">
-                                        <img src="{{ getTenderMainImage($tender) }}" alt="{{$tender->tender_name}}">
+                    @if($tenders->isNotEmpty())
+                        @foreach ($tenders as $tender)
+                            <div class="tenderName">
+                                <a href="{{ route('tender.details', [$tender->id])}}">
+                                    <div class="offerLeft">
+                                        <div class="imgBox">
+                                            <img src="{{ getTenderMainImage($tender) }}" alt="{{$tender->tender_name}}">
+                                        </div>
+                                        <div class="textBox">
+                                            <h5>{{ $tender->tender_name }}</h5>
+                                            <p>Ausführungszeitraum {{ formatDate($tender->period_from, 'd/m/Y') }} bis {{ formatDate($tender->period_to, 'd/m/Y') }}</p>
+                                        </div>
                                     </div>
-                                    <div class="textBox">
-                                        <h5>{{ $tender->tender_name }}</h5>
-                                        <p>Ausführungszeitraum {{ formatDate($tender->period_from, 'd/m/Y') }} bis {{ formatDate($tender->period_to, 'd/m/Y') }}</p>
+                                </a>
+                                <div class="textName">
+                                    <h6>
+                                        @if($tender->users && $tender->users->isNotEmpty())
+                                            {{ $tender->users->map(fn($user) => $user->first_name . ' ' . $user->last_name)->implode(', ') }}
+                                        @else
+                                            No users associated
+                                        @endif
+                                    </h6>
+                                </div>
+                                <div class="dateTime">
+                                    <p> {{ formatDate($tender->offer_period_expiration, 'd.m.Y | h:i') }}</p>
+                                </div>
+                                <div class="viewstatus">
+                                    <div class="statusIcon">
+                                        <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" alt="{{ $tender->status_text }}">
+                                    </div>
+                                    <div class="text">
+                                        <p>{{ $tender->status_text }}</p>
                                     </div>
                                 </div>
-                            </a>
-                            <div class="textName">
-                                <h6>
-                                    @if($tender->users && $tender->users->isNotEmpty())
-                                        {{ $tender->users->map(fn($user) => $user->first_name . ' ' . $user->last_name)->implode(', ') }}
-                                    @else
-                                        No users associated
-                                    @endif
-                                </h6>
                             </div>
-                            <div class="dateTime">
-                                <p> {{ formatDate($tender->offer_period_expiration, 'd.m.Y | h:i') }}</p>
-                            </div>
-                            <div class="viewstatus">
-                                <div class="statusIcon">
-                                    <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" alt="{{ $tender->status_text }}">
-                                </div>
-                                <div class="text">
-                                    <p>{{ $tender->status_text }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        <p>No Data Found</p>
+                    @endif
                 </div>
             </div>
             <div class="employsBox commonBackview">
@@ -57,45 +61,37 @@
                     <div class="titleBox">
                         <h5>Mitarbeiter</h5>
                     </div>
-                    <div class="employMainBox">
-                        <div class="employViewBox">
-                            @foreach ($employees as $employee)
-                                <div class="employProfile" data-employee-id="{{ $employee->id }}">
-                                    <div class="imgBox">
-                                        <img src="{{ $employee->getProfilePicUrl() }}" alt="Profile Picture">
+                    @if($employees->isNotEmpty())
+                        <div class="employMainBox">
+                            <div class="employViewBox">
+                                @foreach ($employees as $employee)
+                                    <div class="employProfile" data-employee-id="{{ $employee->id }}">
+                                        <div class="imgBox">
+                                            <img src="{{ $employee->getProfilePicUrl() }}" alt="Profile Picture">
+                                        </div>
+                                        <div class="textBox">
+                                            <h5>{{ $employee->first_name }} {{ $employee->last_name }}</h5>
+                                            <p>{{ $employee->email }}</p>
+                                            <button class="btn iconEdit"><i class="bi bi-eye-fill"></i></button>
+                                        </div>
                                     </div>
-                                    <div class="textBox">
-                                        <h5>{{ $employee->first_name }} {{ $employee->last_name }}</h5>
-                                        <p>{{ $employee->email }}</p>
-                                        <button class="btn iconEdit"><i class="bi bi-eye-fill"></i></button>
+                                @endforeach
+                            </div>
+                            <div class="markusTender">
+                                <div class="tenderAll">
+                                    <div class="titleBox">
+                                        <h5 id="employee-name"></h5>
                                     </div>
+                                    <ul id="tenderList">
+                                    </ul>
                                 </div>
-                            @endforeach
-                        </div>
-                        <div class="markusTender">
-                            <div class="tenderAll">
-                                <div class="titleBox">
-                                    <h5 id="employee-name"></h5>
-                                </div>
-                                <ul id="tenderList">
-                                    @foreach ($employees as $employee)
-                                        @if($employee->tenders)
-                                            @foreach ($employee->tenders as $tender)
-                                                <li data-employee-id="{{$employee->id}}">
-                                                    <div class="statusIcon">
-                                                        <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" alt="{{ $tender->status_text }}">
-                                                    </div>
-                                                    <div class="text">
-                                                        <p>{{ $tender->tender_name }}</p>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                </ul>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="employMainBox">
+                            <p>No Data Found</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

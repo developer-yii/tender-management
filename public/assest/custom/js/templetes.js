@@ -1,3 +1,55 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const pdfCanvases = document.querySelectorAll("canvas[data-url]");
+    pdfCanvases.forEach(canvas => {
+        const url = canvas.getAttribute("data-url");
+        fetch(url)
+            .then(response => response.arrayBuffer())
+            .then(data => {
+                const loadingTask = pdfjsLib.getDocument({ data: data });
+                loadingTask.promise.then(pdf => {
+                    pdf.getPage(1).then(page => {
+                        const context = canvas.getContext('2d');
+
+                        const viewport = page.getViewport({ scale: 0.5 });
+                        canvas.height = viewport.height / 2;
+                        canvas.width = viewport.width;
+
+                        const halfViewport = page.getViewport({
+                            scale: 0.5,
+                            offsetY: 0
+                        });
+
+                        page.render({
+                            canvasContext: context,
+                            viewport: halfViewport
+                        });
+                    });
+                }).catch(err => {
+                    console.error("Error loading PDF:", err);
+                });
+            })
+            .catch(err => {
+                console.error("Error fetching PDF:", err);
+            });
+    });
+});
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('download-btn')) {
+        const fileUrl = event.target.getAttribute('data-url');
+        if (fileUrl) {
+            const tempLink = document.createElement('a');
+            tempLink.href = fileUrl;
+            tempLink.download = ''; // Use the filename from the URL or customize it
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
+        } else {
+            console.error('Download URL not found!');
+        }
+    }
+});
+
 handleFormSubmission('#addForm', createUrl, 'addModal', listUrl);
 
 $('body').on('click', '.edit-templete', function () {

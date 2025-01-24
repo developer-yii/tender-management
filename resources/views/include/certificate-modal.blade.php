@@ -49,11 +49,11 @@
                             <div class="dateSelect">
                                 <label for="">Valid From(Start Date/End Date)*</label>
                                 <div class="form-group boxForm range">
-                                    <input type="date" class="flat" placeholder="Start Date" name="start_date" id="start_date">
+                                    <input type="text" class="flat" placeholder="Start Date" name="start_date" id="start_date">
                                     <span>To</span>
-                                    <input type="date" class="flat" placeholder="End Date" name="end_date" id="end_date">
+                                    <input type="text" class="flat" placeholder="End Date" name="end_date" id="end_date">
                                 </div>
-                                <span class="error"></span>
+                                <span class="error" id="error_message"></span>
                             </div>
                         </div>
                     </div>

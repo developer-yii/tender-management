@@ -12,9 +12,11 @@ class ReferenceController extends Controller
 {
     public function index()
     {
+        $references = Reference::all();
         $tags = Tag::with('references')->get();
         $referencesWithoutTags = Reference::doesntHave('tags')->get();
-        return view('admin.references.index', compact('tags', 'referencesWithoutTags'));
+
+        return view('admin.reference.index', compact('tags', 'referencesWithoutTags', 'references'));
     }
 
     public function addupdate(Request $request)
@@ -111,7 +113,7 @@ class ReferenceController extends Controller
         }
         $tags = Tag::all();
         $this->getFilePath($reference);
-        return view('admin.references.details', compact('tags', 'reference'));
+        return view('admin.reference.details', compact('tags', 'reference'));
     }
 
     public function detail(Request $request)

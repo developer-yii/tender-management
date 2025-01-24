@@ -45,7 +45,7 @@
                         </div>
                         <div class="multyBnt">
                             @foreach($employee->tags as $employeeTag)
-                                <button class="btn btnCommonTag">{{$employeeTag->name}}</button>
+                                <button class="btn btnCommonTag cursor-default">{{$employeeTag->name}}</button>
                             @endforeach
                         </div>
                     </div>
@@ -54,57 +54,31 @@
                     <div class="markusTender">
                         <div class="tenderAll">
                             <div class="titleBox">
-                                <h5>Markus Ausschreibungen:</h5>
+                                <h5>{{$employee->first_name}} {{$employee->last_name}} Ausschreibungen:</h5>
                             </div>
+
                             <ul>
-                                <li>
-                                    <div class="statusIcon">
-                                        <img src="{{$baseUrl}}images/Wait.png" alt="Wait">
-                                    </div>
-                                    <div class="text">
-                                        <p>-</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="statusIcon">
-                                        <img src="{{$baseUrl}}images/orange-dot.png" alt="orange-dot">
-                                    </div>
-                                    <div class="text">
-                                        <p>-</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="statusIcon">
-                                        <img src="{{$baseUrl}}images/orange-dot.png" alt="orange-dot">
-                                    </div>
-                                    <div class="text">
-                                        <p>-</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="statusIcon">
-                                        <img src="{{$baseUrl}}images/green-dot.png" alt="green-dot">
-                                    </div>
-                                    <div class="text">
-                                        <p>-</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="statusIcon">
-                                        <img src="{{$baseUrl}}images/gray-dot.png" alt="gray-dot">
-                                    </div>
-                                    <div class="text">
-                                        <p>-</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="statusIcon">
-                                        <img src="{{$baseUrl}}images/gray-dot.png" alt="gray-dot">
-                                    </div>
-                                    <div class="text">
-                                        <p>-</p>
-                                    </div>
-                                </li>
+                                @if($employee->tenders->isNotEmpty())
+                                @foreach($employee->tenders as $employeeTender)
+                                    <li>
+                                        <div class="statusIcon">
+                                            <img src="{{ $baseUrl .'images/'. $employeeTender->status_icon }}" alt="{{ $employeeTender->status_text }}">
+                                        </div>
+                                        <div class="text">
+                                            <p>{{$employeeTender->tender_name}}</p>
+                                        </div>
+                                    </li>
+                                @endforeach
+                                @else
+                                    <li>
+                                        <div class="statusIcon">
+                                            <img src="{{ $baseUrl .'images/gray-dot.png' }}" alt="No tender">
+                                        </div>
+                                        <div class="text">
+                                            <p>No Tender Assign</p>
+                                        </div>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>

@@ -8,6 +8,70 @@ $(document).ready(function () {
     } );
 });
 
+// Initialize Flatpickr
+document.addEventListener('DOMContentLoaded', function () {
+    const startDateInput = document.getElementById('start_date');
+    const endDateInput = document.getElementById('end_date');
+    const errorMessage = document.getElementById('error_message');
+
+    if (!startDateInput || !endDateInput) {
+        return;
+    }else{
+
+        function updateErrorMessage(message) {
+            if (errorMessage) {
+                errorMessage.textContent = message || '';
+            }
+        }
+
+        const startDatePicker = flatpickr(startDateInput, {
+            dateFormat: "d-m-Y",
+            allowInput: false, // Disable manual typing
+            onChange: function (selectedDates) {
+                const startDate = selectedDates[0];
+                const endDate = endDatePicker.selectedDates[0];
+
+                if (startDate) {
+                    endDatePicker.set('minDate', startDate); // Set minDate for end date
+                    endDatePicker.set('disable', []); // Clear any disabled dates
+                }
+
+                // Validate date order
+                if (endDate && startDate && endDate < startDate) {
+                    updateErrorMessage('Start Date cannot be after End Date.');
+                    startDateInput.value = ''; // Clear invalid end date
+                } else {
+                    updateErrorMessage();
+                }
+            }
+        });
+
+        // Initialize flatpickr for end date
+        const endDatePicker = flatpickr(endDateInput, {
+            dateFormat: "d-m-Y",
+            allowInput: false, // Disable manual typing
+            disable: [], // No disabled dates initially
+            onChange: function (selectedDates) {
+                const startDate = startDatePicker.selectedDates[0];
+                const endDate = selectedDates[0];
+
+                if (endDate) {
+                    startDatePicker.set('maxDate', endDate); // Set maxDate for start date
+                    startDatePicker.set('disable', []); // Clear any disabled dates
+                }
+
+                // Validate date order
+                if (endDate && startDate && endDate < startDate) {
+                    updateErrorMessage('End Date cannot be before Start Date.');
+                    endDateInput.value = ''; // Clear invalid end date
+                } else {
+                    updateErrorMessage();
+                }
+            }
+        });
+    }
+});
+
 function handleFormSubmission(formSelector, url, modalId, listUrl) {
     $(formSelector).submit(function (event) {
         event.preventDefault();
@@ -75,32 +139,60 @@ function handleErrors(errors, formSelector) {
     $(formSelector).find(`#${firstInput}`).focus();
 }
 
-document.getElementById('previewBtn').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent default link behavior
+document.addEventListener('DOMContentLoaded', function () {
+    var previewBtn = document.getElementById('previewBtn');
+    if (previewBtn) {
+        previewBtn.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default link behavior
+            var fileExtension = fileUrl.split('.').pop().toLowerCase();
+            var previewBody = document.getElementById('previewBody');
+            var previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
 
-    var fileExtension = fileUrl.split('.').pop().toLowerCase();
+            // Render content based on file type
+            if (fileExtension === 'pdf') {
+                previewBody.innerHTML = `<embed src="${fileUrl}" type="application/pdf" width="100%" height="600px" />`;
+            } else if (fileExtension === 'doc' || fileExtension === 'docx') {
+                previewBody.innerHTML = "<p>No preview available for this file.</p>";
+            } else if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
+                previewBody.innerHTML = `<img src="${fileUrl}" alt="Image" style="width: 100%; height: auto; cursor: pointer;">`;
+            } else {
+                previewBody.innerHTML = "<p>No preview available for this file type.</p>";
+            }
 
-    var previewBody = document.getElementById('previewBody');
-    var previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
-
-    if (fileExtension === 'pdf') {
-        previewBody.innerHTML = `<embed src="${fileUrl}" type="application/pdf" width="100%" height="600px" />`;
-    } else if (fileExtension === 'doc' || fileExtension === 'docx') {
-        previewBody.innerHTML = "<p>No preview available for this file.</p>";
-    } else if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
-        previewBody.innerHTML = `<img src="${fileUrl}" alt="Image" style="width: 100%; height: auto; cursor: pointer;">`;
+            // Show the modal
+            previewModal.show();
+        });
     } else {
-        previewBody.innerHTML = "<p>No preview available for this file type.</p>";
+        return;
     }
-    previewModal.show();
-});
 
-document.getElementById('downloadPdf').addEventListener('click', function() {
-    var downloadLink = document.getElementById('download-pdf');
-    downloadLink.click(); // Trigger download action
-});
+    // Handle download PDF button
+    var downloadPdfBtn = document.getElementById('downloadPdf');
+    if (downloadPdfBtn) {
+        downloadPdfBtn.addEventListener('click', function () {
+            var downloadLink = document.getElementById('download-pdf');
+            if (downloadLink) {
+                downloadLink.click(); // Trigger download action
+            } else {
+                console.error("Download link not found.");
+            }
+        });
+    } else {
+        return;
+    }
 
-document.getElementById('downloadDoc').addEventListener('click', function() {
-    var downloadLink = document.getElementById('download-doc');
-    downloadLink.click(); // Trigger download action
+    // Handle download PDF button
+    var downloadDocBtn = document.getElementById('downloadDoc');
+    if (downloadDocBtn) {
+        downloadDocBtn.addEventListener('click', function () {
+            var downloadLink = document.getElementById('download-doc');
+            if (downloadLink) {
+                downloadLink.click(); // Trigger download action
+            } else {
+                console.error("Download link not found.");
+            }
+        });
+    } else {
+        return;
+    }
 });

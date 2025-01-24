@@ -26,10 +26,9 @@ class TenderController extends Controller
         if (isAdmin()) {
             $tenders = Tender::with(['files', 'users'])->get();
         } else {
-            // Employee: Fetch only tenders assigned to the logged-in user
             $tenders = Tender::with(['files', 'users'])
                 ->whereHas('users', function ($query) {
-                    $query->where('users.id', Auth::id()); // Explicitly specify the 'users.id' column
+                    $query->where('users.id', Auth::id());
                 })
                 ->get();
         }
@@ -42,8 +41,6 @@ class TenderController extends Controller
             return view('admin.tenders.my-tenders', compact('tenders'));
         }
 
-        // $documents = Certificate::all();
-        // return view('admin.tenders.demo');
     }
 
     public function getTenders(Request $request)
@@ -62,16 +59,12 @@ class TenderController extends Controller
     {
         $tender = Tender::with('files')->find($request->id);
 
-        // $mainFile = $tender->files()
-        //     ->where('type', 'main')
-        //     ->first();
-        //     pre($mainFile);
-        // $tender->main_image = $mainFile ? $mainFile->file_path : null;
         $folder_files = $tender->files()
                     ->where('type', 'folder')
                     ->get()
                     ->groupBy('folder_name');
         $mainFile = getTenderFiles($tender, 'main')->first();
+        $documentFiles = getTenderFiles($tender, 'documents');
         $tender->main_image = $mainFile ? $mainFile->file_path : null;
         $folder_files = getTenderFiles($tender, 'folder', 'folder_name');
 
@@ -79,7 +72,7 @@ class TenderController extends Controller
             abort(404);
         }
 
-        return view('admin.tenders.details', compact('tender', 'folder_files'));
+        return view('admin.tenders.details', compact('tender', 'folder_files', 'documentFiles'));
     }
 
     public function addEdit(Request $request)
@@ -105,154 +98,6 @@ class TenderController extends Controller
         return view('admin.tenders.add', compact('tenderStatus', 'abgabeForms', 'options', 'employees', 'tender', 'folder_files'));
     }
 
-
-    // public function downloadDocx(Request $request)
-    // {
-    //     $data = $request->all();
-
-    //     // Access the 'loadedDocx' array
-    //     $loadedDocx = $data['loadedDocx'] ?? [];
-
-    //     $docxFiles = [];
-    //     foreach ($loadedDocx as $item) {
-    //         $parts = explode('-', $item);
-    //         if (count($parts) === 2) {
-    //             $type = $parts[0];
-    //             $id = $parts[1];
-
-    //             $filePath = null;
-
-    //             if($type == "tender"){
-    //                 $file = TenderFile::find($id);
-    //                 $filePath = $file->getFilePathUrl();
-    //             }elseif($type == "team"){
-    //                 $file = User::find($id);
-    //                 $filePath = $file->getDocumentUrl();
-    //             }elseif($type == "certificate"){
-    //                 $file = Certificate::find($id);
-    //                 $filePath = $file->getCertificateWordUrl();
-    //             }elseif($type == "reference"){
-    //                 $file = Reference::find($id);
-    //                 $filePath = $file->getFileWordUrl();
-    //             }
-    //             elseif($type == "presentation"){
-    //                 $file = Company::find($id);
-    //                 $filePath = getDocumentPath($file->company_presentation_word);
-    //             }elseif($type == "framework"){
-    //                 $file = Company::find($id);
-    //                 $filePath = getDocumentPath($file->agile_framework_word);
-    //             }
-
-    //             if ($filePath) {
-    //                 // $docxFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
-    //                 $docxFiles[] = $filePath;
-    //             }
-    //         }
-    //     }
-
-    //     if (!empty($docxFiles)) {
-    //         $uniqueFileName = date('d_m_Y') . '_' . uniqid() . '.docx';
-    //         $outputDir = public_path('storage/mergedFile/');
-    //         $mergedFilePath = $outputDir . $uniqueFileName;
-
-    //         if (!is_dir($outputDir) && !mkdir($outputDir, 0755, true) && !is_dir($outputDir)) {
-    //             throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
-    //         }
-
-    //         try {
-    //             // Get a list of existing files in the directory
-    //             $existingFiles = glob($outputDir . '*');
-
-    //             // Merge the files
-    //             $dm = new DocxMerge();
-    //             $dm->merge($docxFiles, $mergedFilePath);
-
-    //             // Get a list of files after the merge
-    //             $newFiles = glob($outputDir . '*');
-
-    //             // Find the new temp files created
-    //             $tempFiles = array_diff($newFiles, $existingFiles);
-
-    //             // Delete the temp files
-    //             foreach ($tempFiles as $file) {
-    //                 if ($file !== $mergedFilePath && is_file($file)) {
-    //                     unlink($file);
-    //                 }
-    //             }
-    //         } catch (\Exception $e) {
-    //             error_log('Error merging DOCX files: ' . $e->getMessage());
-    //             throw $e;
-    //         }
-    //     }
-
-
-    //     // if (!empty($docxFiles)) {
-    //     //     // Filter and validate files
-    //     //     $docxFiles = array_filter($docxFiles, function ($file) {
-    //     //         return file_exists($file) && pathinfo($file, PATHINFO_EXTENSION) === 'docx';
-    //     //     });
-
-    //     //     if (!empty($docxFiles)) {
-    //     //         $mergedFilePath = public_path('storage/mergedFile/merged_document.docx');
-
-    //     //         // Ensure the directory exists
-    //     //         if (!is_dir(dirname($mergedFilePath))) {
-    //     //             mkdir(dirname($mergedFilePath), 0755, true);
-    //     //         }
-
-    //     //         $dm = new DocxMerge();
-
-    //     //         try {
-    //     //             $dm->merge($docxFiles, $mergedFilePath);
-    //     //             \Log::info("Merge completed successfully: $mergedFilePath");
-    //     //         } catch (\Exception $e) {
-    //     //             \Log::error("Error during DocxMerge: " . $e->getMessage());
-    //     //         }
-    //     //     } else {
-    //     //         \Log::error("No valid .docx files to merge.");
-    //     //     }
-    //     // } else {
-    //     //     \Log::error("No files provided for merging.");
-    //     // }
-
-    //     // $pdfFilesData = [
-    //     //     public_path(parse_url("/storage/demofile/test-1.pdf", PHP_URL_PATH)),
-    //     //     public_path(parse_url("/storage/demofile/Get_Started_With_Smallpdf.pdf", PHP_URL_PATH)),
-    //     //     public_path(parse_url("/storage/demofile/certificates2.pdf", PHP_URL_PATH)),
-    //     //     // public_path(parse_url("/storage/demofile/certificates1.pdf", PHP_URL_PATH)),
-    //     // ];
-    //     // pre([$pdfFiles, $pdfFilesData]);
-
-    //     // $pdfMerger = PDFMerger::init(); //Initialize the merger
-    //     // foreach ($pdfFiles as $file) {
-    //     //     $pdfMerger->addPDF($file);
-    //     // }
-
-    //     // $pdfMerger->merge();
-    //     // $outputPath = public_path('storage/merged/merged_pdf.pdf');
-    //     // $pdfMerger->save($outputPath);
-    //     // exit;
-
-    //     // $documents = Certificate::all();
-
-    //     // $allFiles = [];
-    //     // foreach ($documents as $document) {
-    //     //     $relativePath = $document->getCertificateWordUrl(); // e.g., /storage/demofile/certificates1.docx
-    //     //     $filePath = public_path(parse_url($relativePath, PHP_URL_PATH));
-    //     //     if (!file_exists($filePath)) {
-    //     //         continue; // Skip missing files
-    //     //     }
-    //     //     $allFiles[]= $filePath;
-    //     // }
-    //     // if(!empty($allFiles)){
-    //     //     $dm = new DocxMerge();
-    //     //     $dm->merge($allFiles, public_path('storage/demofile/merged_document.docx'));
-    //     // }
-
-    //     // return view('admin.tenders.demo', compact('documents'));
-    //     // return view('admin.tenders.add');
-    // }
-
     public function previewDocx(Request $request)
     {
         $fileUrl = $request->file_url;
@@ -267,22 +112,6 @@ class TenderController extends Controller
 
     public function mergeDocx(Request $request)
     {
-        // $uniqueFileName = date('d_m_Y') . '_' . uniqid() . '.docx';
-        // $outputDir = public_path('storage/mergedFile/');
-        // $mergedFilePath = $outputDir . $uniqueFileName;
-
-        // if (!is_dir($outputDir) && !mkdir($outputDir, 0755, true) && !is_dir($outputDir)) {
-        //     throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
-        // }
-        // $docFilesData = [
-        //     public_path(parse_url("/storage/demofile/company-1.docx", PHP_URL_PATH)),
-        //     public_path(parse_url("/storage/demofile/sample3.docx", PHP_URL_PATH)),
-        //     public_path(parse_url("/storage/demofile/Exio.docx", PHP_URL_PATH)),
-        // ];
-
-        // $dm = new DocxMerge();
-        // $dm->merge($docFilesData, $mergedFilePath);
-
         $data = $request->all();
         $action = $data['action'] ?? 'download';
 
@@ -355,7 +184,7 @@ class TenderController extends Controller
                 if ($action === 'preview') {
                     return response()->json([
                         'status' => true,
-                        'file_url' => asset('storage/mergedFile/' . $uniqueFileName)
+                        'file_url' => $uniqueFileName
                     ]);
                 }
 
@@ -381,142 +210,10 @@ class TenderController extends Controller
         ]);
     }
 
-    // public function mergePdf(Request $request)
-    // {
-    //     $data = $request->all();
-    //     $loadedPdf = $data['loadedPdf'] ?? [];
-    //     $pdfFiles = [];
-
-    //     // Loop through the loaded PDFs and get their file paths
-    //     foreach ($loadedPdf as $item) {
-    //         $parts = explode('-', $item);
-    //         if (count($parts) === 2) {
-    //             $type = $parts[0];
-    //             $id = $parts[1];
-    //             $filePath = null;
-
-    //             // Determine the file path based on the type
-    //             switch ($type) {
-    //                 case 'tender':
-    //                     $file = TenderFile::find($id);
-    //                     $filePath = $file ? $file->getFilePathUrl() : null;
-    //                     break;
-    //                 case 'team':
-    //                     $file = User::find($id);
-    //                     $filePath = $file ? $file->getCvUrl() : null;
-    //                     break;
-    //                 case 'certificate':
-    //                     $file = Certificate::find($id);
-    //                     $filePath = $file ? $file->getCertificatePdfUrl() : null;
-    //                     break;
-    //                 case 'reference':
-    //                     $file = Reference::find($id);
-    //                     $filePath = $file ? $file->getFilePdfUrl() : null;
-    //                     break;
-    //                 case 'document':
-    //                     $file = Document::find($id);
-    //                     $filePath = $file ? $file->getDocumentPdfUrl() : null;
-    //                     break;
-    //                 case 'presentation':
-    //                     $file = Company::find($id);
-    //                     $filePath = $file ? getDocumentPath($file->company_presentation_pdf) : null;
-    //                     break;
-    //                 case 'framework':
-    //                     $file = Company::find($id);
-    //                     $filePath = $file ? getDocumentPath($file->agile_framework_pdf) : null;
-    //                     break;
-    //             }
-
-    //             // Log the file path for debugging
-    //             \Log::info('File path: ' . $filePath);
-
-    //             // Add the file path if found
-    //             if ($filePath) {
-    //                 // Use public_path to resolve the file
-    //                 $resolvedPath = public_path(parse_url($filePath, PHP_URL_PATH));
-    //                 \Log::info('Resolved file path: ' . $resolvedPath); // Log resolved path
-
-    //                 // Check if the file exists before adding to the merge list
-    //                 if (file_exists($resolvedPath)) {
-    //                     $pdfFiles[] = $resolvedPath;
-    //                     \Log::info('PDF added for merging: ' . $resolvedPath);
-    //                 } else {
-    //                     \Log::error('File does not exist: ' . $resolvedPath); // Log if file does not exist
-    //                 }
-    //             } else {
-    //                 \Log::warning('No file found for ID: ' . $id); // Log if no file path found
-    //             }
-    //         } else {
-    //             \Log::warning('Invalid item format: ' . $item); // Log if item format is invalid
-    //         }
-    //     }
-
-    //     // Check if there are PDFs to merge
-    //     if (!empty($pdfFiles)) {
-    //         // Generate a unique filename
-    //         $uniqueFileName = date('d_m_Y') . '_' . uniqid() . '.pdf';
-
-    //         // Set the path for the merged PDF
-    //         $mergedFilePath = public_path('storage/mergedFile/' . $uniqueFileName);
-
-    //         // Create the directory if it doesn't exist
-    //         if (!is_dir(dirname($mergedFilePath))) {
-    //             try {
-    //                 mkdir(dirname($mergedFilePath), 0755, true);
-    //                 \Log::info('Directory created: ' . dirname($mergedFilePath));
-    //             } catch (\Exception $e) {
-    //                 \Log::error('Error creating directory: ' . $e->getMessage());
-    //                 return response()->json([
-    //                     'status' => false,
-    //                     'message' => 'Failed to create directory for merged file.'
-    //                 ]);
-    //             }
-    //         }
-
-    //         // Initialize the PDFMerger
-    //         $pdfMerger = PDFMerger::init();
-
-    //         // Add each PDF to the merger
-    //         foreach ($pdfFiles as $file) {
-    //             if (file_exists($file)) {
-    //                 $pdfMerger->addPDF($file);
-    //             } else {
-    //                 \Log::error('File not found when adding to merge: ' . $file);
-    //             }
-    //         }
-
-    //         // Merge and save the output file
-    //         try {
-    //             $pdfMerger->merge();
-    //             $pdfMerger->save($mergedFilePath);
-
-    //             // Respond with the merged PDF details
-    //             return response()->json([
-    //                 'status' => true,
-    //                 'file_url' => asset('storage/mergedFile/' . $uniqueFileName),
-    //                 'file_name' => $uniqueFileName
-    //             ]);
-    //         } catch (\Exception $e) {
-    //             \Log::error('Error merging PDFs: ' . $e->getMessage());
-    //             return response()->json([
-    //                 'status' => false,
-    //                 'message' => 'Failed to merge PDFs.'
-    //             ]);
-    //         }
-    //     }
-
-    //     // Return error message if no PDFs to merge
-    //     \Log::warning('No valid PDFs to merge.');
-    //     return response()->json([
-    //         'status' => false,
-    //         'message' => 'No valid PDFs to merge.'
-    //     ]);
-    // }
-
-
     public function mergePdf(Request $request)
     {
         $data = $request->all();
+        $action = $data['action'] ?? 'download';
         $loadedPdf = $data['loadedPdf'] ?? [];
         $pdfFiles = [];
 
@@ -533,25 +230,21 @@ class TenderController extends Controller
                     $folder = "tenders";
                     $subFolder = "tender" . $file->tender_id;
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->file_path);
-                    // $filePath = $file->getFilePathUrl();
                 }elseif($type == "team"){
                     $file = User::find($id);
                     $folder = "employees";
                     $subFolder = "employee" . $file->id;
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->cv);
-                    // $filePath = $file->getCvUrl();
                 }elseif($type == "certificate"){
                     $file = Certificate::find($id);
                     $folder = "certificates";
                     $subFolder = "certificate" . $file->id;
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->certificate_pdf);
-                    // $filePath = $file->getCertificatePdfUrl();
                 }elseif($type == "reference"){
                     $file = Reference::find($id);
                     $folder = "references";
                     $subFolder = "reference" . $file->id;
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->file_pdf);
-                    // $filePath = $file->getFilePdfUrl();
                 } elseif($type == "document"){
                     $file = Document::find($id);
                     $folder = "documents";
@@ -563,95 +256,18 @@ class TenderController extends Controller
                     $folder = "company-documents";
                     $subFolder = "";
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->company_presentation_pdf);
-                    // $filePath = getDocumentPath($file->company_presentation_pdf);
                 }elseif($type == "framework"){
                     $file = Company::find($id);
                     $folder = "company-documents";
                     $subFolder = "";
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->agile_framework_pdf);
-                    // $filePath = getDocumentPath($file->agile_framework_pdf);
                 }
 
-                // if ($filePath) {
-                //     try {
-                //         // Download the file to a temporary location
-                //         $tempPath = public_path('storage/tempPdfFile/' . uniqid() . '.pdf');
-                //         if (!is_dir(dirname($tempPath))) {
-                //             mkdir(dirname($tempPath), 0755, true);
-                //         }
-
-                //         $response = Http::get($filePath);
-                //         if ($response->successful()) {
-                //             file_put_contents($tempPath, $response->body());
-                //             $pdfFiles[] = $tempPath;
-                //         } else {
-                //             logger()->warning("Failed to download file: $filePath");
-                //         }
-                //     } catch (\Exception $e) {
-                //         logger()->error("Error downloading file: $filePath, Exception: " . $e->getMessage());
-                //     }
-                // }
-
-
                 if ($filePath) {
-                    // $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
-                    // public_path(parse_url("/storage/demofile/test-1.pdf", PHP_URL_PATH)),
-                    // $pdfFiles[] = storage_path('app/public/tenders/tender1/6790899891ebd_1737525656_first_page.pdf');
-                    // $pdfFiles[] = $filePath;
-
                     $pdfFiles[] = $filePath;
-
                 }
             }
         }
-
-
-
-        // foreach ($loadedPdf as $item) {
-        //     $parts = explode('-', $item);
-        //     if (count($parts) === 2) {
-        //         $type = $parts[0];
-        //         $id = $parts[1];
-        //         $filePath = null;
-
-        //         // Determine the file path based on the type
-        //         switch ($type) {
-        //             case 'tender':
-        //                 $file = TenderFile::find($id);
-        //                 $filePath = $file ? $file->getFilePathUrl() : null;
-        //                 break;
-        //             case 'team':
-        //                 $file = User::find($id);
-        //                 $filePath = $file ? $file->getCvUrl() : null;
-        //                 break;
-        //             case 'certificate':
-        //                 $file = Certificate::find($id);
-        //                 $filePath = $file ? $file->getCertificatePdfUrl() : null;
-        //                 break;
-        //             case 'reference':
-        //                 $file = Reference::find($id);
-        //                 $filePath = $file ? $file->getFilePdfUrl() : null;
-        //                 break;
-        //             case 'document':
-        //                 $file = Document::find($id);
-        //                 $filePath = $file ? $file->getDocumentPdfUrl() : null;
-        //                 break;
-        //             case 'presentation':
-        //                 $file = Company::find($id);
-        //                 $filePath = $file ? getDocumentPath($file->company_presentation_pdf) : null;
-        //                 break;
-        //             case 'framework':
-        //                 $file = Company::find($id);
-        //                 $filePath = $file ? getDocumentPath($file->agile_framework_pdf) : null;
-        //                 break;
-        //         }
-
-        //         // Add the file path if found
-        //         if ($filePath) {
-        //             $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
-        //         }
-        //     }
-        // }
 
         // Check if there are PDFs to merge
         if (!empty($pdfFiles)) {
@@ -685,18 +301,22 @@ class TenderController extends Controller
                 echo "Error merging PDFs: " . $e->getMessage();
             }
 
-            // foreach ($pdfFiles as $file) {
-            //     if (file_exists($file)) {
-            //         unlink($file);
-            //     }
-            // }
-
             // Respond with the merged PDF details
-            return response()->json([
-                'status' => true,
-                'file_url' => asset('storage/mergedFile/' . $uniqueFileName),
-                'file_name' => $uniqueFileName
-            ]);
+            if ($action === 'preview') {
+                return response()->json([
+                    'status' => true,
+                    'file_url' => $uniqueFileName
+                ]);
+            }
+
+            if ($action === 'download') {
+                return response()->json([
+                    'status' => true,
+                    'file_url' => asset('storage/mergedFile/' . $uniqueFileName),
+                    'file_name' => $uniqueFileName
+                ]);
+            }
+
         }
 
         return response()->json([
@@ -704,151 +324,6 @@ class TenderController extends Controller
             'message' => 'No valid PDFs to merge.'
         ]);
     }
-
-
-    // public function mergePdf(Request $request)
-    // {
-    //     $data = $request->all();
-    //     $loadedPdf = $data['loadedPdf'] ?? [];
-    //     $pdfFiles = [];
-    //     foreach ($loadedPdf as $item) {
-    //         $parts = explode('-', $item);
-    //         if (count($parts) === 2) {
-    //             $type = $parts[0];
-    //             $id = $parts[1];
-
-    //             $filePath = null;
-
-    //             if($type == "tender"){
-    //                 $file = TenderFile::find($id);
-    //                 $filePath = $file->getFilePathUrl();
-    //             }elseif($type == "team"){
-    //                 $file = User::find($id);
-    //                 $filePath = $file->getCvUrl();
-    //             }elseif($type == "certificate"){
-    //                 $file = Certificate::find($id);
-    //                 $filePath = $file->getCertificatePdfUrl();
-    //             }elseif($type == "reference"){
-    //                 $file = Reference::find($id);
-    //                 $filePath = $file->getFilePdfUrl();
-    //             } elseif($type == "document"){
-    //                 $file = Document::find($id);
-    //                 $filePath = $file->getDocumentPdfUrl();
-    //             }elseif($type == "presentation"){
-    //                 $file = Company::find($id);
-    //                 $filePath = getDocumentPath($file->company_presentation_pdf);
-    //             }elseif($type == "framework"){
-    //                 $file = Company::find($id);
-    //                 $filePath = getDocumentPath($file->agile_framework_pdf);
-    //             }
-
-    //             if ($filePath) {
-    //                 $pdfFiles[] = public_path(parse_url($filePath, PHP_URL_PATH));
-    //                 // $pdfFiles[] = $filePath;
-    //             }
-    //         }
-    //     }
-
-    //     $pdfFiles = [
-    //         // public_path(parse_url("/storage/tenders/tender1/678ddf9d77f9e_1737351069.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/employees/employee2/67810af49eb00_1736510196.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/employees/employee3/67810c4feb7c7_1736510543.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/employees/employee4/67810d0469d40_1736510724.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/employees/employee5/67811b9ddec12_1736514461.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/certificates/certificate1/certificate1.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/certificates/certificate2/certificate2.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/certificates/certificate3/678ce076090dd_1737285750.pdf", PHP_URL_PATH)), //error
-    //         // public_path(parse_url("/storage/certificates/certificate4/678ce1573278e_1737285975.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/certificates/certificate7/678e10630edde_1737363555.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/references/reference1/ref1.pdf", PHP_URL_PATH)), // error same file
-    //         // public_path(parse_url("/storage/documents/document_1.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/documents/document_2.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/documents/document_3.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/documents/document_4.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/documents/document_5.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/company-documents/company-presentation.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/company-documents/agile-framework.pdf", PHP_URL_PATH)),
-    //     ];
-
-    //     if(!empty($pdfFiles)){
-    //         $mergedFilePath = public_path('storage/mergedFile/merged_pdf.pdf');
-    //         if (!is_dir(dirname($mergedFilePath))) {
-    //             mkdir(dirname($mergedFilePath), 0755, true);
-    //         }
-
-    //         $pdfMerger = PDFMerger::init(); //Initialize the merger
-    //         foreach ($pdfFiles as $file) {
-    //             $pdfMerger->addPDF($file);
-    //         }
-
-    //         $pdfMerger->merge();
-    //         $outputPath = public_path('storage/mergedFile/merged_pdf.pdf');
-    //         $pdfMerger->save($outputPath);
-    //     }
-
-    //     // $pdfFilesData = [
-    //     //     public_path(parse_url("/storage/demofile/test-1.pdf", PHP_URL_PATH)),
-    //     //     public_path(parse_url("/storage/demofile/Get_Started_With_Smallpdf.pdf", PHP_URL_PATH)),
-    //     //     public_path(parse_url("/storage/demofile/certificates2.pdf", PHP_URL_PATH)),
-    //     //     // public_path(parse_url("/storage/demofile/certificates1.pdf", PHP_URL_PATH)),
-    //     // ];
-    //     // pre([$pdfFiles, $pdfFilesData]);
-
-    //     // $pdfMerger = PDFMerger::init(); //Initialize the merger
-    //     // foreach ($pdfFiles as $file) {
-    //     //     $pdfMerger->addPDF($file);
-    //     // }
-
-    //     // $pdfMerger->merge();
-    //     // $outputPath = public_path('storage/merged/merged_pdf.pdf');
-    //     // $pdfMerger->save($outputPath);
-    //     // exit;
-    // }
-
-    // public function addEdit()
-    // {
-    //     $pdfFiles = [
-    //         public_path(parse_url("/storage/demofile/test-1.pdf", PHP_URL_PATH)),
-    //         public_path(parse_url("/storage/demofile/Get_Started_With_Smallpdf.pdf", PHP_URL_PATH)),
-    //         public_path(parse_url("/storage/demofile/certificates2.pdf", PHP_URL_PATH)),
-    //         // public_path(parse_url("/storage/demofile/certificates1.pdf", PHP_URL_PATH)),
-    //     ];
-
-    //     // $pdfMerger = new PDFMerger();
-    //     // $pdfMerger->init();
-    //     $pdfMerger = PDFMerger::init(); //Initialize the merger
-    //     foreach ($pdfFiles as $file) {
-    //         $pdfMerger->addPDF($file);
-    //     }
-
-    //     $pdfMerger->merge(); //For a normal merge (No blank page added)
-    //     //$pdfMerger->duplexMerge(); //Merges your provided PDFs and adds blank pages between documents as needed to allow duplex printing
-
-    //     $outputPath = public_path('storage/demofile/merged_pdf.pdf');
-    //     $pdfMerger->save($outputPath);
-    //     // exit;
-
-    //     $documents = Certificate::all();
-
-    //     $allFiles = [];
-    //     foreach ($documents as $document) {
-    //         $relativePath = $document->getCertificateWordUrl(); // e.g., /storage/demofile/certificates1.docx
-    //         $filePath = public_path(parse_url($relativePath, PHP_URL_PATH));
-    //         \Log::info([$relativePath, $filePath]);
-    //         if (!file_exists($filePath)) {
-    //             continue; // Skip missing files
-    //         }
-    //         $allFiles[]= $filePath;
-    //     }
-    //     if(!empty($allFiles)){
-    //         $dm = new DocxMerge();
-    //         $dm->merge($allFiles, public_path('storage/demofile/merged_document.docx'));
-    //     }
-
-    //     return view('admin.tenders.demo', compact('documents'));
-    //     // return view('admin.tenders.add');
-    // }
-
 
     public function start()
     {

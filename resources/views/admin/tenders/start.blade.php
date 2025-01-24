@@ -45,11 +45,11 @@
                                                 <div class="accordion-body team-member">
                                                     @foreach($teamMembers as $member)
                                                         <div class="clickTo">
-                                                            <input type="checkbox" class="keyword-checkbox" data-section="team"
+                                                            <input type="checkbox" id="member-{{$member->id}}" class="keyword-checkbox" data-section="team"
                                                             value="{{$member->id}}"
                                                             data-doc-preview-url="{{$member->getDocxPreviewUrl()}}"
                                                             data-pdf-preview-url="{{$member->getCvUrl()}}">
-                                                            <label for="" class="keyword-label">{{$member->first_name}} {{$member->last_name}}</label>
+                                                            <label for="member-{{$member->id}}" class="keyword-label">{{$member->first_name}} {{$member->last_name}}</label>
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -69,11 +69,11 @@
                                                 <div class="accordion-body certificate-list">
                                                     @foreach($certificates as $certificate)
                                                         <div class="clickTo">
-                                                            <input type="checkbox" class="keyword-checkbox" data-section="certificate"
+                                                            <input type="checkbox" id="certificate-{{$certificate->id}}" class="keyword-checkbox" data-section="certificate"
                                                                 value="{{$certificate->id}}"
                                                                 data-doc-preview-url="{{$certificate->getDocxPreviewUrl()}}"
                                                                 data-pdf-preview-url="{{$certificate->getCertificatePdfUrl()}}">
-                                                            <label for="" class="keyword-label">{{$certificate->title}}</label>
+                                                            <label for="certificate-{{$certificate->id}}" class="keyword-label">{{$certificate->title}}</label>
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -93,11 +93,11 @@
                                                 <div class="accordion-body reference-list">
                                                    @foreach($references as $reference)
                                                         <div class="clickTo">
-                                                            <input type="checkbox" class="keyword-checkbox" data-section="reference"
+                                                            <input type="checkbox" id="reference-{{$reference->id}}" class="keyword-checkbox" data-section="reference"
                                                                 value="{{$reference->id}}"
                                                                 data-doc-preview-url="{{$reference->getDocxPreviewUrl()}}"
                                                                 data-pdf-preview-url="{{$reference->getFilePdfUrl()}}">
-                                                            <label for="" class="keyword-label">{{$reference->project_title}}</label>
+                                                            <label for="reference-{{$reference->id}}" class="keyword-label">{{$reference->project_title}}</label>
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -118,11 +118,11 @@
                                                 <div class="accordion-body document-list">
                                                     @foreach($documents as $document)
                                                         <div class="clickTo">
-                                                            <input type="checkbox" class="keyword-checkbox" data-section="document"
+                                                            <input type="checkbox" id="document-{{$document->id}}" class="keyword-checkbox" data-section="document"
                                                                 value="{{$document->id}}"
                                                                 data-doc-preview-url=""
                                                                 data-pdf-preview-url="{{$document->getDocumentPdfUrl()}}">
-                                                            <label for="" class="keyword-label">{{$document->title}}</label>
+                                                            <label for="document-{{$document->id}}" class="keyword-label">{{$document->title}}</label>
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -141,18 +141,18 @@
                                             <div id="collapseFive" class="accordion-collapse collapse show" data-bs-parent="#accordionExample5">
                                                 <div class="accordion-body company-document-list">
                                                     <div class="clickTo">
-                                                        <input type="checkbox" class="keyword-checkbox" data-section="presentation"
+                                                        <input type="checkbox" id="company-presentation" class="keyword-checkbox" data-section="presentation"
                                                             value="{{$companyDocument->id}}"
                                                             data-doc-preview-url="{{ getDocumentPath($companyDocument->company_presentation_pdf) }}"
                                                             data-pdf-preview-url="{{ getDocumentPath($companyDocument->company_presentation_pdf) }}">
-                                                        <label for="" class="keyword-label">Company Presentation</label>
+                                                        <label for="company-presentation" class="keyword-label">Company Presentation</label>
                                                     </div>
                                                     <div class="clickTo">
-                                                        <input type="checkbox" class="keyword-checkbox" data-section="framework"
+                                                        <input type="checkbox" id="agile-framework" class="keyword-checkbox" data-section="framework"
                                                             value="{{$companyDocument->id}}"
                                                             data-doc-preview-url="{{ getDocumentPath($companyDocument->agile_framework_pdf) }}"
                                                             data-pdf-preview-url="{{ getDocumentPath($companyDocument->agile_framework_pdf) }}">
-                                                        <label for="" class="keyword-label">Agile Framework</label>
+                                                        <label for="agile-framework" class="keyword-label">Agile Framework</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,13 +164,8 @@
                     </div>
                 </div>
 
-                {{-- <iframe src="https://docs.google.com/gview?url=https://dev2.amcodr.co/tender-management/public/storage/certificates/certificate1/67811f2837400_1736515368.docx&embedded=true" width="100%" height="600px"></iframe>
-
-                <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https://dev2.amcodr.co/tender-management/public/storage/certificates/certificate1/67811f2837400_1736515368.docx" width="100%" height="600px"></iframe> --}}
-
-
-                <form id="docxFileForm">
-                    <div class="m-b-10 docx-list">
+                <form id="docxFileForm" style="display: none;">
+                    <div class="mb-5 docx-list">
                         <div class="seriesSec">
                             <div class="secriesPart">
                                 <div class="titleBox">
@@ -187,7 +182,7 @@
                     </div>
                 </form>
 
-                <form id="pdfFileForm">
+                <form id="pdfFileForm" style="display: none;">
                     <div class="pdf-list">
                         <div class="seriesSec">
                             <div class="secriesPart">

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('body').on('click', '.dropdown-list li', function () {
-        var id = $(this).data('value'); // Get the id from the clicked <li>
+        var id = $(this).data('value');
 
         $.ajax({
             type: "POST",
@@ -9,14 +9,15 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 // Handle Tender Documents
+                $('#docxFileForm').show();
+                $('#pdfFileForm').show();
                 if (response.tenderDocuments && response.tenderDocuments.length > 0) {
                     var tenderDocumentList = $('.tender-document-list');
                     tenderDocumentList.empty();
                     response.tenderDocuments.forEach(function (item) {
-                        console.log(item);
                         var tenderDochtml = `
                             <div class="clickTo">
-                            <input type="checkbox" class="keyword-checkbox" data-section="tender"
+                            <input type="checkbox" id="file-${item.id}" class="keyword-checkbox" data-section="tender"
                                                                 value="${item.id}"
                                                                 data-doc-preview-url="${item.docx_preview_url}"
                                                                 data-pdf-preview-url="${item.pdf_preview_url}">
@@ -145,7 +146,6 @@ $(document).ready(function () {
             $(targetElement).before(draggedElement);
         }
     });
-
 
     // for docs merge, preview and download
     function handleFileAction(actionType, fileType) {

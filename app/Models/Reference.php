@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -9,6 +10,26 @@ use Illuminate\Support\Facades\Storage;
 class Reference extends Model
 {
     use HasFactory;
+
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
+
+    public function getStartDateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format('d-m-Y') : '';
+    }
+
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
+
+    public function getEndDateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format('d-m-Y') : '';
+    }
 
     public function tags()
     {

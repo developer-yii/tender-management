@@ -17,9 +17,11 @@ class EmployeeController extends Controller
 {
     public function index()
     {
+        $users = User::where('role', 2)->get();
         $tags = Tag::with('users')->get();
         $employeesWithoutTags = User::doesntHave('tags')->where('role', 2)->get();
-        return view('admin.employee.index', compact('tags', 'employeesWithoutTags'));
+
+        return view('admin.employee.index', compact('tags', 'employeesWithoutTags', 'users'));
     }
 
     public function addupdate(Request $request)
@@ -96,9 +98,9 @@ class EmployeeController extends Controller
 
     public function employeeDetails(Request $request)
     {
-        $employee = User::with('tags')->find($request->id);
+        $employee = User::with(['tags', 'tenders'])->find($request->id);
         if(!$employee){
-            return response()->json(['message' => 'Employee not found.'], 404);
+            abort(404);
         }
         $tags = Tag::all();
         $this->getFilePath($employee);
@@ -130,15 +132,4 @@ class EmployeeController extends Controller
             ? $employee->getDocumentUrl()
             : null;
     }
-
-    // public function delete(Request $request)
-    // {
-    //     $employee = User::find($request->id);
-    //     if (!$employee) {
-    //         return response()->json(['message' => 'Employee not found.'], 404);
-    //     }
-
-    //     $employee->delete();
-    //     return response()->json(['message' => 'Employee deleted successfully!']);
-    // }
 }

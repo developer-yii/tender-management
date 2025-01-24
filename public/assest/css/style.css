@@ -24,21 +24,25 @@
     font-family: 'BricolageGrotesque-Bold';
     font-display: swap;
 }
+
 @font-face {
     src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-SemiBold.ttf);
     font-family: 'BricolageGrotesque-SemiBold';
     font-display: swap;
 }
+
 @font-face {
     src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-Medium.ttf);
     font-family: 'BricolageGrotesque-Medium';
     font-display: swap;
 }
+
 @font-face {
     src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-Regular.ttf);
     font-family: 'BricolageGrotesque-Regular';
     font-display: swap;
 }
+
 @font-face {
     src: url(../fonts/Bricolage_Grotesque/BricolageGrotesque-ExtraBold.ttf);
     font-family: 'BricolageGrotesque-ExtraBold';
@@ -137,7 +141,7 @@ body {
     font-size: 14px;
 }
 
-.error{
+.error {
     color: red;
 }
 
@@ -164,7 +168,9 @@ button {
     justify-content: center;
 }
 
-.addCommonBtn .btnAdd, .addCommonBtn .btnBack, .btnCom {
+.addCommonBtn .btnAdd,
+.addCommonBtn .btnBack,
+.btnCom {
     font-size: 16px;
     min-height: 52px;
     color: var(--white-color) !important;
@@ -805,7 +811,7 @@ ul.dropDownInner {
 
 .mainSection .tenderDetails .commonBackview .tenderInner {
     margin-top: 30px;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: calc(400px - 100px);
 }
 
@@ -847,7 +853,7 @@ ul.dropDownInner {
 }
 
 .employMainBox .employViewBox {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: calc(400px - 70px);
 }
 
@@ -859,6 +865,7 @@ ul.dropDownInner {
     transition: 0.3s;
     padding: 10px;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .employMainBox .employProfile.active {
@@ -928,7 +935,7 @@ ul.dropDownInner {
 }
 
 .markusTender .tenderAll ul {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: calc(400px - 170px);
 }
 
@@ -1000,6 +1007,7 @@ ul.dropDownInner {
     word-break: break-all;
     line-height: 1.3;
 }
+
 .myTendersSec .myTenderBox .tenderInnerBox .myTenderCommon .detailsFull ul {
     display: flex;
 }
@@ -1058,6 +1066,7 @@ ul.dropDownInner {
     box-shadow: 0px 2px 5px #0000001c;
     padding: 30px;
 }
+
 /* ===== Data table css === */
 
 /* ------------ home-section css end ------------- */
@@ -1079,7 +1088,7 @@ ul.dropDownInner {
 .mainTenderDetails .propertySec .imgbox img {
     width: 100%;
     height: 170px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 15px;
     box-shadow: 0px 2px 5px #0000001c;
 }
@@ -1501,7 +1510,7 @@ ul.dropDownInner {
 }
 
 .fileSection .accordion-body {
-    padding: 10px 20px 5px 30px;
+    padding: 0px 20px 5px 30px;
 }
 
 .fileSection .accordion-body a {
@@ -1513,7 +1522,7 @@ ul.dropDownInner {
 
 .fileSection .accordion-body a i {
     color: var(--sky-color);
-    margin-right: 15px;
+    margin-right: 5px;
     font-size: 20px;
 }
 
@@ -1679,6 +1688,7 @@ ul.dropDownInner {
     flex-direction: column;
     justify-content: space-between;
     padding: 20px 0;
+    min-height: 200px;
 }
 
 .employsSection .profiledetails .mainSec .textSec .topText h6 {
@@ -1697,6 +1707,7 @@ ul.dropDownInner {
     font-size: 12px;
     font-family: 'BricolageGrotesque-Medium';
     color: var(--text-gray);
+    white-space: pre-wrap;
 }
 
 .employsSection .profiledetails .multyBnt {
@@ -1710,7 +1721,7 @@ ul.dropDownInner {
     height: 100% !important;
 }
 
-.employsSection  .markusTender .tenderAll ul {
+.employsSection .markusTender .tenderAll ul {
     height: 100%;
 }
 
@@ -1877,7 +1888,13 @@ ul.dropDownInner {
 .addEmployModal .modal-body select,
 .addEmployModal .modal-body textarea {
     padding: 5px 10px;
-    border: 1px solid #ccc;
+    width: 100% !important;
+    min-height: 40px !important;
+    border-radius: 15px !important;
+    outline: none !important;
+    box-shadow: inset 2px 4px 2px #00000021 !important;
+    border: none;
+    margin-bottom: 0px;
 }
 
 .addEmployModal .modal-body select {
@@ -1909,6 +1926,8 @@ ul.dropDownInner {
     justify-content: center;
     background-color: var(--sky-color);
     color: var(--white-color);
+    margin: 0 6px;
+    border-radius: 10px;
 }
 
 .dateSelect .flat {
@@ -1998,7 +2017,7 @@ ul.dropDownInner {
     margin-bottom: 15px;
 }
 
-.loginSection .logBoxFill .innerFilltier .commonFill label{
+.loginSection .logBoxFill .innerFilltier .commonFill label {
     font-size: 13px;
     font-family: 'BricolageGrotesque-Regular';
     color: var(--text-black);
@@ -2233,7 +2252,7 @@ ul.dropDownInner {
     padding: 10px 20px 5px 30px;
 }
 
-.selectTender .dataBoxFiled .accordion-body .clickTo  {
+.selectTender .dataBoxFiled .accordion-body .clickTo {
     position: relative;
     padding-left: 40px;
     margin-bottom: 12px;
@@ -2297,7 +2316,7 @@ ul.dropDownInner {
     align-items: center;
 }
 
-.selectTender .dataBoxFiled .accordion-body p span{
+.selectTender .dataBoxFiled .accordion-body p span {
     font-size: 14px;
     font-family: 'BricolageGrotesque-Regular';
     color: var(--text-black) !important;
@@ -2331,7 +2350,7 @@ ul.dropDownInner {
 
 /* .selectTender .dataBoxFiled {
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
     gap: 15px;
@@ -2344,24 +2363,24 @@ ul.dropDownInner {
 
 .selectTender .allSeriesBox {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     gap: 40px;
 }
 
 .selectTender .secriesPart {
-    padding-bottom: 50px;
+    padding-bottom: 0px;
 }
 
 .selectTender .allSeriesBox .secriesBox {
     width: 100%;
-    max-width: 120px;
+    max-width: 130px;
 }
 
-.selectTender .allSeriesBox .secriesBox .imgbox img {
+.selectTender .allSeriesBox .secriesBox .imgbox canvas {
     width: 120px;
     height: 100%;
     object-fit: cover;
+    border: 1px solid gray !important;
 }
 
 .selectTender .allSeriesBox .secriesBox .seriestext p {
@@ -2453,7 +2472,7 @@ ul.dropDownInner {
     gap: 15px;
 }
 
-.referanceMainSec .referancePart .titleBox h5{
+.referanceMainSec .referancePart .titleBox h5 {
     font-size: 18px;
     color: var(--text-black);
     font-family: 'BricolageGrotesque-SemiBold';
@@ -2526,7 +2545,7 @@ ul.dropDownInner {
 
 /* -------- document confirmation page css ---------- */
 
-.document_confirmSec .insurance_confirm{
+.document_confirmSec .insurance_confirm {
     background-color: var(--white-color);
     border-radius: 15px;
     box-shadow: 0px 2px 5px #0000001c;
@@ -2594,7 +2613,7 @@ ul.dropDownInner {
     border-radius: 15px;
 }
 
-.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox .imgDoc img{
+.document_confirmSec .insurance_confirm .innerConfirm .insuranceBox .imgDoc img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -2692,6 +2711,10 @@ ul.dropDownInner {
     color: var(--text-black);
     font-family: 'BricolageGrotesque-SemiBold';
     margin-bottom: 20px;
+}
+
+.templetsSecMain .tepmletBox .chartImg {
+    text-align: center;
 }
 
 .templetsSecMain .tepmletBox .chartImg img {
@@ -2812,10 +2835,10 @@ ul.dropDownInner {
 .leftnewBox .topPlusBox img {
     height: 200px;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
-.leftnewBox  .centerBox {
+.leftnewBox .centerBox {
     padding: 0 20px;
 }
 
@@ -2834,12 +2857,12 @@ ul.dropDownInner {
 }
 
 .new-TenderSec .leftnewBox .multyDateBox ul {
-    display: flex;
-    margin-bottom: 40px;
+    /* display: flex; */
+    margin-bottom: 5px;
 }
 
 .new-TenderSec .leftnewBox .multyDateBox ul li:not(:last-child) {
-    border-right: 1px solid var(--light-gray);
+    margin-bottom: 10px;
 }
 
 .new-TenderSec .leftnewBox .multyDateBox ul li {
@@ -2847,12 +2870,12 @@ ul.dropDownInner {
     position: relative;
 }
 
-.new-TenderSec .leftnewBox .multyDateBox ul li label{
+.new-TenderSec .leftnewBox .multyDateBox ul li label {
     width: 100%;
     font-size: 11px;
     color: var(--text-gray);
     font-family: 'BricolageGrotesque-Medium';
-    text-align: center;
+    text-align: start;
     margin-bottom: 5px;
 }
 
@@ -2861,7 +2884,7 @@ ul.dropDownInner {
     font-size: 12px;
     font-family: 'BricolageGrotesque-SemiBold';
     color: var(--text-gray);
-    text-align: center;
+    text-align: start;
 }
 
 .new-TenderSec .leftnewBox .multyDateBox ul li input,
@@ -2882,11 +2905,11 @@ ul.dropDownInner {
 } */
 
 .new-TenderSec .leftnewBox .ourThreeBox {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
-    padding: 0 40px;
-    margin-bottom: 50px;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    /* gap: 15px; */
+    /* padding: 0 40px; */
+    margin-bottom: 20px;
 }
 
 .new-TenderSec .leftnewBox .ourThreeBox .firstBox {
@@ -2895,13 +2918,13 @@ ul.dropDownInner {
 
 .new-TenderSec .leftnewBox .ourThreeBox .firstBox,
 .new-TenderSec .leftnewBox .ourThreeBox .secondBox {
-    text-align: center;
+    text-align: start;
 }
 
 .new-TenderSec .leftnewBox .ourThreeBox .box-box {
     background-color: var(--white-color);
     border-radius: 15px;
-    box-shadow: 0px 2px 5px #0000001c;
+    /* box-shadow: 0px 2px 5px #0000001c; */
     padding: 10px;
 }
 
@@ -2925,7 +2948,7 @@ ul.dropDownInner {
     margin-bottom: 5px;
 }
 
-.new-TenderSec .leftnewBox .ourThreeBox .secondBox select {
+.new-TenderSec .leftnewBox .multyDateBox select {
     font-size: 12px;
     font-family: 'BricolageGrotesque-SemiBold';
     color: var(--text-gray);
@@ -2934,7 +2957,7 @@ ul.dropDownInner {
     border: 1px solid var(--text-gray);
     padding: 10px 5px;
     position: relative;
-    text-align: center;
+    text-align: start;
     outline: none;
 }
 
@@ -2951,7 +2974,7 @@ ul.dropDownInner {
     font-size: 12px;
     color: var(--text-gray);
     font-family: 'BricolageGrotesque-Medium';
-    text-align: center;
+    text-align: start;
 }
 
 /* .new-TenderSec .leftnewBox .ourThreeBox .thirdBox .newBox a img {
@@ -2970,7 +2993,7 @@ ul.dropDownInner {
     border: 1px solid var(--text-gray);
     padding: 10px 5px;
     position: relative;
-    text-align: center;
+    text-align: start;
     outline: none;
 }
 
@@ -2994,7 +3017,7 @@ ul.dropDownInner {
     font-size: 22px;
     vertical-align: middle;
     color: var(--sky-color);
-    margin-right: 15px;
+    margin-right: 5px;
 }
 
 .rightnewBox {
@@ -3034,7 +3057,7 @@ ul.dropDownInner {
     font-family: 'BricolageGrotesque-Medium';
 }
 
-.rightnewBox .shortDiscription .sameBox textarea{
+.rightnewBox .shortDiscription .sameBox textarea {
     resize: none;
     min-height: 80px;
 }
@@ -3079,7 +3102,7 @@ ul.dropDownInner {
     width: 320px;
     padding: 10px 16px;
     font-size: 14px;
-    color: var(--text-gray);
+    /* color: var(--text-gray); */
     font-family: 'BricolageGrotesque-Regular';
     background-color: #fff;
     border-radius: 15px;
@@ -3140,7 +3163,7 @@ ul.dropDownInner {
 }
 
 
-.rightnewBox  .fileSection .accordion-button::after {
+.rightnewBox .fileSection .accordion-button::after {
     content: '\f65e';
     font-family: 'fontawesome';
     background: none;
@@ -3174,12 +3197,32 @@ ul.dropDownInner {
 .new-TenderSec .awardInputSec ul {
     display: flex;
     margin-bottom: 40px;
-    justify-content: start;
+    justify-content: center;
 }
 
-.new-TenderSec .awardInputSec ul li{
+.new-TenderSec .awardInputSec .newFullBox ul {
+    display: block !important;
+    margin-bottom: 20px;
+}
+
+.new-TenderSec .awardInputSec .newFullBox ul li {
+    padding: 0;
+    margin-bottom: 10px;
+    border-right: none !important;
+}
+
+.new-TenderSec .awardInputSec .newFullBox ul li input {
+    max-width: 100%;
+}
+
+.new-TenderSec .awardInputSec .newFullBox ul li label {
+    text-align: start;
+}
+
+.new-TenderSec .awardInputSec ul li {
     padding: 0 10px;
-    text-align: center;
+    /* text-align: center; */
+    width: 100%;
 }
 
 .new-TenderSec .awardInputSec ul li:first-child {
@@ -3200,18 +3243,19 @@ ul.dropDownInner {
 .new-TenderSec .awardInputSec ul li input {
     max-width: 90px;
     width: 100%;
+    padding: 7px;
     border-radius: 5px;
     border: 1px solid var(--text-gray);
 }
 
-.new-TenderSec .awardInputSec ul li select{
-    font-size: 12px;
+.new-TenderSec .awardInputSec ul li select {
+    font-size: 14px;
     font-family: 'BricolageGrotesque-SemiBold';
     color: var(--text-gray);
     width: 100%;
     border-radius: 5px;
     border: 1px solid var(--text-gray);
-    padding: 5px 5px;
+    padding: 9px 5px;
     position: relative;
     text-align: center;
     outline: none;
@@ -3226,7 +3270,7 @@ ul.dropDownInner {
     margin-bottom: 10px;
 }
 
-.company_details .companyFile ul li a{
+.company_details .companyFile ul li a {
     font-size: 14px;
     font-family: 'BricolageGrotesque-Regular';
     color: var(--text-black);
@@ -3238,6 +3282,44 @@ ul.dropDownInner {
     color: var(--sky-color);
     margin-right: 15px;
 }
+
+.custom-file-input {
+    color: transparent;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.custom-file-input::before {
+    content: 'Select file';
+    color: var(--text-black);
+    font-family: 'BricolageGrotesque-Medium';
+    display: inline-block;
+    background: var(--white-color);
+    border: 1px solid var(--text-gray);
+    border-radius: 10px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-size: 13px;
+}
+
+.custom-file-input:hover::before {
+    border-color: black;
+}
+
+.custom-file-input:active {
+    outline: 0;
+}
+
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
 
 /* -------- New-tender page css ---------- */
 
@@ -3554,7 +3636,7 @@ ul.dropDownInner {
     font-family: 'BricolageGrotesque-Regular';
 }
 
-.referencesAddNew .referencesWhiteBox input.inputTwo::placeholder  {
+.referencesAddNew .referencesWhiteBox input.inputTwo::placeholder {
     font-size: 20px;
     color: #9C9B9B;
     font-family: 'BricolageGrotesque-Regular';

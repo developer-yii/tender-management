@@ -47,8 +47,6 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        // Adjust the condition based on your application's logic for identifying admin users.
-        // For example, if you have a `role` column where "admin" indicates an admin user:
         return $this->role == '1';
     }
 
@@ -100,11 +98,6 @@ class User extends Authenticatable
         return '';
     }
 
-    // public function tenderUsers()
-    // {
-    //     return $this->hasMany(TenderUser::class);
-    // }
-
     public function tenders()
     {
         return $this->belongsToMany(Tender::class, 'tender_users', 'user_id', 'tender_id')
@@ -121,8 +114,4 @@ class User extends Authenticatable
         return $this->morphMany(File::class, 'fileable');
     }
 
-    // public function addresses()
-    // {
-    //     return $this->morphMany(Address::class, 'addressable');
-    // }
 }

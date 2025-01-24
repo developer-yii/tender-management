@@ -34,9 +34,6 @@
 @section('content')
 <section class="mainSection">
     <div class="homeSectionPart">
-        <div class="addCommonBtn">
-            <a href="{{route('tender.add')}}" class="btn btnAdd"><i class="fa-solid fa-plus"></i> Zart hinzufügen</a>
-        </div>
         <form id="addForm" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="tender_id" value="{{ $tender ? $tender->id : '' }}">
@@ -59,52 +56,58 @@
                             </div>
 
                             <div class="centerBox">
-                                <div class="titleBox form-group">
-                                    <input type="text" placeholder="Ausschreibung Name" name="ausschreibung_name" id="ausschreibung_name" value="{{ $tender ? $tender->tender_name : '' }}">
-                                    <span class="error"></span>
-                                </div>
                                 <div class="multyDateBox">
                                     <ul>
                                         <li class="form-group">
-                                            <label for="">Ausführungszeitraum</label>
+                                            <label for="">Ausschreibung Name</label>
+                                            <input type="text" placeholder="Ausschreibung Name" name="ausschreibung_name" id="ausschreibung_name" value="{{ $tender ? $tender->tender_name : '' }}">
+                                            <span class="error"></span>
+                                        </li>
+                                        <li class="form-group">
                                             @php
                                                 $executionPeriod = $tender
-                                                    ? \Carbon\Carbon::parse($tender->period_from)->format('Y-m-d') . ' to ' . \Carbon\Carbon::parse($tender->period_to)->format('Y-m-d')
+                                                    ? $tender->period_from . ' to ' . $tender->period_to
                                                     : '';
+                                                // $executionPeriod = $tender
+                                                //     ? formatDate($tender->period_from, 'Y-m-d') . ' to ' . formatDate($tender->period_to, 'Y-m-d')
+                                                //     : '';
                                             @endphp
+                                            <label for="">Ausführungszeitraum</label>
                                             <input type="text" class="flat input-daterange-datepicker" placeholder="Eine Frist festlegen" name="execution_period" id="execution_period" value="{{$executionPeriod}}">
                                             <span class="error"></span>
                                         </li>
                                         <li class="form-group">
                                             <label for="">Bindefrist</label>
-                                            <input type="text" class="flat" placeholder="Eine Frist festlegen"  onfocus="(this.type='date')" onclick="this.showPicker()" name="binding_period" id="binding_period" value="{{ $tender ? $tender->binding_period : '' }}">
+                                            <input type="text" class="flat" placeholder="Eine Frist festlegen" name="binding_period" id="binding_period" value="{{ $tender ? $tender->binding_period : '' }}">
                                             <span class="error"></span>
                                         </li>
                                         <li class="form-group">
                                             <label for="">Bewerberfragen bis</label>
-                                            <input type="datetime-local" class="flat" placeholder="Eine Frist festlegen" name="applicant_questions_date" id="applicant_questions_date" value="{{ $tender ? $tender->question_ask_last_date : '' }}">
+                                            <input type="text" class="flat" placeholder="Eine Frist festlegen" name="applicant_questions_date" id="applicant_questions_date" value="{{ $tender ? $tender->question_ask_last_date : '' }}">
+                                            <span class="error"></span>
+                                       </li>
+
+                                        <li class="form-group">
+                                            <label for="">Ablauf Angebotsfrist</label>
+                                            <input type="text" class="flat" placeholder="Eine Frist festlegen" name="expiry_offer_date" id="expiry_offer_date" value="{{ $tender ? $tender->offer_period_expiration : '' }}">
+                                            <span class="error"></span>
+                                        </li>
+                                        <li class="form-group">
+                                            <label for="">STATUS</label>
+                                            <select name="status" id="status">
+                                                <option value="" style="display: none;">Select Status</option>
+                                                @foreach ($tenderStatus as $key => $value)
+                                                    <option value="{{ $key }}" {{ isset($tender) && $key == $tender->status ? 'selected' : '' }}>
+                                                        {{ $value }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                             <span class="error"></span>
                                         </li>
                                     </ul>
                                 </div>
+
                                 <div class="ourThreeBox">
-                                    <div class="firstBox box-box form-group">
-                                        <label for="">Ablauf Angebotsfrist</label>
-                                        <input type="datetime-local" class="flat" placeholder="Eine Frist festlegen" name="expiry_offer_date" id="expiry_offer_date" value="{{ $tender ? $tender->offer_period_expiration : '' }}">
-                                        <span class="error"></span>
-                                    </div>
-                                    <div class="secondBox box-box form-group">
-                                        <label for="">STATUS</label>
-                                        <select name="status" id="status">
-                                            <option value="" style="display: none;">Select Status</option>
-                                            @foreach ($tenderStatus as $key => $value)
-                                                <option value="{{ $key }}" {{ isset($tender) && $key == $tender->status ? 'selected' : '' }}>
-                                                    {{ $value }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <span class="error"></span>
-                                    </div>
                                     <div class="thirdBox box-box form-group">
                                         <p>VERANTWORTLICHE PERSON</p>
                                         <div class="newBox">
@@ -134,10 +137,12 @@
                                                     @if($document->type == "documents")
                                                         <li>
                                                             <input type="hidden" name="old_documents[]" value="{{$document->original_file_name}}">
-                                                            <a href="javascript:void(0)" style="flex-grow: 1;">
-                                                                <i class="fa-solid fa-file-circle-plus"></i> {{ $document->original_file_name }}
+                                                            <a href="javascript:void(0)" style="flex-grow: 1;" class="a-txt">
+                                                                <span class="cursor-default">
+                                                                    <i class="fa-solid fa-file-circle-plus"></i> {{ $document->original_file_name }}
+                                                                </span>
                                                             </a>
-                                                            <button class="btn btn-sm btn-danger m-l-10 remove-btn" onclick="removeOldFile(event, this)">X</button>
+                                                            <button class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeOldFile(event, this)">X</button>
                                                         </li>
                                                     @endif
                                                 @endforeach
@@ -145,10 +150,7 @@
                                         </ul>
                                         <ul id="fileList" class="list-unstyled mt-2"></ul>
                                         <div id="fileInputsContainer">
-                                            <input type="file" name="documents[]" class="file-input" id="documents">
-                                        </div>
-                                        <div class="openDocBtn">
-                                            <a class="btn btnOpen"><i class="bi bi-caret-down-fill"></i></a>
+                                            <input type="file" name="documents[]" class="file-input custom-file-input" id="documents">
                                         </div>
                                         <span class="error"></span>
                                     </div>
@@ -197,19 +199,24 @@
                                     <span class="error"></span>
                                 </div>
                             </div>
+
                             <div class="awardInputSec">
                                 <h6>Vergabe</h6>
+                                <div class="newFullBox">
+                                    <ul>
+                                        <li class="form-group">
+                                            <label for="">Vergabeordnung</label>
+                                            <input type="text" name="vergabeordnung" id="vergabeordnung" value="{{ $tender ? $tender->procurement_regulations : '' }}">
+                                            <span class="error"></span>
+                                        </li>
+                                        <li class="form-group">
+                                            <label for="">Vergabeverfahren</label>
+                                            <input type="text" name="vergabeverfahren" id="vergabeverfahren" value="{{ $tender ? $tender->procurement_procedures : '' }}">
+                                            <span class="error"></span>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <ul>
-                                    <li class="form-group">
-                                        <label for="">Vergabeordnung</label>
-                                        <input type="text" name="vergabeordnung" id="vergabeordnung" value="{{ $tender ? $tender->procurement_regulations : '' }}">
-                                        <span class="error"></span>
-                                    </li>
-                                    <li class="form-group">
-                                        <label for="">Vergabeverfahren</label>
-                                        <input type="text" name="vergabeverfahren" id="vergabeverfahren" value="{{ $tender ? $tender->procurement_procedures : '' }}">
-                                        <span class="error"></span>
-                                    </li>
                                     <li class="form-group">
                                         <label for="">Unterteilung in Lose</label>
                                         <select name="subdivision_lots" id="subdivision_lots">
@@ -253,7 +260,7 @@
                                         @foreach ($folder_files as $folder_name => $files)
                                             <div class="accordion-item" data-folder-id="{{$folder_name}}">
                                                 <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{$folder_name}}" aria-expanded="true" aria-controls="{{$folder_name}}">
+                                                <button class="accordion-button cursor-default" type="button" data-bs-toggle="collapse" data-bs-target="#{{$folder_name}}" aria-expanded="true" aria-controls="{{$folder_name}}">
                                                     {{$folder_name}}
                                                     <a class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFolder(this)">X</a>
                                                 </button>
@@ -261,24 +268,29 @@
                                                 <div id="{{$folder_name}}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                                                     <div class="accordion-body">
                                                         @foreach ($files as $file)
-                                                            <div class="file-list"><a href="javascript:void(0)" class="d-block mt-1">
-                                                                    <i class="fa-solid fa-file-circle-plus"></i> {{$file->original_file_name}}
+                                                            <div class="file-list">
+                                                                <a href="javascript:void(0)" class="d-block mt-1 a-txt">
+                                                                    <span class="cursor-default">
+                                                                        <i class="fa-solid fa-file-circle-plus"></i> {{$file->original_file_name}}
+                                                                    </span>
                                                                     <button type="button" class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFile(this)">X</button>
                                                                 </a>
                                                             </div>
                                                             <input type="hidden" name="old_folder_doc[{{$folder_name}}][]" value="{{$file->original_file_name}}">
                                                             <input type="hidden" name="old_folder_name[{{$folder_name}}]" value="{{$folder_name}}">
                                                         @endforeach
-                                                        <input type="file" class="authorize_document" name="folder_doc[{{$folder_name}}][]">
+                                                        <input type="file" class="authorize_document mt-1 custom-file-input" name="folder_doc[{{$folder_name}}][]">
                                                     </div>
                                                 </div>
                                             </div>
                                         @endforeach
                                     </div>
-                                    <span class="error"></span><br>
-                                    <a class="btn folderBtn mt-2" data-bs-toggle="modal" data-bs-target="#addFolderModal">
-                                        <i class="fa-solid fa-plus"></i> Add Folder
-                                    </a>
+                                    <span class="error"></span>
+                                    <div>
+                                        <a class="btn folderBtn mt-2" data-bs-toggle="modal" data-bs-target="#addFolderModal">
+                                            <i class="fa-solid fa-plus"></i> Add Folder
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="endbtnSection">
                                     <button type="submit" class="btn btnCom">SPEICHERN</button>
@@ -300,18 +312,6 @@
         var createUrl = "{{ route('tender.createupdate') }}";
         var getUrl = "{{ route('tender.detail') }}";
         var listUrl = "{{ route('tender.index') }}";
-
-
-    document.addEventListener("DOMContentLoaded", function() {
-        flatpickr("#execution_period", {
-            mode: "range", // This makes it a date range picker
-            dateFormat: "Y-m-d", // You can adjust the format
-            locale: {
-                firstDayOfWeek: 1 // Optional: Set the first day of the week to Monday
-            }
-        });
-    });
-
     </script>
     <script src="{{ $baseUrl }}custom/js/add-tender.js"></script>
 @endsection

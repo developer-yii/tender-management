@@ -15,19 +15,13 @@
                 <div class="col-lg-5">
                     <div class="profiledetails">
                         <div class="mainSec">
-                            <div class="user-img">
-                                {{-- <img src="{{ $employee->getProfilePicUrl() }}" alt="{{$employee->first_name}}"> --}}
-                            </div>
+
                             <div class="textSec">
                                 <div class="topText">
                                     <h6>{{$document->title}}</h6>
                                     @foreach ($document->parameters as $parameter)
                                         <span>{{ $parameter->param_name }}: {{ $parameter->param_value }}</span><br>
                                     @endforeach
-                                    {{-- <span>{{$employee->email}}</span> --}}
-                                </div>
-                                <div class="bottomText">
-                                    {{-- <p>{{$employee->description}}</p> --}}
                                 </div>
                             </div>
                         </div>
@@ -40,7 +34,6 @@
                                 <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> LEBENSLAUF HERUNTERLADEN
                                 <a id="download-pdf" href="{{ $document->document_pdf_url }}" download style="display:none;"></a>
                             </button>
-
                             <button class="btn btnGray edit-document" data-bs-toggle="modal" data-bs-target="#addDocumentModal" data-id="{{ $document->id }}">INFOS BEARBEITEN</button>
                         </div>
                     </div>

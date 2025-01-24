@@ -75,7 +75,6 @@ function fileUploadWithId($request, $model, $filesConfig) {
 
 function handleFileUploads($request, $model, $filesConfig) {
     foreach ($filesConfig as $field => $config) {
-        // \Log::info($request->hasFile($field));
         if ($request->hasFile($field)) {
             // Check if multiple files are being uploaded
             if ($config['multiple']) {
@@ -106,9 +105,10 @@ function handleFileUploads($request, $model, $filesConfig) {
                 $oldFile = $model->{$field};
                 $oldDocPreview = '';
 
-                if ($oldFile && strpos($oldFile, '.pdf') !== false) {
-                    $oldDocPreview = str_replace('.pdf', '_first_page.pdf', $oldFile);
+                if ($oldFile && strpos($oldFile, '.docx') !== false) {
+                    $oldDocPreview = str_replace('.docx', '_first_page.pdf', $oldFile);
                 }
+
                 $fileData = uploadFile($request->file($field), $config['folder'], $config['subFolder'], $oldFile, $oldDocPreview);
 
                 // Save the file name or path
@@ -160,7 +160,7 @@ if (!function_exists('uploadFile')) {
         }
 
         if($oldDocPreview){
-            Storage::delete("public/{$mainFolder}/{$subFolder}/{$oldFile}");
+            Storage::delete("public/{$mainFolder}/{$subFolder}/{$oldDocPreview}");
         }
 
         $extension = $file->getClientOriginalExtension();

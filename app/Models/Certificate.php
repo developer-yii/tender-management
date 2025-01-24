@@ -13,6 +13,26 @@ class Certificate extends Model
 
     const categories = ['Projektmanagement', 'Softwareentwicklung'];
 
+    public function setValidFromDateAttribute($value)
+    {
+        $this->attributes['valid_from_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
+
+    public function setValidToDateAttribute($value)
+    {
+        $this->attributes['valid_to_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
+
+    public function getValidFromDateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format('d-m-Y') : '';
+    }
+
+    public function getValidToDateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format('d-m-Y') : '';
+    }
+
     public function getLogoUrl()
     {
         if ($this->logo) {

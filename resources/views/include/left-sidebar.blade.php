@@ -7,11 +7,7 @@
             <div class="logo-box">
                 <div class="logo-img">
                     <img class="open" src="{{$baseUrl}}images/logo-img.png" alt="logo-img">
-                    <!-- <img class="close" src="{{$baseUrl}}images/close-logo.png" alt="close-logo"> -->
                 </div>
-                <!-- <div class="click-btn">
-                            <a href="javascript:void(0)"><img src="{{$baseUrl}}images/menu-btn.svg" alt="menu-btn"></a>
-                        </div> -->
             </div>
             <div class="menu-box">
                 <div class="navbar-box">
@@ -25,13 +21,13 @@
                         $currentPath = request()->path(); // Get the current path
 
                         $activeRoutes = [
-                            'tenders' => ['tender.index', 'employee.tenders'],
+                            'tenders' => ['tender.index', 'employee.tenders', 'tender.start', 'tender.details', 'tender.add', 'tender.preview-docx', 'tender.preview-pdf'],
                             'companyDetails' => ['company-details.index'],
                             'employees' => ['employee.index', 'employee.details'],
                             'certificates' => ['certificate.index', 'certificate.details'],
                             'references' => ['reference.index', 'reference.details'],
                             'documents' => ['document.index', 'document.details'],
-                            'templetes' => ['templete.index', 'document.details'],
+                            'templetes' => ['templete.index'],
                             'tags' => ['tag.index'],
                             'servers' => ['server.index'],
                         ];
@@ -113,12 +109,12 @@
                             {{-- tags --}}
                             <li>
                                 <a class="kiTools {{ isActiveRoute($activeRoutes['tags']) ? 'main-active' : '' }}" href="javascript:void">
-                                    <span><i class="bi bi-gear-wide-connected setting-icon"></i></span> Admin
+                                    <span><img src="{{$baseUrl}}images/admin-setting.png" height="25px; width:25px;" alt="Tags"></span> Admin
                                 </a>
                                 <ul class="dropDownInner {{ isActiveRoute($activeRoutes['tags']) ? 'show' : '' }}">
                                     <li>
                                         <a href="{{ route('tag.index') }}">
-                                            <span><img src="{{$baseUrl}}images/Artificial-Intelligence.png" alt="Artificial-Intelligence"></span>
+                                            <span><img src="{{$baseUrl}}images/tags.jpg" alt="Tags"></span>
                                             Tags
                                         </a>
                                     </li>

@@ -1,3 +1,18 @@
+handleFormSubmission('#addreference', createReferenceUrl, 'addReferenceModal', referenceListUrl);
+
+$('#addReferenceModal').on('hidden.bs.modal', function () {
+    $('.error').html("");
+    $('#addreference')[0].reset();
+    $('#reference_id').val('');
+    $('#tags').val('').trigger('change');
+    $('#oldFileWord').html('');
+    $('#oldFilePdf').html('');
+    $('#addReferenceModal').find('button[type="submit"]').html("Hinzufügen");
+    $('#addReferenceModal').find('#exampleModalLabel').html("Referenz hinzufügen");
+    $('#addReferenceModal').find('#file-word-label').html("File(Word)*");
+    $('#addReferenceModal').find('#file-pdf-label').html("File(PDF)*");
+});
+
 $('body').on('click', '.edit-reference', function () {
     var id = $(this).data('id');
     $(".reference_id").val(id);
