@@ -44,6 +44,20 @@ class AppServiceProvider extends ServiceProvider
                     $view->with('statusCounts', $statusCounts);
                 }
             }
+
+            if($view->getName() == "include.tender_deadline_section"){
+                if (Auth::check()) {
+                    $user = Auth::user();
+
+                    if (!$user->isAdmin()) {
+                        $tenders = Tender::whereHas('users', function ($query) use ($user) {
+                            $query->where('users.id', $user->id);
+                        })->get();
+                    }
+                    $view->with('tenders', $tenders);
+
+                }
+            }
         });
     }
 }

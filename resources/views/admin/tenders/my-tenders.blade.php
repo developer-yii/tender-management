@@ -15,35 +15,44 @@
                     @foreach($tenders as $tender)
                         <div class="myTenderCommon">
                             <div class="imgBox">
-                                <img src="assest/images/boximg1.png" alt="boximg1">
+                                <img src="{{ getTenderMainImage($tender) }}" alt="{{$tender->tender_name}}">
                                 <div class="tenderName">
-                                    <h6>Museum für Naturkunde Berlin</h6>
+                                    <h6>{{$tender->tender_name}}</h6>
                                 </div>
                             </div>
                             <div class="detailsFull">
                                 <ul>
                                     <li>
-                                        <p>Ausführungszeitraum <span>01/2025 bis 12/2026</span></p>
+                                        <p>Ausführungszeitraum <span>{{ formatDate($tender->period_from, 'm/Y') }} bis {{ formatDate($tender->period_to, 'm/Y') }}</span></p>
                                     </li>
                                     <li>
-                                        <p>Ablauf Angebotsfrist <span>15.01.2025  |  13:00</span> noch 28 Tage</p>
+                                        <p>Ablauf Angebotsfrist
+                                            <span>{{ formatDate($tender->offer_period_expiration, 'd.m.Y | h:i') }}</span>
+                                            {{ getRemainingDaysMessage($tender->offer_period_expiration) }}
+                                        </p>
                                     </li>
                                     <li>
-                                        <p>Bindefrist <span>14.02.2025</span> noch 58 Tage</p>
+                                        <p>Bindefrist
+                                            <span>{{ formatDate($tender->binding_period, 'd.m.Y') ?? '' }}</span>
+                                            {{ getRemainingDaysMessage($tender->binding_period) }}
+                                        </p>
                                     </li>
                                     <li>
-                                        <p>Bewerberfragen bis <span>08.01.2025  |  13:00</span> noch 21 Tage</p>
+                                        <p>Bewerberfragen bis
+                                            <span>{{ formatDate($tender->question_ask_last_date, 'd.m.Y | h:i') }}</span>
+                                            {{ getRemainingDaysMessage($tender->question_ask_last_date) }}
+                                        </p>
                                     </li>
                                 </ul>
                             </div>
                             <div class="detailsView">
-                                <button class="btn btnDetails">DETAILS ANSEHEN</button>
+                                <a class="btn btnDetails" href="{{ route('tender.details', [$tender->id])}}">DETAILS ANSEHEN</a>
                                 <div class="viewstatus">
                                     <div class="statusIcon">
-                                        <img src="assest/images/Wait.png" alt="Wait">
+                                        <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" alt="{{ $tender->status_text }}">
                                     </div>
                                     <div class="text">
-                                        <p>in Bearbeitung</p>
+                                        <p>{{ $tender->status_text }}</p>
                                     </div>
                                 </div>
                             </div>
