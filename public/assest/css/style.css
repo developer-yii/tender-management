@@ -367,6 +367,7 @@ button {
     transition: 0.3s all;
     border-right: 1px solid var(--border-color);
     height: 100%;
+    z-index: 55;
 }
 
 .sidebar .sidebar-fix {
@@ -542,7 +543,7 @@ ul.dropDownInner {
 
 .dropDownInner.show {
     display: block;
-    margin-top: 5px;;
+    margin-top: 5px;
 }
 
 
@@ -556,6 +557,16 @@ ul.dropDownInner {
     width: calc(100% - 365px);
     z-index: 55;
 }
+
+/* .header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 150px;
+    background-color: var(--light-color);
+} */
 
 .header .header-part {
     min-height: 160px;
@@ -718,6 +729,17 @@ ul.dropDownInner {
     transition: 0.3s all;
     width: calc(100% - 250px);
     padding: 10px 20px;
+    position: relative;
+}
+
+.home-section::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 150px;
+    background-color: var(--light-color);
 }
 
 .home-section .mainSection {
@@ -2949,7 +2971,7 @@ ul.dropDownInner {
     margin-bottom: 5px;
 }
 
-.new-TenderSec .leftnewBox .multyDateBox select {
+.new-TenderSec .leftnewBox .ourThreeBox .secondBox select {
     font-size: 12px;
     font-family: 'BricolageGrotesque-SemiBold';
     color: var(--text-gray);
@@ -2985,7 +3007,7 @@ ul.dropDownInner {
     margin-right: 10px;
 } */
 
-.new-TenderSec .leftnewBox .ourThreeBox .thirdBox .newBox select {
+.new-TenderSec .leftnewBox .multyDateBox select {
     font-size: 12px;
     font-family: 'BricolageGrotesque-SemiBold';
     color: var(--text-gray);
@@ -2997,6 +3019,18 @@ ul.dropDownInner {
     text-align: start;
     outline: none;
 }
+/* .new-TenderSec .leftnewBox .ourThreeBox .thirdBox .newBox select {
+    font-size: 12px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-gray);
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--text-gray);
+    padding: 10px 5px;
+    position: relative;
+    text-align: start;
+    outline: none;
+} */
 
 .new-TenderSec .leftnewBox .endbtnSection {
     justify-content: start !important;
@@ -3222,7 +3256,7 @@ ul.dropDownInner {
 
 .new-TenderSec .awardInputSec ul li {
     padding: 0 10px;
-    /* text-align: center; */
+    text-align: center;
     width: 100%;
 }
 
@@ -3293,7 +3327,7 @@ ul.dropDownInner {
 }
 
 .custom-file-input::before {
-    content: 'Select file';
+    content: 'Select some files';
     color: var(--text-black);
     font-family: 'BricolageGrotesque-Medium';
     display: inline-block;

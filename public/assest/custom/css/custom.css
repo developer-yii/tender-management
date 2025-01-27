@@ -201,14 +201,3 @@ li.select2-search-field {
   min-height: 1000px;
   height: 100%;
 }
-
-.menu-box .navbar-box ul li a.sub-menu-active {
-  border-radius: 15px;
-  min-width: 250px;
-  margin-top: 10px !important;
-  color: var(--text-black);
-  background-color: var(--white-color);
-  border: 2px solid var(--light-blue);
-  transition: 0.3s;
-  box-shadow: 0px 2px 4.8px #0000001c;
-}
