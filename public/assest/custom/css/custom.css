@@ -1,90 +1,99 @@
-.error{
-    color: red;
-    margin-bottom: 10px;
+.error {
+  color: red;
+  margin-bottom: 10px;
 }
 
-.m-r-10{
-    margin-right: 10px;
+.m-r-10 {
+  margin-right: 10px;
 }
-.m-l-10{
+
+.m-l-10 {
   margin-left: 10px;
 }
-.m-b-10{
+
+.m-b-10 {
   margin-bottom: 10px !important;
 }
 
 .employsBoxList {
-    scroll-margin-top: 230px;
+  scroll-margin-top: 230px;
 }
+
 .referancePart {
-    scroll-margin-top: 230px;
+  scroll-margin-top: 230px;
 }
 
 .loginSection {
-    max-height: 600px;
-    overflow: auto;
+  max-height: 600px;
+  overflow: auto;
 }
 
 .btnCopy:active {
-    background-color: #28a745;
-    color: #fff;
+  background-color: #28a745;
+  color: #fff;
 }
 
-.pre{
-    white-space: pre-wrap;
-    font-size: 13px;
-    color: var(--text-black);
-    font-family: 'BricolageGrotesque-regular';
+.pre {
+  white-space: pre-wrap;
+  font-size: 13px;
+  color: var(--text-black);
+  font-family: 'BricolageGrotesque-regular';
 }
 
 
 /* Loader overlay */
 #loaderOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Ensure it appears above everything */
-  }
-
-  /* Loader content */
-  .loaderContent {
-    text-align: center;
-    color: #fff;
-    font-size: 20px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent black */
+  display: none;
+  /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  /* Ensure it appears above everything */
 }
 
-  /* Spinner animation */
-  .spinner {
-    border: 4px solid #f3f3f3; /* Light grey */
-    border-top: 4px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+/* Loader content */
+.loaderContent {
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Spinner animation */
+.spinner {
+  border: 4px solid #f3f3f3;
+  /* Light grey */
+  border-top: 4px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframes for spinner */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
 
-  /* Keyframes for spinner */
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
   }
+}
 
-.folderBtn{
+.folderBtn {
   color: #000;
   background-color: #31d2f2;
   border-color: #25cff2;
@@ -114,20 +123,20 @@
   padding: 0px 5px !important;
 }
 
-.setting-icon{
+.setting-icon {
   font-size: x-large;
   color: #7BA7D7;
 }
 
-.cursor-default{
+.cursor-default {
   cursor: default !important;
 }
 
-.a-txt{
+.a-txt {
   text-decoration: none !important;
 }
 
-/* ul.select2-choices {
+ul.select2-choices {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
@@ -137,4 +146,51 @@
 
 li.select2-search-field {
   width: 100% !important;
-} */
+}
+
+
+.select2-container-multi .select2-choices {
+  padding: 5px 10px;
+  width: 100% !important;
+  min-height: 40px !important;
+  border-radius: 15px !important;
+  outline: none !important;
+  box-shadow: inset 2px 4px 2px #00000021 !important;
+  border: none;
+  margin-bottom: 0px;
+}
+
+.select2-drop-active {
+  border: 1px solid #00000021 !important;
+}
+
+.select2-container-multi .select2-choices .select2-search-field input {
+  box-shadow: none !important;
+  min-height: auto !important;
+}
+
+
+.aitools_mainSec.chatBoxCustom {
+  display: block;
+}
+
+.questionMsg .msgText, .responseMsg .msgText {
+  margin-bottom: 5px;
+  background-color: #cee6ff !important;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.questionMsg {
+  text-align: end;
+}
+
+#chatBox {
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  border-radius: 10px;
+  scrollbar-width: thin;
+}

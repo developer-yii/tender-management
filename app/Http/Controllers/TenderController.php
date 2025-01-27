@@ -224,7 +224,6 @@ class TenderController extends Controller
                 $id = $parts[1];
 
                 $filePath = null;
-
                 if($type == "tender"){
                     $file = TenderFile::find($id);
                     $folder = "tenders";
@@ -248,9 +247,8 @@ class TenderController extends Controller
                 } elseif($type == "document"){
                     $file = Document::find($id);
                     $folder = "documents";
-                    $subFolder = "document" . $file->id;
+                    $subFolder = "";
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->document_pdf);
-                    $filePath = $file->getDocumentPdfUrl();
                 }elseif($type == "presentation"){
                     $file = Company::find($id);
                     $folder = "company-documents";
