@@ -360,12 +360,10 @@ if (!function_exists('getPdfFilePathUrl')) {
     function getPdfFilePathUrl($folder, $subFolder, $filePath)
     {
         if ($filePath) {
-            // $filePathUrl = "public/{$folder}/{$subFolder}/{$filePath}";
             $filePathUrl = "public/{$folder}/" . ($subFolder ? "{$subFolder}/" : "") . "{$filePath}";
             if (Storage::disk('local')->exists($filePathUrl)) {
                 return storage_path("app/{$filePathUrl}");
             }
-
         }
         return '';
     }
