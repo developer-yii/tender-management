@@ -10,4 +10,9 @@ class AiToolController extends Controller
     {
         return view('admin.ai.chatgpt');
     }
+
+    public function conversation()
+    {
+        return view('admin.ai.conversation');
+    }
 }

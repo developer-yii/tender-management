@@ -93,6 +93,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     // Tender
     Route::prefix('ai')->as('ai.')->group(function () {
         Route::get('/', [AiToolController::class, 'index'])->name('index');
+        Route::get('/conversation', [AiToolController::class, 'conversation'])->name('conversation');
     });
 
     // Documents
