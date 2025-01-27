@@ -13,6 +13,7 @@ class AiToolController extends Controller
 
     public function conversation()
     {
-        return view('admin.ai.conversation');
+        $openaiApiKey = env('OPENAI_API_KEY');
+        return view('admin.ai.conversation', compact('openaiApiKey'));
     }
 }

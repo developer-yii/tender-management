@@ -34,7 +34,6 @@ class EmployeeController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|string|max:255|unique:users,email,' . $request->employee_id . ',id,deleted_at,NULL',
-            'user_role' => 'required',
             'user_status' => 'required',
             'profile_photo' => 'nullable|image|max:2048',
             'cv' => 'nullable|mimes:pdf|max:5120',
@@ -69,6 +68,7 @@ class EmployeeController extends Controller
             $employee->last_name = $request->input('last_name');
             $employee->email = $request->input('email');
             $employee->description = $request->input('description');
+            $employee->is_active = $request->input('user_status');
             if ($request->input('password')){
                 $employee->password = Hash::make($request->password);
             }

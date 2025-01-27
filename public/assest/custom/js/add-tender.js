@@ -11,40 +11,6 @@ function readURL(input) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const bindingPeriod = document.getElementById('binding_period');
-    const applicantQuestionsDate = document.getElementById('applicant_questions_date');
-    const expiryOfferDate = document.getElementById('expiry_offer_date');
-
-    flatpickr("#execution_period", {
-        mode: "range", // This makes it a date range picker
-        dateFormat: "d-m-Y", // You can adjust the format
-        locale: {
-            firstDayOfWeek: 1 // Optional: Set the first day of the week to Monday
-        }
-    });
-
-    flatpickr(bindingPeriod, {
-        dateFormat: "d-m-Y",
-        allowInput: false, // Disable manual typing
-    });
-
-    flatpickr(applicantQuestionsDate, {
-        enableTime: true, // Enable time selection
-        dateFormat: "d-m-Y H:i", // Set the date and time format
-        time_24hr: true, // Use 24-hour time format
-        allowInput: false, // Disable manual typing
-    });
-
-    flatpickr(expiryOfferDate, {
-        enableTime: true, // Enable time selection
-        dateFormat: "d-m-Y H:i", // Set the date and time format
-        time_24hr: true, // Use 24-hour time format
-        allowInput: false, // Disable manual typing
-    });
-});
-
-
 // start Folder with File
 document.addEventListener("DOMContentLoaded", function () {
     const addForm = document.getElementById("addFolder");
@@ -81,16 +47,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         newFolder.innerHTML = `
         <h2 class="accordion-header">
-          <button class="accordion-button cursor-default" type="button">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${folderId}" aria-expanded="true" aria-controls="${folderId}">
             ${folderName}
             <a class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFolder(this)">X</a>
           </button>
         </h2>
-        <div class="accordion-body">
+        <div id="${folderId}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
             <div class="file-list"></div>
-            <input type="file" class="authorize_document custom-file-input name="folder_doc[${folderId}][]">
+            <input type="file" class="authorize_document custom-file-input" name="folder_doc[${folderId}][]">
+          </div>
         </div>
-
       `;
 
         // Append the folder to the accordion
@@ -137,7 +104,7 @@ function handleFolderFileInputChange(fileInput, fileList, folderId, folderName) 
             const fileLink = document.createElement("a");
             fileLink.href = "javascript:void(0)";
             fileLink.innerHTML = `
-                <span class="cursor-default"><i class="fa-solid fa-file-circle-plus"></i> ${fileName}</span>
+                <i class="fa-solid fa-file-circle-plus"></i> ${fileName}
                 <button type="button" class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFile(this)">X</button>
             `;
             fileLink.classList.add("d-block", "mt-1", "a-txt");
@@ -330,7 +297,7 @@ $(document).ready(function () {
             // Create a link with the file name
             const link = document.createElement('a');
             link.href = 'javascript:void(0)';
-            link.innerHTML = `<span class="cursor-default"><i class="fa-solid fa-file-circle-plus"></i> ${file.name}</span>`;
+            link.innerHTML = `<i class="fa-solid fa-file-circle-plus"></i> ${file.name}`;
             link.style.flexGrow = '1';
             link.classList.add("a-txt");
 

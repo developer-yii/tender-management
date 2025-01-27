@@ -2388,6 +2388,7 @@ ul.dropDownInner {
     display: flex;
     align-items: center;
     gap: 40px;
+    flex-wrap: wrap;
 }
 
 .selectTender .secriesPart {
@@ -3719,9 +3720,9 @@ ul.dropDownInner {
 }
 
 
-
-
-
-
-
 /* -------- References Add new project page css ---------- */
+
+.adminBtn {
+    display: flex;
+    gap: 5px;
+}
