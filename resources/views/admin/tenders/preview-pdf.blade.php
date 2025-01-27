@@ -13,7 +13,7 @@
                 </a>
             </div>
             <div class="previewBox">
-                <iframe src="{{ asset('storage/mergedFile/' . $fileUrl) }}" width="100%" height ="1000px"></iframe>
+                <iframe src="{{ asset('storage/mergedFile/' . $fileUrl) }}"></iframe>
             </div>
         </div>
     </div>

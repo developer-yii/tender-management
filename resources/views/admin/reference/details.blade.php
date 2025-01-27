@@ -55,7 +55,7 @@
 
                 <div class="multyTagsBox">
                     <div class="titleBox">
-                        <h5>Suche Mitarbeiter nach Tag</h5>
+                        <h5>Suche Referenzen nach Tag</h5>
                     </div>
                     <div class="multyBtntag">
                         @foreach($tags as $tag)

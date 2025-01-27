@@ -113,7 +113,7 @@
                                 </a>
                                 <ul class="dropDownInner {{ isActiveRoute($activeRoutes['tags']) ? 'show' : '' }}">
                                     <li>
-                                        <a href="{{ route('tag.index') }}">
+                                        <a href="{{ route('tag.index') }}" class="{{ isActiveRoute($activeRoutes['tags']) ? 'main-active' : '' }}">
                                             <span><img src="{{$baseUrl}}images/tags.png" alt="Tags"></span>
                                             Tags
                                         </a>
