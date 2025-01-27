@@ -30,6 +30,7 @@
                             'templetes' => ['templete.index'],
                             'tags' => ['tag.index'],
                             'servers' => ['server.index'],
+                            'admins' => ['admin.index'],
                         ];
                     @endphp
 
@@ -108,10 +109,16 @@
 
                             {{-- tags --}}
                             <li>
-                                <a class="kiTools {{ isActiveRoute($activeRoutes['tags']) ? 'main-active' : '' }}" href="javascript:void">
-                                    <span><img src="{{$baseUrl}}images/admin-setting.png" height="25px; width:25px;" alt="Tags"></span> Admin
+                                <a class="kiTools {{ (isActiveRoute($activeRoutes['tags']) || isActiveRoute($activeRoutes['admins'])) ? 'main-active' : '' }}" href="javascript:void(0)">
+                                    <span><img src="{{$baseUrl}}images/admin-setting.png" height="25px; width:25px;" alt="Settings"></span> Setting
                                 </a>
-                                <ul class="dropDownInner {{ isActiveRoute($activeRoutes['tags']) ? 'show' : '' }}">
+                                <ul class="dropDownInner {{ (isActiveRoute($activeRoutes['tags']) || isActiveRoute($activeRoutes['admins'])) ? 'show' : '' }}">
+                                    <li>
+                                        <a href="{{ route('admin.index') }}" class="{{ isActiveRoute($activeRoutes['admins']) ? 'main-active' : '' }}">
+                                            <span><img src="{{$baseUrl}}images/Account.png" alt="Account"></span>
+                                            Admins
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('tag.index') }}" class="{{ isActiveRoute($activeRoutes['tags']) ? 'main-active' : '' }}">
                                             <span><img src="{{$baseUrl}}images/tags.png" alt="Tags"></span>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AiToolController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CompanyProfileController;
@@ -44,6 +45,15 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::post('/addupdate', [TagController::class, 'addupdate'])->name('addupdate');
         Route::post('/detail', [TagController::class, 'detail'])->name('detail');
         Route::post('/delete', [TagController::class, 'delete'])->name('delete');
+    });
+
+    // Admin Module
+    Route::prefix('admin')->as('admin.')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::get('/get', [AdminController::class, 'get'])->name('list');
+        Route::post('/addupdate', [AdminController::class, 'addupdate'])->name('addupdate');
+        Route::post('/detail', [AdminController::class, 'detail'])->name('detail');
+        Route::post('/delete', [AdminController::class, 'delete'])->name('delete');
     });
 
     // employees

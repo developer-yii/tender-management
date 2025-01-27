@@ -13,7 +13,6 @@ $('body').on('click', '.edit-employee', function () {
             $('#last_name').val(data.last_name);
             $('#email').val(data.email);
             $('#description').val(data.description);
-            $('#user_role').val(data.role);
             $('#user_status').val(data.is_active ? 1 : 0);
             let selectedTags = data.tags.map(tag => tag.id); // Extract tag IDs from the data
             $('#tags').val(selectedTags).trigger('change');

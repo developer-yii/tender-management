@@ -62,6 +62,18 @@ class User extends Authenticatable
         return asset('assest/images/default-user.jpg');
     }
 
+    public function getAdminProfilePicUrl()
+    {
+        if ($this->profile_photo) {
+            $subFolder = "admin" . $this->id;  // Match the subfolder logic
+            $filePath = "public/admins/{$subFolder}/{$this->profile_photo}";  // Updated path
+            if (Storage::disk('local')->exists($filePath)) {
+                return asset('storage/admins/' . $subFolder . '/' . $this->profile_photo);  // Correct URL structure
+            }
+        }
+        return asset('assest/images/default-user.jpg');
+    }
+
     public function getCvUrl()
     {
         if ($this->cv) {

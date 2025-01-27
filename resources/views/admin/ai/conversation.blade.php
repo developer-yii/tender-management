@@ -28,11 +28,10 @@
 
 @section('js')
 <script>
-
     const chatBox = document.getElementById("chatBox");
     const newQuestionInput = document.getElementById("newQuestion");
     const sendButton = document.getElementById("send");
-    const OPENAI_API_KEY = "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";
+    const OPENAI_API_KEY = "{{ $openaiApiKey }}";
 
     // Load chat history from sessionStorage
     function loadChatHistory() {
@@ -63,9 +62,11 @@
         });
 
         if (!response.ok) {
-            throw new Error("Failed to fetch response from ChatGPT");
+            const errorDetails = await response.text(); // Read the error body
+            throw new Error(
+                `HTTP Error: ${response.status} - ${errorDetails}`
+            );
         }
-
         const data = await response.json();
         return data.choices[0].message.content.trim();
     }
@@ -80,7 +81,7 @@
             const botMsg = `<div><strong>Response:</strong> ${botResponse}</div>`;
             chatBox.innerHTML += botMsg;
         } catch (error) {
-            const errorMsg = `<div class="responseMsg"><div class="msgText"><strong>ChatGPT:</strong> Failed to get a response. Please try again later.</div></div>`;
+            const errorMsg = `<div class="responseMsg"><div class="msgText"><strong>ChatGPT:</strong> ${error.message}</div></div>`;
             chatBox.innerHTML += errorMsg;
             console.error(error);
         }
@@ -111,5 +112,6 @@
     // Load chat history on page load
     loadChatHistory();
 </script>
+
 @endsection
 

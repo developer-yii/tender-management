@@ -12,7 +12,7 @@
         </div>
         <div class="softwareDevlop">
             <div class="titleBox">
-                <h5>{{$certificate->category_name}} - {{$certificate->title}}</h5>
+                <h5>{{$certificate->category_name}} <br> {{$certificate->title}}</h5>
             </div>
             <div class="softwareDevlopBox">
                 <div class="softwareLeftBox">
@@ -34,7 +34,6 @@
                 </div>
                 <div class="softwareRightBox">
                     <div class="imgBox">
-                        {{-- <img src="assest/images/doc1.jpg" alt="doc1"> --}}
                         <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ $certificate->certificate_word_url }}" width="100%" style="min-height: 600px;"></iframe>
                     </div>
                 </div>
