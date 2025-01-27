@@ -13,10 +13,7 @@
                 </a>
             </div>
             <div class="previewBox">
-                <iframe
-                    src="https://view.officeapps.live.com/op/embed.aspx?src={{ asset('storage/mergedFile/' . $fileUrl) }}"
-                    width="100%"
-                    height="1000px">
+                <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ asset('storage/mergedFile/' . $fileUrl) }}">
                 </iframe>
             </div>
         </div>

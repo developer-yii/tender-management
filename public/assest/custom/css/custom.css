@@ -194,3 +194,10 @@ li.select2-search-field {
   border-radius: 10px;
   scrollbar-width: thin;
 }
+
+.previewBox iframe {
+  width: 100%;
+  max-width: 100%;
+  min-height: 1000px;
+  height: 100%;
+}
