@@ -9,11 +9,11 @@
         <div class="aitools_mainSec">
             <div class="toolsInner">
                 <div class="aiTitle">
-                    <h5>LM Google</h5>
+                    <h5>Notebook LM</h5>
                 </div>
                 <div class="typeMsgBox">
                     <textarea name="" id="" placeholder="Chat starten..."></textarea>
-                    <button class="btn btnTelegram"><img src="assest/images/send-Icon.png" alt="send-Icon"></button>
+                    <button class="btn btnTelegram"><img src="{{$baseUrl}}images/send-Icon.png" alt="send-Icon"></button>
                 </div>
             </div>
             <div class="toolsInner">
@@ -22,8 +22,7 @@
                 </div>
                 <div class="typeMsgBox">
                     <textarea id="question" rows="6" cols="50" placeholder="Chat starten..."></textarea><br>
-                    <button class="btn btnTelegram" id="submit"><img src="assest/images/send-Icon.png" alt="send-Icon"></button>
-                    <div id="response"></div>
+                    <button class="btn btnTelegram" id="submit"><img src="{{$baseUrl}}images/send-Icon.png" alt="send-Icon"></button>
                 </div>
             </div>
         </div>
@@ -32,6 +31,9 @@
 @endsection
 
 @section('js')
+<script>
+    var redirectUrl = "{{ route('ai.conversation') }}";
+</script>
 <script src="{{ $baseUrl }}custom/js/chatgpt.js"></script>
 @endsection
 
