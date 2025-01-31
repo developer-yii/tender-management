@@ -152,7 +152,7 @@
                                                             <i class="fa-solid fa-file-lines"></i>
                                                             {{ $file->original_file_name ?? 'Untitled File' }}
                                                         </a>
-                                                        <img src="{{$baseUrl}}images/chatgpt.png" class="chat-gpt" data-file-path="{{ $document->getFilePathUrl() }}" data-chat-box-id="chatBox-{{ $file->id }}">
+                                                        <img src="{{$baseUrl}}images/chatgpt.png" class="chat-gpt" data-file-path="{{ $file->getFilePathUrl() }}" data-chat-box-id="chatBox-{{ $file->id }}">
                                                     </div>
                                                     <div class="chatGptBox" id="chatBox-{{ $file->id }}" style="display: none;">
                                                         <!-- Messages will appear here -->
@@ -177,6 +177,9 @@
 @endsection
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js"></script>
 <script>
     const OPENAI_API_KEY = "{{ $openaiApiKey }}";
     const MAX_FILE_CONTENT_LENGTH = 10000; // Maximum characters for file content
@@ -203,9 +206,9 @@
     });
 
 
-function truncateContent(content, limit) {
-    return content.length > limit ? content.substring(0, limit) + "... [Content truncated]" : content;
-}
+    function truncateContent(content, limit) {
+        return content.length > limit ? content.substring(0, limit) + "... [Content truncated]" : content;
+    }
 
     // Adjusting the file upload handler to handle file paths (URLs)
     async function handleFileUpload(filePath, question) {
@@ -225,8 +228,15 @@ function truncateContent(content, limit) {
                     if (filePath.endsWith(".pdf")) {
                         fileContent = await extractTextFromPDF(fileBlob);
                     } else if (filePath.endsWith(".docx")) {
-                        // If it's a docx file, extract text
                         fileContent = await extractTextFromDOCX(fileBlob);
+                    } else if (filePath.endsWith(".txt")) {
+                        fileContent = await file.text();
+                    } else if (filePath.endsWith(".csv")) {
+                        fileContent = await extractTextFromCSV(fileBlob);
+                    } else if (filePath.endsWith(".xls") || filePath.endsWith(".xlsx")) {
+                        fileContent = await extractTextFromExcel(fileBlob);
+                    } else if (file.type.startsWith("image/")) {
+                        fileContent = await extractTextFromImage(fileBlob);
                     }
 
                     const truncatedContent = truncateContent(fileContent, MAX_FILE_CONTENT_LENGTH);
@@ -263,6 +273,53 @@ function truncateContent(content, limit) {
         const arrayBuffer = await file.arrayBuffer();
         const result = await mammoth.extractRawText({ arrayBuffer });
         return result.value;
+    }
+
+    async function extractTextFromCSV(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const csvText = event.target.result;
+                const parsedData = Papa.parse(csvText, { header: true });
+                resolve(JSON.stringify(parsedData.data, null, 2)); // Convert to readable JSON
+            };
+            reader.onerror = reject;
+            reader.readAsText(file);
+        });
+    }
+
+
+    async function extractTextFromExcel(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+                let text = "";
+
+                workbook.SheetNames.forEach(sheetName => {
+                    const sheet = workbook.Sheets[sheetName];
+                    text += XLSX.utils.sheet_to_csv(sheet) + "\n";
+                });
+
+                resolve(text);
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
+    async function extractTextFromImage(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                const imageData = event.target.result;
+                const { data: { text } } = await Tesseract.recognize(imageData, "eng");
+                resolve(text);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
     }
 
     // ChatGPT integration (same as the original code you provided)
@@ -323,158 +380,6 @@ function truncateContent(content, limit) {
             : content;
         return truncatedContent;
     }
-
-
-    // document.querySelectorAll(".chat-gpt").forEach((image) => {
-    //     image.addEventListener("click", async function () {
-    //         const filePath = image.getAttribute("data-file-path");
-    //         const question = image.getAttribute("data-question");
-
-    //         // Create file details object, since file is referenced by file path
-    //         const fileDetails = {
-    //             fileName: filePath.split('/').pop(), // Extract file name from the path
-    //             fileContent: await handleFileUpload(filePath, question), // Fetch the file content asynchronously
-    //             fileContent: await fetchFileContent(filePath), // Fetch the file content asynchronously
-    //         };
-
-    //         // Call the function to send the message
-    //         await addMessage(question, fileDetails);
-    //     });
-    // });
-
-    // Fetch file content (assuming file is text-based for now, e.g. .txt, .pdf, etc.)
-    // async function fetchFileContent(filePath) {
-    //     try {
-    //         const response = await fetch(filePath);
-    //         const fileText = await response.text();
-    //         return fileText; // Return the text content of the file
-    //     } catch (error) {
-    //         console.error("Error fetching file content:", error);
-    //         return ""; // Return empty content on error
-    //     }
-    // }
-
-    // function truncateContent(content, limit) {
-    //     return content.length > limit ? content.substring(0, limit) + "... [Content truncated]" : content;
-    // }
-
-    // function handleFileUpload(file, question) {
-    //     if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-    //         alert("The file is too large. Please upload a file smaller than 1 MB.");
-    //         return;
-    //     }
-
-    //     const reader = new FileReader();
-
-    //     reader.onload = async (event) => {
-    //         let fileContent = event.target.result;
-
-    //         // If the file is a PDF, extract text from it (you would need to add pdf.js library)
-    //         if (file.name.endsWith(".pdf")) {
-    //             fileContent = await extractTextFromPDF(file);
-    //         } else if (file.name.endsWith(".docx")) {
-    //             // If it's a docx file, extract text (you would need to add mammoth.js or similar)
-    //             fileContent = await extractTextFromDOCX(file);
-    //         }
-
-    //         const truncatedContent = truncateContent(fileContent, MAX_FILE_CONTENT_LENGTH);
-    //         const fileDetails = {
-    //             fileName: file.name,
-    //             fileContent: truncatedContent,
-    //         };
-
-    //         addMessage(question || "No question provided", fileDetails);
-    //     };
-
-    //     reader.onerror = (error) => {
-    //         const errorMsg = `<div class="responseMsg"><strong>Error:</strong> Unable to read file: ${error.message}</div>`;
-    //         chatBox.innerHTML += errorMsg;
-    //         console.error("File read error:", error);
-    //     };
-
-    //     // Read the file as text
-    //     reader.readAsText(file);
-    // }
-
-    // // Function to extract text from PDF (using pdf.js)
-    // async function extractTextFromPDF(file) {
-    //     const pdf = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
-    //     let text = '';
-    //     for (let i = 1; i <= pdf.numPages; i++) {
-    //         const page = await pdf.getPage(i);
-    //         const content = await page.getTextContent();
-    //         text += content.items.map(item => item.str).join(' ') + '\n';
-    //     }
-    //     return text;
-    // }
-
-    // // Function to extract text from DOCX (using mammoth.js or similar)
-    // async function extractTextFromDOCX(file) {
-    //     const arrayBuffer = await file.arrayBuffer();
-    //     const result = await mammoth.extractRawText({ arrayBuffer });
-    //     return result.value;
-    // }
-
-    // // ChatGPT integration (same as the original code you provided)
-    // const chatBox = document.getElementById("chatBox");
-
-    // async function addMessage(question, fileDetails = null) {
-    //     let userMsg = `<div class="questionMsg"><div class="msgText"><strong>Question:</strong> ${question}</div></div>`;
-
-    //     if (fileDetails) {
-    //         userMsg += `<div class="questionMsg"><div class="msgText"><strong>Uploaded File:</strong> ${fileDetails.fileName}</div></div>`;
-    //     }
-
-    //     chatBox.innerHTML += userMsg;
-
-    //     try {
-    //         let combinedInput = `User Question:\n${question}\n\nDocument Content:\n${fileDetails ? fileDetails.fileContent : ""}`;
-
-    //         // Truncate content if too long
-    //         combinedInput = truncateContentToFitTokens(combinedInput);
-
-    //         const botResponse = await getChatGPTResponse(combinedInput);
-    //         const botMsg = `<div class="responseMsg"><div class="msgText"><strong>Response:</strong> ${botResponse}</div></div>`;
-    //         chatBox.innerHTML += botMsg;
-    //     } catch (error) {
-    //         const errorMsg = `<div class="responseMsg"><div class="msgText"><strong>Error:</strong> ${error.message}</div></div>`;
-    //         chatBox.innerHTML += errorMsg;
-    //         console.error(error);
-    //     }
-
-    //     chatBox.scrollTop = chatBox.scrollHeight;
-    // }
-
-    // async function getChatGPTResponse(inputText) {
-    //     const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": `Bearer ${OPENAI_API_KEY}`,
-    //         },
-    //         body: JSON.stringify({
-    //             model: "gpt-3.5-turbo",
-    //             messages: [{ role: "user", content: inputText }],
-    //             max_tokens: 500,
-    //         }),
-    //     });
-
-    //     if (!response.ok) {
-    //         const errorDetails = await response.text();
-    //         throw new Error(`HTTP Error: ${response.status} - ${errorDetails}`);
-    //     }
-
-    //     const data = await response.json();
-    //     return data.choices[0].message.content.trim();
-    // }
-
-    // function truncateContentToFitTokens(content) {
-    //     const maxContentLength = MAX_TOKENS - 500; // Leave space for bot's response (500 tokens max)
-    //     const truncatedContent = content.length > maxContentLength
-    //         ? content.substring(0, maxContentLength) + "... [Content truncated]"
-    //         : content;
-    //     return truncatedContent;
-    // }
 
 </script>
 @endsection

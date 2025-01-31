@@ -117,12 +117,19 @@ function handleFileUpload(file, question) {
     reader.onload = async (event) => {
         let fileContent = event.target.result;
 
-        // If the file is a PDF, extract text from it (you would need to add pdf.js library)
+        // If the file is a PDF, extract text from it
         if (file.name.endsWith(".pdf")) {
             fileContent = await extractTextFromPDF(file);
         } else if (file.name.endsWith(".docx")) {
-            // If it's a docx file, extract text (you would need to add mammoth.js or similar)
             fileContent = await extractTextFromDOCX(file);
+        } else if (file.name.endsWith(".txt")) {
+            fileContent = await file.text();
+        } else if (file.name.endsWith(".csv")) {
+            fileContent = await extractTextFromCSV(file);
+        } else if (file.name.endsWith(".xls") || file.name.endsWith(".xlsx")) {
+            fileContent = await extractTextFromExcel(file);
+        } else if (file.type.startsWith("image/")) {
+            fileContent = await extractTextFromImage(file);
         }
 
         const truncatedContent = truncateContent(fileContent, MAX_FILE_CONTENT_LENGTH);
@@ -163,6 +170,52 @@ async function extractTextFromDOCX(file) {
     return result.value;
 }
 
+async function extractTextFromCSV(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const csvText = event.target.result;
+            const parsedData = Papa.parse(csvText, { header: true });
+            resolve(JSON.stringify(parsedData.data, null, 2)); // Convert to readable JSON
+        };
+        reader.onerror = reject;
+        reader.readAsText(file);
+    });
+}
+
+
+async function extractTextFromExcel(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const data = new Uint8Array(event.target.result);
+            const workbook = XLSX.read(data, { type: "array" });
+            let text = "";
+
+            workbook.SheetNames.forEach(sheetName => {
+                const sheet = workbook.Sheets[sheetName];
+                text += XLSX.utils.sheet_to_csv(sheet) + "\n";
+            });
+
+            resolve(text);
+        };
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+async function extractTextFromImage(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            const imageData = event.target.result;
+            const { data: { text } } = await Tesseract.recognize(imageData, "eng");
+            resolve(text);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
 
 // Load initial question (if passed from the previous page)
 const initialQuestion = sessionStorage.getItem("chatQuestion");
