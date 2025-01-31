@@ -37,7 +37,7 @@ $(document).ready(function () {
 
                             </div>
                             <div class="text">
-                                <p>- No tenders found for this employee.</p>
+                                <p>- Für diesen Mitarbeiter wurden keine Ausschreibungen gefunden.</p>
                             </div>
                         </li>
                     `);
