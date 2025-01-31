@@ -13,7 +13,7 @@
                     <div class="profiledetails">
                         <div class="mainSec">
                             <div class="user-img">
-                                <img src="{{ $user->getProfilePicUrl() }}" alt="{{$user->first_name}}">
+                                <img src="{{ isAdmin() ? $user->getAdminProfilePicUrl() :$user->getProfilePicUrl() }}" alt="{{$user->first_name}}">
                             </div>
                             <div class="textSec">
                                 <div class="topText">
