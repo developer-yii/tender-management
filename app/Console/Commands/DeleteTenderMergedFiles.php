@@ -27,7 +27,7 @@ class DeleteTenderMergedFiles extends Command
      */
     public function handle()
     {
-        $path = storage_path('app/public/mergedFile');
+        $path = realpath(storage_path('app/public/mergedFile'));
 
         if (!File::exists($path)) {
             $this->info("Directory does not exist: $path");
@@ -38,8 +38,8 @@ class DeleteTenderMergedFiles extends Command
         $files = File::files($path);
 
         foreach ($files as $file) {
-            $fileLastModified = Carbon::createFromTimestamp(File::lastModified($file));
 
+            $fileLastModified = Carbon::createFromTimestamp(File::lastModified($file));
             if ($fileLastModified <= $yesterday) {
                 if (unlink($file)) {
                     $this->info("Deleted file: {$file->getFilename()}");

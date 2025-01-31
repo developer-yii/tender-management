@@ -427,7 +427,7 @@ class TenderController extends Controller
         $tender->procurement_regulations = $request->input('vergabeordnung');
         $tender->procurement_procedures = $request->input('vergabeverfahren');
 
-        list($period_from, $period_to) = explode(' to ', $request->execution_period);
+        list($period_from, $period_to) = explode(' bis ', $request->execution_period);
         $tender->period_from = $period_from;
         $tender->period_to = $period_to;
         $tender->save();

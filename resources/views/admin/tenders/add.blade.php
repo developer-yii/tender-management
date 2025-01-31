@@ -65,7 +65,7 @@
                                         <li class="form-group">
                                             @php
                                                 $executionPeriod = $tender
-                                                    ? $tender->period_from . ' to ' . $tender->period_to
+                                                    ? $tender->period_from . ' bis ' . $tender->period_to
                                                     : '';
                                             @endphp
                                             <label for="">Ausführungszeitraum</label>
