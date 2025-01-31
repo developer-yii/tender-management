@@ -94,24 +94,17 @@
 }
 
 .folderBtn {
-  color: #000;
-  background-color: #31d2f2;
-  border-color: #25cff2;
+  background-color: #7BA7D7 !important;
+  color: #fff !important;
 }
 
-/* #expiry_offer_date, #applicant_questions_date {
-  width: 100% !important;
-  max-width: 220px !important;
-} */
-
-/* #binding_period {
-  width: 100%;
-  max-width: 150px;
-} */
+.folderBtn:hover {
+  background-color: #7BA7D7 !important;
+  color: #fff !important;
+}
 
 .new-TenderSec .leftnewBox .ourThreeBox .box-box .newBox {
   width: 100%;
-  /* max-width: 180px; */
 }
 
 .new-TenderSec .leftnewBox .ourThreeBox .box-box .newBox .select2-choices {
@@ -184,15 +177,24 @@ li.select2-search-field {
 
 .questionMsg {
   text-align: end;
+  margin-left: auto;
 }
 
-#chatBox {
+.responseMsg,
+.questionMsg {
+  width: 100%;
+  max-width: 80%;
+}
+
+.chatGptBox {
   border: 1px solid #ccc;
   padding: 10px;
-  height: 300px;
+  max-height: 300px;
   overflow-y: auto;
   border-radius: 10px;
   scrollbar-width: thin;
+  min-height: 150px;
+  margin-bottom: 10px;
 }
 
 .previewBox iframe {
@@ -200,4 +202,79 @@ li.select2-search-field {
   max-width: 100%;
   min-height: 1000px;
   height: 100%;
+}
+
+.text-right{
+  text-align: right !important;
+}
+
+.btn-info{
+  color: #fff !important;
+  background-color: #7BA7D7 !important;
+  border: none !important;
+}
+
+.btn-info:hover{
+  color: #fff !important;
+  background-color: #7BA7D1 !important;
+  border: none;
+}
+
+.allEmploysSec.adminList .employsBoxList .listAllemploys .employcardBox .textbox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.colAppsBox {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+}
+
+.myProfile{
+  font-size: 18px;
+  color: var(--text-black);
+  font-family: 'BricolageGrotesque-SemiBold';
+  margin-bottom: 20px;
+}
+
+.aitools_mainSec .filerImpotbtn #fileText {
+  position: absolute;
+  right: 40px;
+  white-space: nowrap;
+}
+
+.create_rightBox .mySkillBox .skillSelect .select2-container-multi .select2-choices {
+  box-shadow: none !important;
+  border-radius: 5px !important;
+  border: 1px solid var(--text-gray) !important;
+}
+
+.create_rightBox .mySkillBox .skillSelect .select2-container-multi .select2-choices .select2-search-choice {
+  padding: 15px 35px !important;
+  background-image: linear-gradient(to bottom, #7ba7d7 20%, #7ba7d7 50%, #7ba7d7 52%, #7ba7d7 100%);
+  font-size: 16px !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 15px !important;
+}
+
+.create_rightBox .mySkillBox .skillSelect .select2-search-choice-close {
+  background: none !important;
+}
+
+.create_rightBox .mySkillBox .skillSelect .select2-search-choice-close::after {
+  content: '\58' !important;
+  font-family: 'fontawesome' !important;
+  background: none !important;
+  font-size: 12px !important;
+  color: #fff !important;
+  top: 18px !important;
+  position: absolute !important;
+  transform: translateY(-50%) !important;
+  left: 10px !important;
 }

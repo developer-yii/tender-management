@@ -33,7 +33,10 @@ class TenderController extends Controller
                 ->get();
         }
 
-        $employees = User::with(['tenders', 'tags', 'files'])->where('id', '!=', Auth::user()->id)->get();
+        $employees = User::with(['tenders', 'tags', 'files'])
+                            ->where('id', '!=', Auth::user()->id)
+                            ->where('role', 2)
+                            ->get();
 
         if(isAdmin()){
             return view('admin.tenders.index', compact('tenders', 'employees'));
@@ -72,7 +75,8 @@ class TenderController extends Controller
             abort(404);
         }
 
-        return view('admin.tenders.details', compact('tender', 'folder_files', 'documentFiles'));
+        $openaiApiKey = env('OPENAI_API_KEY');
+        return view('admin.tenders.details', compact('tender', 'folder_files', 'documentFiles', 'openaiApiKey'));
     }
 
     public function addEdit(Request $request)
@@ -141,10 +145,10 @@ class TenderController extends Controller
                     $filePath = $file->getFileWordUrl();
                 }elseif($type == "presentation"){
                     $file = Company::find($id);
-                    $filePath = getDocumentPath($file->company_presentation_word);
+                    $filePath = getDocumentPath($file->company_presentation_word, 'company-presentation');
                 }elseif($type == "framework"){
                     $file = Company::find($id);
-                    $filePath = getDocumentPath($file->agile_framework_word);
+                    $filePath = getDocumentPath($file->agile_framework_word, 'agile-framework');
                 }
 
                 if ($filePath) {
@@ -357,7 +361,7 @@ class TenderController extends Controller
     {
         // pre($request->all());
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $rules = [
@@ -382,7 +386,7 @@ class TenderController extends Controller
             'documents' => 'nullable|array',
             'documents.*' => 'file|mimes:doc,docx,pdf|max:5120',
             'folder_doc' => 'nullable|array',
-            'folder_doc.*.*' => 'file|mimes:doc,docx,pdf|max:5120',
+            'folder_doc.*.*' => 'file|mimes:doc,docx,pdf,xls,xlsx,csv|max:5120',
         ];
 
         if (!$request->tender_id) {
@@ -393,7 +397,7 @@ class TenderController extends Controller
 
         $customMessage = [
             'documents.*.*' => 'The documents field must be a file of type: doc, docx, pdf.',
-            'folder_doc.*.*' => 'The documents must be a file of type: doc, docx, pdf.',
+            'folder_doc.*.*' => 'The documents must be a file of type: doc, docx, pdf, xls, xlsx, csv.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $customMessage);
@@ -466,103 +470,41 @@ class TenderController extends Controller
             );
         }
 
-        if($request->old_documents){
-            $tenderFileDocs = TenderFile::where('tender_id', $request->tender_id)->where('type', 'documents')->get();
-            $oldDocuments = $request->old_documents;
+        if ($request->tender_id) {
+            // Retrieve the tender file documents only once
+            $tenderFileDocs = TenderFile::where('tender_id', $request->tender_id)
+                ->where('type', 'documents')
+                ->get();
 
-            // Loop through each tender file document
+            // Determine whether to filter based on old documents or not
+            $oldDocuments = $request->old_documents ?? [];
+
             foreach ($tenderFileDocs as $fileDoc) {
-                // Check if the file is not in the list of old documents
-                if (!in_array($fileDoc->original_file_name, $oldDocuments)) {
-                    // Define the file path
-                    $filePath = "public/tenders/tender{$request->tender_id}/{$fileDoc->file_path}";
-
-                    // Delete the file from storage
-                    if (Storage::exists($filePath)) {
-                        Storage::delete($filePath);
-                    }
-
-                    // Delete the record from the database
-                    $fileDoc->delete();
+                // If old_documents is provided, only delete files not in the oldDocuments list
+                if (empty($oldDocuments) || !in_array($fileDoc->original_file_name, $oldDocuments)) {
+                    deleteFileAndRecord($fileDoc, $request->tender_id);
                 }
             }
-        }
 
-        // Iterate over the old folder structure
-        if($request->old_folder_name){
+            // for folder and files
             $tenderFolders = TenderFile::where('tender_id', $request->tender_id)->where('type', 'folder')->get();
-            $oldFolders = $request->old_folder_name;
-            $oldFolderDocs = $request->old_folder_doc;
+            $oldFolders = $request->old_folder_name ?? [];
+            $oldFolderDocs = $request->old_folder_doc ?? [];
 
             foreach ($tenderFolders as $tenderFolder) {
                 // Check if the file is not in the list of old documents
-                if (!in_array($tenderFolder->folder_name, $oldFolders)) {
-                    // Define the file path
-                    $filePath = "public/tenders/tender{$request->tender_id}/{$tenderFolder->file_path}";
-
-                    // Delete the file from storage
-                    if (Storage::exists($filePath)) {
-                        Storage::delete($filePath);
-                    }
-
-                    // Delete the record from the database
-                    $tenderFolder->delete();
+                if (empty($oldFolders) || !in_array($tenderFolder->folder_name, $oldFolders)) {
+                    deleteFileAndRecord($tenderFolder, $request->tender_id);
                 }
 
                 // Check if files in the folder match the old documents
-                if (isset($oldFolderDocs[$tenderFolder->folder_name])) {
-                    $folderDocs = $oldFolderDocs[$tenderFolder->folder_name];
+                if (empty($oldFolderDocs[$tenderFolder->folder_name]) || isset($oldFolderDocs[$tenderFolder->folder_name])) {
+                    $folderDocs = $oldFolderDocs[$tenderFolder->folder_name] ?? [];
 
                     // Check if the file is in the list of old documents for the folder
-                    if (!in_array($tenderFolder->original_file_name, $folderDocs)) {
+                    if (empty($oldFolders) || !in_array($tenderFolder->original_file_name, $folderDocs)) {
                         // Define the file path
-                        $filePath = "public/tenders/tender{$request->tender_id}/{$tenderFolder->file_path}";
-
-                        // Delete the file from storage
-                        if (Storage::exists($filePath)) {
-                            Storage::delete($filePath);
-                        }
-
-                        // Delete the record from the database
-                        $tenderFolder->delete();
-                    }
-                }
-            }
-        }
-
-        if($request->old_folder_doc){
-            foreach ($request->old_folder_doc as $folderKey => $oldFiles) {
-                // Get the folder name for this folder key
-                $folderName = $request->old_folder_name[$folderKey] ?? null;
-
-                if ($folderName) {
-                    // Get all existing files from the database for this folder
-                    $tenderFileDocs = TenderFile::where('tender_id', $request->tender_id)
-                        ->where('type', 'folder')
-                        ->where('folder_name', $folderName)
-                        ->get();
-
-                    // Get the newly uploaded files for this folder, if any
-                    $newUploadedFiles = $request->folder_doc[$folderKey] ?? [];
-                    $newUploadedFileNames = array_map(function ($file) {
-                        return $file->getClientOriginalName(); // Extract original names of uploaded files
-                    }, $newUploadedFiles);
-
-                    // Combine the old files and newly uploaded file names to determine what to keep
-                    $keepFiles = array_merge($oldFiles, $newUploadedFileNames);
-
-                    foreach ($tenderFileDocs as $fileDoc) {
-                        // If the file in the database is not in the "keep" list, delete it
-                        if (!in_array($fileDoc->original_file_name, $keepFiles)) {
-                            // Delete from storage
-                            $filePath = "public/tenders/tender{$request->tender_id}/{$fileDoc->file_path}";
-                            if (Storage::exists($filePath)) {
-                                Storage::delete($filePath);
-                            }
-
-                            // Delete from the database
-                            $fileDoc->delete();
-                        }
+                        deleteFileAndRecord($tenderFolder, $request->tender_id);
                     }
                 }
             }

@@ -2,12 +2,12 @@
     $baseUrl = asset('assest')."/";
 @endphp
 @extends('layouts.app-main')
-@section('title', 'Admin | Tender List ')
+@section('title', "Admin | " . trans('message.tenderlist'))
 @section('content')
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn">
-            <a href="{{route('tender.add')}}" class="btn btnAdd"><i class="fa-solid fa-plus"></i> Zart hinzufügen</a>
+            <a href="{{route('tender.add')}}" class="btn btnAdd"><i class="fa-solid fa-plus"></i> {{ trans('message.addtender') }}</a>
         </div>
         <div class="tenderDetails">
             <div class="allTenderBox commonBackview">
@@ -52,7 +52,7 @@
                             </div>
                         @endforeach
                     @else
-                        <p>No Data Found</p>
+                        <p>{{ trans('message.no data available') }}</p>
                     @endif
                 </div>
             </div>
@@ -89,7 +89,7 @@
                         </div>
                     @else
                         <div class="employMainBox">
-                            <p>No Data Found</p>
+                            <p>{{ trans('message.no data available') }}</p>
                         </div>
                     @endif
                 </div>

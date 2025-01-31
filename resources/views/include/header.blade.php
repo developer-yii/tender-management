@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="sittingBox">
-                    <a href="javascript:void(0)"><i class="bi bi-gear-wide-connected"></i></a>
+                    <a href="{{route('my-profile')}}"><i class="bi bi-gear-wide-connected"></i></a>
                 </div>
             </div>
         </div>
@@ -39,7 +39,8 @@
                     $statuses = [
                         1 => ['label' => 'in Bearbeitung', 'icon' => 'Wait.png'],
                         2 => ['label' => 'in Betracht', 'icon' => 'orange-dot.png'],
-                        3 => ['label' => 'Erhalten', 'icon' => 'green-dot.png']
+                        3 => ['label' => 'Erhalten', 'icon' => 'green-dot.png'],
+                        4 => ['label' => 'Abgeschlossen', 'icon' => 'gray-dot.png']
                     ];
                 @endphp
 

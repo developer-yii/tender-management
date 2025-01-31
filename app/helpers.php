@@ -38,23 +38,23 @@ if (!function_exists('formatDateRange')) {
 }
 
 if (!function_exists('getDocumentPath')) {
-    function getDocumentPath($fileName)
+    function getDocumentPath($fileName, $subFolder)
     {
         if (!$fileName) {
             return '#';
         }
 
-        return asset('storage/company-documents/' . $fileName);
+        return asset('storage/company-documents/' . $subFolder .'/'. $fileName);
     }
 }
 
 function fileUploadWithId($request, $model, $filesConfig) {
     foreach ($filesConfig as $field => $config) {
         if ($request->hasFile($field)) {
-            // $oldFile = $model->{$field};
-            // if ($oldFile) {
-            //     Storage::delete("public/{$config['folder']}/{$oldFile}");
-            // }
+            $oldFile = $model->{$field};
+            if ($oldFile) {
+                Storage::delete("public/{$config['folder']}/{$oldFile}");
+            }
 
             $dir = "public/{$config['folder']}/";
             $storagePath = storage_path("app/{$dir}");
@@ -366,6 +366,39 @@ if (!function_exists('getPdfFilePathUrl')) {
             }
         }
         return '';
+    }
+}
+
+if (!function_exists('deleteFileAndRecord')) {
+    function deleteFileAndRecord($fileDoc, $tenderId) {
+        $filePath = "public/tenders/tender{$tenderId}/{$fileDoc->file_path}";
+        $docDocxPreview = "public/tenders/tender{$tenderId}/{$fileDoc->docx_preview}";
+
+        if (Storage::exists($filePath)) {
+            Storage::delete($filePath);
+        }
+        if (Storage::exists($docDocxPreview)) {
+            Storage::delete($docDocxPreview);
+        }
+
+        $fileDoc->delete();
+    }
+}
+
+if (!function_exists('getOriginaFileName')) {
+    function getOriginaFileName($file) {
+
+        // Get the original file name and extension
+        $extension = $file->getClientOriginalExtension();
+        $originalFileName = $file->getClientOriginalName();
+
+        // If the file extension is '.doc', change it to '.docx'
+        if ($extension === 'doc') {
+            $originalFileName = pathinfo($originalFileName, PATHINFO_FILENAME) . ".docx";
+        }
+
+        // Return the file data and modified name
+        return $originalFileName;
     }
 }
 

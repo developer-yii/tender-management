@@ -76,7 +76,6 @@
 
     <script src="{{ $baseUrl }}js/jquery-3.7.1.min.js"></script>
     <script src="{{ $baseUrl }}js/bootstrap.bundle.min.js"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
     <script src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap5.js"></script>
     {{--start multiple select2 --}}
@@ -94,6 +93,7 @@
     <script src="{{ $baseUrl }}custom/js/toastr.min.js"></script>
     <script src="{{ $baseUrl }}js/owl.carousel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
     <script src="{{ $baseUrl }}js/custom.js"></script>
 
     <script>

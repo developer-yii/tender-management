@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group boxForm">
-                                <label for="project_title">Project Title*</label>
+                                <label for="project_title">{{ trans('message.project-title') }}*</label>
                                 <input type="text" id="project_title" name="project_title">
                                 <span class="error"></span>
                             </div>
@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group boxForm">
-                                <label for="scope" class="control-label">Scope*</label>
+                                <label for="scope" class="control-label">{{ trans('message.scope') }}*</label>
                                 <textarea name="scope" id="scope" rows="5"></textarea>
                                 <span class="error"></span>
                             </div>
@@ -47,11 +47,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="dateSelect">
-                                <label for="">Performance period(Start Date/End Date)*</label>
+                                <label for="">{{ trans('message.performance-period') }}*</label>
                                 <div class="form-group boxForm range">
-                                    <input type="text" class="flat" placeholder="Start Date" name="start_date" id="start_date">
-                                    <span>To</span>
-                                    <input type="text" class="flat" placeholder="End Date" name="end_date" id="end_date">
+                                    <input type="text" class="flat" placeholder="{{trans('message.start-date')}}" name="start_date" id="start_date">
+                                    <span>{{ trans('message.to') }}</span>
+                                    <input type="text" class="flat" placeholder="{{trans('message.end-date')}}" name="end_date" id="end_date">
                                 </div>
                                 <span class="error" id="error_message"></span>
                             </div>
@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group boxForm">
-                                <label for="file_pdf" class="file-pdf-label" id="file-pdf-label">File(PDF)*</label>
+                                <label for="file_pdf" class="file-pdf-label" id="file-pdf-label">{{trans('message.file-pdf')}}*</label>
                                 <input type="file" name="file_pdf" id="file_pdf" value="">
                                 <span class="error"></span>
                                 <span id="oldFilePdf" class="m-1"></span>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group boxForm">
-                                <label for="file_word" class="file-word-label" id="file-word-label">File(Word)*</label>
+                                <label for="file_word" class="file-word-label" id="file-word-label">{{trans('message.file-word')}}*</label>
                                 <input type="file" name="file_word" id="file_word" value="">
                                 <span class="error"></span>
                                 <span id="oldFileWord" class="m-1"></span>

@@ -17,7 +17,7 @@ class TempleteController extends Controller
     public function addupdate(Request $request)
     {
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $rules = [

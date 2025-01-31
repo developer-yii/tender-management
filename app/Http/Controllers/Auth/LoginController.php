@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class LoginController extends Controller
 {
@@ -63,17 +64,20 @@ class LoginController extends Controller
         $get_user = User::where('email', $request->email)->first();
         $credentials['email'] = $request->email;
         $credentials['password'] = $request->password;
+
+        $remember = $request->has('remember');
+        Config::set('session.expire_on_close', !$remember);
         if (isset($get_user) && $get_user != NULL) {
 
             if (($get_user->role == '1')) {
-                if (Auth::attempt($credentials)) {
+                if (Auth::attempt($credentials, $remember)) {
                     return redirect()->intended(route('tender.index'));
                 } else {
                     return redirect('login')->withErrors(['password' => 'The Password is wrong.'])->withInput();
                 }
             }
             if ($get_user->role == '2') {
-                if (Auth::attempt($credentials)){
+                if (Auth::attempt($credentials, $remember)){
                     return redirect()->route('employee.tenders');
                 } else {
                     return redirect('login')->withErrors(['password' => 'The Password is wrong.'])->withInput();
@@ -83,6 +87,4 @@ class LoginController extends Controller
             return redirect('login')->withErrors(['approve' => 'Provided credential does not match in our records.'])->withInput();
         }
     }
-
-
 }

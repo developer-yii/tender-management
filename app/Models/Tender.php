@@ -13,7 +13,7 @@ class Tender extends Model
 
     protected $guarded = [];
     protected $appends = ['status_icon', 'status_text'];
-    const tenderStatus = [1 => 'in Bearbeitung', 2 => 'in Betracht', 3 => 'Erhalten'];
+    const tenderStatus = [1 => 'in Bearbeitung', 2 => 'in Betracht', 3 => 'Erhalten', 4 => 'Abgeschlossen'];
     const abgabeForms = [1 => 'Option 1', 2 => 'Option 2', 3 => 'Option 3'];
     const options = [0 => 'No', 1 => 'Yes'];
 

@@ -82,7 +82,7 @@ function generateFilePreview(filePath, container) {
     if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
         content = `<img src="${filePath}" alt="Image" style="width: 100px; height: auto; cursor: pointer;" onclick="window.open('${filePath}', '_blank');">`;
     } else if (fileExtension === 'pdf' || fileExtension === 'docx' || fileExtension === 'doc') {
-        content = `<a href="${filePath}" target="_blank" class="btn btn-primary">View File</a>`;
+        content = `<a href="${filePath}" target="_blank" class="btn btn-info">View File</a>`;
     } else {
         content = `<a href="${filePath}" target="_blank" style="cursor: pointer;">View File</a>`;
     }

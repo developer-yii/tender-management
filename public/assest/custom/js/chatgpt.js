@@ -1,13 +1,175 @@
+const chatBox = document.getElementById("chatBox");
+const newQuestionInput = document.getElementById("question");
+const fileInput = document.getElementById("fileInput");
+const sendButton = document.getElementById("send");
 
-document.getElementById("submit").addEventListener("click", function () {
-    const question = document.getElementById("question").value;
-    if (question.trim() !== "") {
-        // localStorage.setItem("chatQuestion", question);
-        sessionStorage.setItem("chatQuestion", question);
-        window.location.href = redirectUrl;
-    } else {
-        alert("Please enter a question!");
+const MAX_FILE_CONTENT_LENGTH = 10000; // Maximum characters for file content
+const MAX_FILE_SIZE_MB = 1; // Maximum file size in MB
+
+document.getElementById('fileInput').addEventListener('change', function() {
+    var fileText = document.getElementById('fileText');
+    if (this.files.length > 0) {
+        fileText.textContent = this.files[0].name; // Display the selected file name
     }
 });
 
+// Clear previous chat history on page refresh
+sessionStorage.removeItem("chatHistory");
 
+
+// Load chat history from sessionStorage
+function loadChatHistory() {
+    const history = sessionStorage.getItem("chatHistory");
+    if (history) {
+        chatBox.innerHTML = history;
+    }
+}
+
+// Save chat history to sessionStorage
+function saveChatHistory() {
+    sessionStorage.setItem("chatHistory", chatBox.innerHTML);
+}
+
+function truncateContent(content, limit) {
+    return content.length > limit ? content.substring(0, limit) + "... [Content truncated]" : content;
+}
+
+// Fetch response from ChatGPT API
+async function getChatGPTResponse(inputText) {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: inputText }],
+            max_tokens: 500,
+        }),
+    });
+
+    if (!response.ok) {
+        const errorDetails = await response.text();
+        throw new Error(`HTTP Error: ${response.status} - ${errorDetails}`);
+    }
+    const data = await response.json();
+    return data.choices[0].message.content.trim();
+}
+
+// Add a new message to the chat box
+async function addMessage(question, fileDetails = null) {
+    let userMsg = `<div class="questionMsg"><div class="msgText"><strong>Question:</strong> ${question}</div></div>`;
+
+    if (fileDetails) {
+        userMsg += `<div class="questionMsg"><div class="msgText"><strong>Uploaded File:</strong> ${fileDetails.fileName}</div></div>`;
+    }
+
+    chatBox.innerHTML += userMsg;
+
+    try {
+        let combinedInput = `User Question:\n${question}\n\nDocument Content:\n${fileDetails ? fileDetails.fileContent : ""}`;
+
+        const botResponse = await getChatGPTResponse(combinedInput);
+        const botMsg = `<div class="responseMsg"><div class="msgText"><strong>Response:</strong> ${botResponse}</div></div>`;
+        chatBox.innerHTML += botMsg;
+    } catch (error) {
+        const errorMsg = `<div class="responseMsg"><div class="msgText"><strong>Error:</strong> ${error.message}</div></div>`;
+        chatBox.innerHTML += errorMsg;
+        console.error(error);
+    }
+
+    saveChatHistory();
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Handle sending a new message
+sendButton.addEventListener("click", () => {
+    const newQuestion = newQuestionInput.value.trim();
+    const selectedFile = fileInput.files[0];
+    const fileText = document.getElementById("fileText");
+
+    if (newQuestion === "" && !selectedFile) {
+        alert("Please enter a message or upload a file!");
+        return;
+    }
+
+    if (selectedFile) {
+        handleFileUpload(selectedFile, newQuestion);
+    } else {
+        addMessage(newQuestion);
+    }
+
+    newQuestionInput.value = ""; // Clear input field
+    fileInput.value = ""; // Clear file input
+    fileText.textContent = "";
+});
+
+// Handle file upload
+function handleFileUpload(file, question) {
+    if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        alert("The file is too large. Please upload a file smaller than 1 MB.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = async (event) => {
+        let fileContent = event.target.result;
+
+        // If the file is a PDF, extract text from it (you would need to add pdf.js library)
+        if (file.name.endsWith(".pdf")) {
+            fileContent = await extractTextFromPDF(file);
+        } else if (file.name.endsWith(".docx")) {
+            // If it's a docx file, extract text (you would need to add mammoth.js or similar)
+            fileContent = await extractTextFromDOCX(file);
+        }
+
+        const truncatedContent = truncateContent(fileContent, MAX_FILE_CONTENT_LENGTH);
+        const fileDetails = {
+            fileName: file.name,
+            fileContent: truncatedContent,
+        };
+
+        addMessage(question || "No question provided", fileDetails);
+    };
+
+    reader.onerror = (error) => {
+        const errorMsg = `<div class="responseMsg"><strong>Error:</strong> Unable to read file: ${error.message}</div>`;
+        chatBox.innerHTML += errorMsg;
+        console.error("File read error:", error);
+    };
+
+    // Read the file as text
+    reader.readAsText(file);
+}
+
+// Function to extract text from PDF (using pdf.js)
+async function extractTextFromPDF(file) {
+    const pdf = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
+    let text = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map(item => item.str).join(' ') + '\n';
+    }
+    return text;
+}
+
+// Function to extract text from DOCX (using mammoth.js or similar)
+async function extractTextFromDOCX(file) {
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ arrayBuffer });
+    return result.value;
+}
+
+
+// Load initial question (if passed from the previous page)
+const initialQuestion = sessionStorage.getItem("chatQuestion");
+if (initialQuestion) {
+    sessionStorage.removeItem("chatQuestion");
+    addMessage(initialQuestion);
+}
+
+// Load chat history on page load
+loadChatHistory();

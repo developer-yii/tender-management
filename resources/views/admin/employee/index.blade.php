@@ -7,7 +7,7 @@
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn">
-            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</button>
+            <a href="{{route('employee.add-edit')}}" class="btn btnAdd"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</a>
         </div>
         <div class="allEmploysSec">
             @if($users->isNotEmpty())
@@ -40,7 +40,7 @@
             @else
                 <div class="employsBoxList">
                     <div class="titleBox">
-                        <h5>No Data Found</h5>
+                        <h5>{{ trans('message.no data available') }}</h5>
                     </div>
                 </div>
             @endif
@@ -48,13 +48,9 @@
     </div>
 </section>
 @endsection
-@section('modal')
-    @include('include.employee-modal')
-@endsection
 @section('js')
     <script>
         var createUrl = "{{ route('employee.addupdate') }}";
-        var getUrl = "{{ route('employee.detail') }}";
         var listUrl = "{{ route('employee.index') }}";
     </script>
     <script src="{{ $baseUrl }}custom/js/common.js"></script>

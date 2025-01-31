@@ -143,15 +143,15 @@
                                                     <div class="clickTo">
                                                         <input type="checkbox" id="company-presentation" class="keyword-checkbox" data-section="presentation"
                                                             value="{{$companyDocument->id}}"
-                                                            data-doc-preview-url="{{ getDocumentPath($companyDocument->company_presentation_pdf) }}"
-                                                            data-pdf-preview-url="{{ getDocumentPath($companyDocument->company_presentation_pdf) }}">
+                                                            data-doc-preview-url="{{ getDocumentPath($companyDocument->company_presentation_docx_preview, 'company-presentation') }}"
+                                                            data-pdf-preview-url="{{ getDocumentPath($companyDocument->company_presentation_pdf, 'company-presentation') }}">
                                                         <label for="company-presentation" class="keyword-label">Company Presentation</label>
                                                     </div>
                                                     <div class="clickTo">
                                                         <input type="checkbox" id="agile-framework" class="keyword-checkbox" data-section="framework"
                                                             value="{{$companyDocument->id}}"
-                                                            data-doc-preview-url="{{ getDocumentPath($companyDocument->agile_framework_pdf) }}"
-                                                            data-pdf-preview-url="{{ getDocumentPath($companyDocument->agile_framework_pdf) }}">
+                                                            data-doc-preview-url="{{ getDocumentPath($companyDocument->agile_framework_docx_preview, 'agile-framework') }}"
+                                                            data-pdf-preview-url="{{ getDocumentPath($companyDocument->agile_framework_pdf, 'agile-framework') }}">
                                                         <label for="agile-framework" class="keyword-label">Agile Framework</label>
                                                     </div>
                                                 </div>

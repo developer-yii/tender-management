@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group boxForm">
-                                    <label for="portal_name">Portal Name*</label>
+                                    <label for="portal_name">Portalen Name*</label>
                                     <input type="text" id="portal_name" name="portal_name">
                                     <span class="error"></span>
                                 </div>
@@ -62,8 +62,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group boxForm">
-                                    <label for="server-password" class="control-label">Password*</label>
-                                    <input type="password" id="server-password" name="server-password">
+                                    <label for="server_password" class="control-label">Passwort*</label>
+                                    <input type="password" id="server_password" name="server_password">
                                     <span class="error"></span>
                                 </div>
                             </div>

@@ -8,7 +8,7 @@
     <div class="homeSectionPart">
         <div class="addCommonBtn newAdd">
             <a href="{{ route('employee.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück Zu Allen</a>
-            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</button>
+            <a href="{{route('employee.add-edit')}}" class="btn btnAdd"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</a>
         </div>
         <div class="employsSection">
             <div class="row">
@@ -41,7 +41,8 @@
                                 <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> DOKUMENT HERUNTERLADEN
                                 <a id="download-doc" href="{{ $employee->document_url }}" download style="display:none;"></a>
                             </button>
-                            <button class="btn btnGray edit-employee" data-bs-toggle="modal" data-bs-target="#addModal" data-id="{{ $employee->id }}">INFOS BEARBEITEN</button>
+                            <a href="{{ route('employee.add-edit', ['id' => $employee->id]) }}" class="btn btnGray edit-employee">INFOS BEARBEITEN</a>
+                            {{-- <button class="btn btnGray edit-employee" data-bs-toggle="modal" data-bs-target="#addModal" data-id="{{ $employee->id }}">INFOS BEARBEITEN</button> --}}
                         </div>
                         <div class="multyBnt">
                             @foreach($employee->tags as $employeeTag)
@@ -99,13 +100,11 @@
 </section>
 @endsection
 @section('modal')
-    @include('include.employee-modal')
     @include('include.preview-modal')
 @endsection
 @section('js')
 <script>
     var createUrl = "{{ route('employee.addupdate') }}";
-    var getUrl = "{{ route('employee.detail') }}";
     var listUrl = "{{ route('employee.index') }}";
     var fileUrl = "{{ $employee->getCvUrl() }}";
 </script>

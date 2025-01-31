@@ -19,7 +19,7 @@ class CompanyProfileController extends Controller
     public function update(Request $request)
     {
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $company = Company::find(1) ?? new Company();
@@ -75,16 +75,30 @@ class CompanyProfileController extends Controller
         ]);
 
         $files = [
-            'company_presentation_word' => ['folder' => 'company-documents', 'name' => 'company-presentation'],
-            'company_presentation_pdf' => ['folder' => 'company-documents', 'name' => 'company-presentation'],
-            'agile_framework_word' => ['folder' => 'company-documents', 'name' => 'agile-framework'],
-            'agile_framework_pdf' => ['folder' => 'company-documents', 'name' => 'agile-framework'],
+            'company_presentation_word' => ['name' => 'company-presentation', 'filedName' => 'company_presentation_word_original_file_name', 'preview' => 'company_presentation_docx_preview'],
+            'company_presentation_pdf' => ['name' => 'company-presentation', 'filedName' => 'company_presentation_pdf_original_file_name', 'preview' => ''],
+            'agile_framework_word' => ['name' => 'agile-framework', 'filedName' => 'agile_framework_word_original_file_name', 'preview' => 'agile_framework_docx_preview'],
+            'agile_framework_pdf' => ['name' => 'agile-framework', 'filedName' => 'agile_framework_pdf_original_file_name', 'preview' => ''],
         ];
 
         foreach ($files as $field => $config) {
             if ($request->hasFile($field)) {
                 $oldFile = $company->{$field};
-                $company->{$field} = $this->uploadFile($request->file($field), $config['folder'], $config['name'], $oldFile);
+
+                $fileData = uploadFile($request->file($field), 'company-documents', $config['name'], $oldFile);
+
+                // Update the company fields with the uploaded file name and the first page PDF path if it's a docx
+                $company->{$field} = $fileData['filename'];
+
+                $originalFileName = getOriginaFileName($request->file($field));
+                $company->{$config['filedName']} = $originalFileName;
+
+                if ($fileData['firstPagePdfPath']) {
+                    $company->{$config['preview']} = $fileData['firstPagePdfPath'];
+                }
+
+                // $company->{$field} = $this->uploadFile($request->file($field), $config['folder'], $config['name'], $oldFile);
+                // $company->{$config['fieldName']} = $request->file($field)->getClientOriginalName();
             }
         }
 
@@ -97,33 +111,38 @@ class CompanyProfileController extends Controller
         return response()->json(['status' => false, 'message' => 'Failed to update company details.', 'data' => []], 500);
     }
 
-    private function uploadFile($file, $folder, $fileName, $oldFile = null)
-    {
-        // Delete old file if exists
-        if ($oldFile) {
-            Storage::delete("public/{$folder}/{$oldFile}");
-        }
+    // private function uploadFile($file, $folder, $fileName, $oldFile = null)
+    // {
+    //     // Delete old file if exists
+    //     if ($oldFile) {
+    //         Storage::delete("public/{$folder}/{$oldFile}");
+    //     }
 
-        $dir = "public/{$folder}/";
-        $extension = $file->getClientOriginalExtension();
-        $filename = "{$fileName}.{$extension}";
+    //     $dir = "public/{$folder}/";
+    //     $extension = $file->getClientOriginalExtension();
+    //     $filename = "{$fileName}.{$extension}";
 
-        Storage::disk('local')->put($dir . $filename, File::get($file));
+    //     $dirPath = storage_path("app/{$dir}");
+    //     if (!is_dir($dirPath)) {
+    //         mkdir($dirPath, 0755, true); // Create directory with 0755 permissions
+    //     }
 
-        $filePath = storage_path("app/{$dir}{$filename}");
+    //     Storage::disk('local')->put($dir . $filename, File::get($file));
 
-        if ($extension === 'doc') {
-            $convertedFilePath = convertDocToDocx($filePath);
-            if ($convertedFilePath) {
-                $filePath = $convertedFilePath;
-                $extension = 'docx'; // Update extension after conversion
-                $filename = "{$fileName}.{$extension}";
-            } else {
-                throw new \Exception("Failed to convert .doc to .docx for file: {$filePath}");
-            }
-        }
-        return $filename;
-    }
+    //     $filePath = storage_path("app/{$dir}{$filename}");
+
+    //     if ($extension === 'doc') {
+    //         $convertedFilePath = convertDocToDocx($filePath);
+    //         if ($convertedFilePath) {
+    //             $filePath = $convertedFilePath;
+    //             $extension = 'docx'; // Update extension after conversion
+    //             $filename = "{$fileName}.{$extension}";
+    //         } else {
+    //             throw new \Exception("Failed to convert .doc to .docx for file: {$filePath}");
+    //         }
+    //     }
+    //     return $filename;
+    // }
 
     public function detail(Request $request)
     {

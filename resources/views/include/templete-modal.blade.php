@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group boxForm">
-                                <label for="title">Title*</label>
+                                <label for="title">{{ trans('message.title') }}*</label>
                                 <input type="text" id="title" name="title">
                                 <span class="error"></span>
                             </div>
@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group boxForm">
-                                <label for="templete_file" class="file-label" id="file-label">File*</label>
+                                <label for="templete_file" class="file-label" id="file-label">{{ trans('message.file') }}*</label>
                                 <input type="file" name="templete_file" id="templete_file" value="">
                                 <span class="error"></span>
                                 <span id="oldFile" class="m-1"></span>

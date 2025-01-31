@@ -69,7 +69,6 @@
 </script>
 <script src="{{ $baseUrl }}custom/js/common.js"></script>
 <script src="{{ $baseUrl }}custom/js/certificates.js"></script>
-<script src="{{ $baseUrl }}custom/js/certificate-details.js"></script>
 @endsection
 
 

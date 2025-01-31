@@ -21,7 +21,7 @@ class DocumentController extends Controller
     {
         // pre($request->all());
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $availableCategories = Document::categories;

@@ -35,7 +35,7 @@ class ServerController extends Controller
     public function addupdate(Request $request)
     {
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $rules = [
@@ -45,7 +45,7 @@ class ServerController extends Controller
         ];
 
         if (!$request->server_id) {
-            $rules['server-password'] = 'required';
+            $rules['server_password'] = 'required';
         }
 
         $validator = Validator::make($request->all(), $rules);
@@ -64,8 +64,8 @@ class ServerController extends Controller
         $server->login_url = $request->input('login_url');
         $server->username = $request->input('username');
 
-        if ($request->input('server-password')){
-            $server->password = $request->input('server-password');
+        if ($request->input('server_password')){
+            $server->password = $request->input('server_password');
         }
 
         if ($server->save()) {

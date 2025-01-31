@@ -34,10 +34,10 @@ $(document).ready(function () {
                     tenderList.append(`
                         <li>
                             <div class="statusIcon">
-                                <img src="${baseUrl}images/gray-dot.png" alt="">
+
                             </div>
                             <div class="text">
-                                <p>No tenders found for this employee.</p>
+                                <p>- No tenders found for this employee.</p>
                             </div>
                         </li>
                     `);

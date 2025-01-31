@@ -50,64 +50,41 @@ class User extends Authenticatable
         return $this->role == '1';
     }
 
-    public function getProfilePicUrl()
+    private function getFileUrl($type, $fileName)
     {
-        if ($this->profile_photo) {
-            $subFolder = "employee" . $this->id;  // Match the subfolder logic
-            $filePath = "public/employees/{$subFolder}/{$this->profile_photo}";  // Updated path
+        if ($fileName) {
+            $subFolder = "{$type}" . $this->id;  // Subfolder based on type and user ID
+            $filePath = "public/{$type}s/{$subFolder}/{$fileName}";  // Updated path based on type
             if (Storage::disk('local')->exists($filePath)) {
-                return asset('storage/employees/' . $subFolder . '/' . $this->profile_photo);  // Correct URL structure
+                return asset('storage/' . $type . 's/' . $subFolder . '/' . $fileName);  // Correct URL structure
             }
         }
-        return asset('assest/images/default-user.jpg');
+        return '';  // Return an empty string if the file doesn't exist
+    }
+
+    public function getProfilePicUrl()
+    {
+        return $this->getFileUrl('employee', $this->profile_photo) ?: asset('assest/images/default-user.jpg');
     }
 
     public function getAdminProfilePicUrl()
     {
-        if ($this->profile_photo) {
-            $subFolder = "admin" . $this->id;  // Match the subfolder logic
-            $filePath = "public/admins/{$subFolder}/{$this->profile_photo}";  // Updated path
-            if (Storage::disk('local')->exists($filePath)) {
-                return asset('storage/admins/' . $subFolder . '/' . $this->profile_photo);  // Correct URL structure
-            }
-        }
-        return asset('assest/images/default-user.jpg');
+        return $this->getFileUrl('admin', $this->profile_photo) ?: asset('assest/images/default-user.jpg');
     }
 
     public function getCvUrl()
     {
-        if ($this->cv) {
-            $subFolder = "employee" . $this->id;  // Match the subfolder logic
-            $filePath = "public/employees/{$subFolder}/{$this->cv}";  // Updated path
-            if (Storage::disk('local')->exists($filePath)) {
-                return asset('storage/employees/' . $subFolder . '/' . $this->cv);  // Correct URL structure
-            }
-        }
-        return '';
+        return $this->getFileUrl('employee', $this->cv);  // Will return an empty string if not found
     }
 
     public function getDocumentUrl()
     {
-        if ($this->document) {
-            $subFolder = "employee" . $this->id;  // Match the subfolder logic
-            $filePath = "public/employees/{$subFolder}/{$this->document}";  // Updated path
-            if (Storage::disk('local')->exists($filePath)) {
-                return asset('storage/employees/' . $subFolder . '/' . $this->document);  // Correct URL structure
-            }
-        }
-        return '';
+        return $this->getFileUrl('employee', $this->document);  // Will return an empty string if not found
     }
 
     public function getDocxPreviewUrl()
     {
-        if ($this->docx_preview) {
-            $subFolder = "employee" . $this->id;  // Match the subfolder logic
-            $filePath = "public/employees/{$subFolder}/{$this->docx_preview}";  // Updated path
-            if (Storage::disk('local')->exists($filePath)) {
-                return asset('storage/employees/' . $subFolder . '/' . $this->docx_preview);  // Correct URL structure
-            }
-        }
-        return '';
+        return $this->getFileUrl('employee', $this->docx_preview);  // Will return an empty string if not found
     }
 
     public function tenders()

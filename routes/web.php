@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\TagController;
@@ -59,9 +60,9 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     // employees
     Route::prefix('employee')->as('employee.')->group(function () {
         Route::get('/', [EmployeeController::class, 'index'])->name('index');
-        Route::post('/addupdate', [EmployeeController::class, 'addupdate'])->name('addupdate');
+        Route::get('/create', [EmployeeController::class, 'addEdit'])->name('add-edit');
         Route::get('/details/{id}', [EmployeeController::class, 'employeeDetails'])->name('details');
-        Route::post('/detail', [EmployeeController::class, 'detail'])->name('detail');
+        // Route::post('/detail', [EmployeeController::class, 'detail'])->name('detail');
     });
 
     // certificates
@@ -138,4 +139,10 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/my-tenders', [TenderController::class, 'index'])->name('employee.tenders');
     Route::get('/tender/details/{id}', [TenderController::class, 'tenderDetails'])->name('tender.details');
+
+    Route::post('/employee/addupdate', [EmployeeController::class, 'addupdate'])->name('employee.addupdate');
+
+    Route::get('/profile', [ProfileController::class, 'myProfile'])->name('my-profile');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', 'ProfileController@update')->name('profile.update');
 });

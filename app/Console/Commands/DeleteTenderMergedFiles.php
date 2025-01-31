@@ -40,9 +40,12 @@ class DeleteTenderMergedFiles extends Command
         foreach ($files as $file) {
             $fileLastModified = Carbon::createFromTimestamp(File::lastModified($file));
 
-            if ($fileLastModified->isSameDay($yesterday)) {
-                File::delete($file);
-                $this->info("Deleted file: {$file->getFilename()}");
+            if ($fileLastModified <= $yesterday) {
+                if (unlink($file)) {
+                    $this->info("Deleted file: {$file->getFilename()}");
+                } else {
+                    $this->info("Failed to delete file: {$file->getFilename()}");
+                }
             }
         }
 

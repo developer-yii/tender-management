@@ -29,29 +29,33 @@
                                 <li><p>E-Mail:</p><h6>{{ $companyData->email }}</h6></li>
                                 <li><p>Telefon:</p><h6>{{ $companyData->phone }}</h6></li>
                                 <li><p>Web:</p><h6>{{ $companyData->website_url }}</h6></li>
-                            </ul>
-                        </div>
-                        <div class="companyFile">
-                            <ul>
-                                @foreach([
-                                    'company_presentation_word' => 'Unternehmensvorstellung Word',
-                                    'company_presentation_pdf' => 'Unternehmensvorstellung PDF',
-                                    'agile_framework_word' => 'Agile Framework Word',
-                                    'agile_framework_pdf' => 'Agile Framework PDF'
-                                ] as $fileKey => $label)
-                                    @if(!empty($companyData->$fileKey))
+                                @php
+                                    $files = [
+                                        'company_presentation_word' => ['subFolder' => 'company-presentation', 'label' => 'Unternehmensvorstellung Word'],
+                                        'company_presentation_pdf' => ['subFolder' => 'company-presentation', 'label' => 'Unternehmensvorstellung PDF'],
+                                        'agile_framework_word' => ['subFolder' => 'agile-framework', 'label' => 'Agile Framework Word'],
+                                        'agile_framework_pdf' => ['subFolder' => 'agile-framework', 'label' => 'Agile Framework PDF'],
+                                    ];
+                                @endphp
+                                @foreach($files as $fileKey => $config)
+                                    @php
+                                        $originalFileName = $fileKey . "_original_file_name";
+                                        $filePath = $companyData->$fileKey ?? null;
+                                        $isPdf = Str::endsWith($fileKey, '_pdf');
+                                    @endphp
+                                    @if($filePath)
                                         <li>
-                                            <a href="{{ getDocumentPath($companyData->$fileKey) }}" {{ Str::endsWith($fileKey, '_pdf') ? 'target="_blank"' : '' }}>
-                                                <i class="fa-solid fa-file-lines"></i> {{ $label }}
+                                            <p>{{ $config['label'] }} : </p>
+                                            <a href="{{ getDocumentPath($filePath, $config['subFolder']) }}" {{ $isPdf ? 'target="_blank"' : '' }}>
+                                                <i class="fa-solid fa-file-lines"></i> {{ $companyData->$originalFileName }}
                                             </a>
                                         </li>
                                     @endif
                                 @endforeach
                             </ul>
-
                         </div>
                     @else
-                        <p>Company Profile Not Found</p>
+                        <p>Unternehmensprofil konnte nicht gefunden werden</p>
                     @endif
                 </div>
             </div>
@@ -98,7 +102,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group boxForm">
-                                    <label for="managing_director" class="control-label">Managing Director*</label>
+                                    <label for="managing_director" class="control-label">Geschäftsführer*</label>
                                     <input type="text" id="managing_director" name="managing_director">
                                     <span class="error"></span>
                                 </div>
@@ -137,7 +141,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group boxForm">
-                                    <label for="trade_register" class="control-label">Trade Register*</label>
+                                    <label for="trade_register" class="control-label">Handelregister*</label>
                                     <input type="text" id="trade_register" name="trade_register">
                                     <span class="error"></span>
                                 </div>
@@ -146,14 +150,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group boxForm">
-                                    <label for="email" class="control-label">Email*</label>
+                                    <label for="email" class="control-label">E-mail*</label>
                                     <input type="text" id="email" name="email">
                                     <span class="error"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group boxForm">
-                                    <label for="phone" class="control-label">Phone*</label>
+                                    <label for="phone" class="control-label">Telefon*</label>
                                     <input type="text" id="phone" name="phone">
                                     <span class="error"></span>
                                 </div>

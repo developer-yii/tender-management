@@ -32,7 +32,7 @@
                     </div>
                     <div class="checkBoxSec">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="remember">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Angemeldet bleiben</label>
                         </div>
                     </div>

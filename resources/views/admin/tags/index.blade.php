@@ -2,22 +2,24 @@
     $baseUrl = asset('assest')."/";
 @endphp
 @extends('layouts.app-main')
-@section('title', "Admin | Tag List")
+@section('title', "Admin | Tag-Liste")
 @section('content')
 <section class="mainSection">
     <div class="homeSectionPart">
-        <div class="tenderDetails">
+        <div class="certificationsMain">
         <div class="adminTable">
-            <button type="button" class="btn btn-sm btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#addTagModal">
-                Add Tag
+            <button type="button" class="btn btn-sm btn-info" style="float: right;" data-bs-toggle="modal" data-bs-target="#addTagModal">
+                Tag hinzufügen
             </button>
-            <div class="titleBox"><h5>Tag List</h5></div>
-            <table id="tagsTable" class="dataTable table table-striped"  style="width:100%">
+            <div class="titleBox"><h5>Tag-Liste</h5></div>
+            <table id="tagsTable" class="dataTable table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Tag</th>
-                        <th>Action</th>
+                        <th>Erstellungsdatum</th>
+                        <th>Update-Datum</th>
+                        <th>Aktion</th>
                     </tr>
                 </thead>
             </table>
@@ -32,7 +34,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Tag</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tag hinzufügen</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="addtag">
@@ -49,7 +51,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-info">Save</button>
                     </div>
                 </form>
             </div>

@@ -23,20 +23,21 @@ class AdminController extends Controller
     public function addupdate(Request $request)
     {
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|string|max:255|unique:users,email,' . $request->user_id . ',id,deleted_at,NULL',
-            'user_status' => 'required',
+            'status' => 'required',
             'profile_photo' => 'nullable|image|max:2048',
         ];
 
         if (!$request->user_id) {
             $rules = array_merge($rules, [
-                'password' => 'required',
+                'password' => 'required|confirmed',
+                'password_confirmation' => 'required',
                 'profile_photo' => 'required|image|max:2048',
             ]);
         }
@@ -60,7 +61,7 @@ class AdminController extends Controller
             $user->last_name = $request->input('last_name');
             $user->email = $request->input('email');
             $user->description = $request->input('description');
-            $user->is_active = $request->input('user_status');
+            $user->is_active = $request->input('status');
             $user->role = 1;
             if ($request->input('password')){
                 $user->password = Hash::make($request->password);
