@@ -34,7 +34,8 @@ class DeleteTenderMergedFiles extends Command
             return Command::FAILURE;
         }
 
-        $yesterday = Carbon::yesterday();
+        // $yesterday = Carbon::yesterday();
+        $yesterday = Carbon::now();
         $files = File::files($path);
 
         foreach ($files as $file) {
