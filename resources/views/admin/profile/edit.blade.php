@@ -78,7 +78,7 @@
                                         <input type="file" name="cv" id="cv" value="">
                                         @if($user)
                                             <span id="oldCv" class="m-1">
-                                                <a href="{{ $user->cv_url }}" target="_blank" class="btn btn-info">Lebenslauf ansehen</a>
+                                                <a href="{{ $user->cv_url }}" target="_blank" class="btn btn-info">Meinen Lebenslauf ansehen</a>
                                             </span>
                                         @endif
                                         {{-- <button class="btn btnCv"><img src="{{$baseUrl}}images/plus-new.png" alt="plus-new"></button> --}}
@@ -91,7 +91,7 @@
                                         <input type="file" name="document" id="document" value="">
                                         @if($user)
                                             <span id="oldDocument" class="m-1">
-                                                <a href="{{ $user->document_url }}" target="_blank" class="btn btn-info">Dokument anzeigen</a>
+                                                <a href="{{ $user->document_url }}" target="_blank" class="btn btn-info">Meinen Dokument anzeigen</a>
                                             </span>
                                         @endif
                                     </div>
