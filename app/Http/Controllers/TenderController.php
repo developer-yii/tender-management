@@ -171,7 +171,7 @@ class TenderController extends Controller
 
                 $dm = new DocxMerge();
                 $dm->merge($docxFiles, $mergedFilePath);
-
+                chmod($mergedFilePath, 0644);
                 // Get a list of files after the merge
                 $newFiles = glob($outputDir . '*');
 

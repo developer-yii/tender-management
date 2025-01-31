@@ -18,7 +18,7 @@
                     <textarea id="question" rows="6" cols="50" placeholder="Chat starten..."></textarea><br>
                     <div class="filerImpotbtn">
                         <div id="fileText"></div>
-                        <input type="file" class="fileBtn" id="fileInput" accept=".txt,.doc,.docx,.pdf,.json,.csv">
+                        <input type="file" class="fileBtn" id="fileInput">
                         <i class="fa-solid fa-paperclip"></i>
                     </div>
                     <div class="sendBtn">
@@ -36,6 +36,9 @@
     const OPENAI_API_KEY = "{{ $openaiApiKey }}";
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js"></script>
 <script src="{{ $baseUrl }}custom/js/chatgpt.js"></script>
 @endsection
 
