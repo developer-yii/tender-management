@@ -26,7 +26,7 @@ $('body').on('click', '.edit-admin', function () {
 
 $('body').on('click', '.delete-admin', function () {
     var id = $(this).attr('data-id');
-    var confirmed = confirm('Are you sure you want to delete this admin?');
+    var confirmed = confirm('Sind Sie sicher, dass Sie diesen Administrator löschen möchten?');
 
     if (confirmed) {
         $.ajax({
