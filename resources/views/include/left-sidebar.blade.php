@@ -28,6 +28,7 @@
                             'references' => ['reference.index', 'reference.details'],
                             'documents' => ['document.index', 'document.details'],
                             'templetes' => ['templete.index'],
+                            'ai' => ['ai.index'],
                             'tags' => ['tag.index'],
                             'servers' => ['server.index'],
                             'admins' => ['admin.index'],
@@ -94,7 +95,7 @@
 
                             {{-- Ai --}}
                             <li>
-                                <a href="{{route('ai.index')}}">
+                                <a href="{{route('ai.index')}}" class="{{ isActiveRoute($activeRoutes['ai']) ? 'main-active' : '' }}">
                                     <span><img src="{{$baseUrl}}images/Artificial-Intelligence.png" alt="Artificial-Intelligence"></span> KI-Tools
                                 </a>
                             </li>

@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let folder of existingFolders) {
             const folderTitle = folder.querySelector(".accordion-button").childNodes[0].textContent.trim(); // Get only the folder name
 
-            console.log(folderTitle);
             if (folderTitle === folderName) {
                 alert("Folder name already exists!");
                 return;
