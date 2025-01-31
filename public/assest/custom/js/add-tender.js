@@ -1,20 +1,41 @@
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#blah')
-                .attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 // start Folder with File
 document.addEventListener("DOMContentLoaded", function () {
     const addForm = document.getElementById("addFolder");
     const accordion = document.getElementById("accordionExample");
+    const bindingPeriod = document.getElementById('binding_period');
+    const applicantQuestionsDate = document.getElementById('applicant_questions_date');
+    const expiryOfferDate = document.getElementById('expiry_offer_date');
+
+    flatpickr("#execution_period", {
+        mode: "range", // This makes it a date range picker
+        dateFormat: "d-m-Y", // You can adjust the format
+        locale: "de",
+        firstDayOfWeek: 1 // Optional: Set the first day of the week to Monday
+
+    });
+
+    flatpickr(bindingPeriod, {
+        dateFormat: "d-m-Y",
+        locale: "de",
+        allowInput: false, // Disable manual typing
+    });
+
+    flatpickr(applicantQuestionsDate, {
+        enableTime: true, // Enable time selection
+        dateFormat: "d-m-Y H:i", // Set the date and time format
+        time_24hr: true, // Use 24-hour time format
+        locale: "de",
+        allowInput: false, // Disable manual typing
+    });
+
+    flatpickr(expiryOfferDate, {
+        enableTime: true, // Enable time selection
+        dateFormat: "d-m-Y H:i", // Set the date and time format
+        time_24hr: true, // Use 24-hour time format
+        locale: "de",
+        allowInput: false, // Disable manual typing
+    });
 
     // Handle folder form submission
     addForm.addEventListener("submit", function (event) {
@@ -47,12 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         newFolder.innerHTML = `
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${folderId}" aria-expanded="true" aria-controls="${folderId}">
+          <button class="accordion-button cursor-default" type="button">
             ${folderName}
             <a class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFolder(this)">X</a>
           </button>
         </h2>
-        <div id="${folderId}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div id="${folderId}">
           <div class="accordion-body">
             <div class="file-list"></div>
             <input type="file" class="authorize_document custom-file-input" name="folder_doc[${folderId}][]">
@@ -107,7 +128,7 @@ function handleFolderFileInputChange(fileInput, fileList, folderId, folderName) 
                 <i class="fa-solid fa-file-circle-plus"></i> ${fileName}
                 <button type="button" class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFile(this)">X</button>
             `;
-            fileLink.classList.add("d-block", "mt-1", "a-txt");
+            fileLink.classList.add("d-block", "mt-1", "a-txt", 'cursor-default');
 
             // To ensure appending at the end, we move any additional logic that could interfere with the order
             fileList.appendChild(fileLink);

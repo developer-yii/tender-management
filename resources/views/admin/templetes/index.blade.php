@@ -42,7 +42,7 @@
             <div class="document_confirmSec">
                 <div class="insurance_confirm">
                     <div class="titleBox">
-                        <h5>Data Not Found</h5>
+                        <h5>{{ trans('message.data not found') }}</h5>
                     </div>
                 </div>
             </div>

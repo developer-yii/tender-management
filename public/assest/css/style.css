@@ -354,7 +354,7 @@ button {
 .main-container {
     margin: 0 auto;
     width: 100%;
-    max-width: 1920px;
+    max-width: 2560px;
     height: 100vh;
     overflow-y: auto;
     display: flex;
@@ -585,7 +585,7 @@ ul.dropDownInner {
     width: 100%;
     background-image: url(../images/layerBg.png);
     background-repeat: no-repeat;
-    background-size: initial;
+    background-size: 110%;
     background-position: center center;
     border-radius: 15px;
 }
@@ -1302,13 +1302,17 @@ ul.dropDownInner {
 }
 
 .mainSection .collectDocumentSec .docListOur ul li:not(:last-child) {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .mainSection .collectDocumentSec .docListOur ul li p {
     font-size: 14px;
     font-family: 'BricolageGrotesque-Regular';
     color: var(--text-black);
+    display: flex;
+    gap: 10px;
+    align-items: start;
+    margin-bottom: 0;
 }
 
 .mainSection .collectDocumentSec .docListOur ul li p i {
@@ -1773,7 +1777,7 @@ ul.dropDownInner {
 .employsSection .btncenterSec {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
     gap: 8px;
     margin-bottom: 20px;
 }
@@ -2654,11 +2658,11 @@ ul.dropDownInner {
 
 /* -------- AI-Tools page css ---------- */
 
-.aitools_mainSec {
+/* .aitools_mainSec {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-}
+} */
 
 .aitools_mainSec .toolsInner {
     background-color: var(--sky-color);
@@ -2697,7 +2701,7 @@ ul.dropDownInner {
     font-family: 'BricolageGrotesque-Medium';
 }
 
-.aitools_mainSec .toolsInner .typeMsgBox .btnTelegram {
+.aitools_mainSec .toolsInner .typeMsgBox .sendBtn .btnTelegram {
     position: absolute;
     bottom: 25px;
     right: 25px;
@@ -2706,9 +2710,35 @@ ul.dropDownInner {
     border-radius: 50%;
 }
 
-.aitools_mainSec .toolsInner .typeMsgBox .btnTelegram img {
+.aitools_mainSec .toolsInner .typeMsgBox .sendBtn .btnTelegram img {
     height: 35px;
     width: 35px;
+}
+
+.aitools_mainSec .filerImpotbtn {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    bottom: 25px;
+    right: 75px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aitools_mainSec .filerImpotbtn input {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+    max-width: 30px;
+}
+
+.aitools_mainSec .filerImpotbtn i {
+    font-size: 20px;
 }
 
 /* -------- AI-Tools page css ---------- */
@@ -3245,6 +3275,7 @@ ul.dropDownInner {
     padding: 0;
     margin-bottom: 10px;
     border-right: none !important;
+    text-align: start;
 }
 
 .new-TenderSec .awardInputSec .newFullBox ul li input {
@@ -3328,7 +3359,7 @@ ul.dropDownInner {
 }
 
 .custom-file-input::before {
-    content: 'Select some files';
+    content: 'Dokument auswählen';
     color: var(--text-black);
     font-family: 'BricolageGrotesque-Medium';
     display: inline-block;
@@ -3719,10 +3750,192 @@ ul.dropDownInner {
     max-width: 60px;
 }
 
-
 /* -------- References Add new project page css ---------- */
+
 
 .adminBtn {
     display: flex;
     gap: 5px;
 }
+
+
+/* -------- create_profile page css ---------- */
+
+
+.create_profile {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #0000001c;
+    padding: 30px;
+}
+
+.create_profile .create_leftBox .topPlusBox {
+    height: 270px;
+    width: 270px;
+    background-color: #7ba7d7e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px 2px #0000001c;
+    margin-bottom: 15px;
+    position: relative;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.create_profile .create_leftBox .topPlusBox img {
+    height: 270px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.create_profile .create_leftBox .topPlusBox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 5;
+}
+
+
+
+.topPlusBox:hover .edit-icon {
+    cursor: pointer;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.edit-icon i {
+    font-size: 22px;
+    color: #fff;
+}
+
+.create_leftBox .generateDetail {
+    width: 100%;
+    max-width: 85%;
+}
+
+.create_leftBox .generateDetail .inputBox {
+    margin-bottom: 10px;
+}
+
+.create_leftBox .generateDetail .inputBox input {
+    padding: 10px 15px;
+    min-height: 38px;
+    border: 1px solid var(--text-gray);
+    border-radius: 5px !important;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+}
+
+.create_leftBox .generateDetail .inputBox .gropubox {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.create_leftBox .generateDetail .inputBox .gropubox .gropuboxinner {
+    width: calc(50% - 10px);
+}
+
+.create_leftBox .generateDetail .inputBox input::placeholder {
+    color: #9C9B9B;
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-SemiBold';
+}
+
+.create_leftBox .generateDetail .createBtn {
+    font-size: 16px;
+    border-radius: 12px;
+    background-color: var(--sky-color);
+    color: var(--white-color);
+    min-height: 42px;
+    text-align: center;
+    box-shadow: none;
+    outline: none;
+    font-family: 'BricolageGrotesque-SemiBold';
+    width: 100%;
+}
+
+.create_rightBox .uploadCvBox {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 0px;
+}
+
+.create_rightBox .uploadCvBox p {
+    margin-bottom: 0;
+}
+
+.create_rightBox .uploadCvBox p,
+.create_rightBox .discriptBox p,
+.create_rightBox .mySkillBox p {
+    font-size: 14px;
+    font-family: 'BricolageGrotesque-SemiBold';
+    color: var(--text-black);
+}
+
+.create_rightBox .uploadCvBox .btnCv {
+    background-color: var(--sky-color);
+    border-radius: 12px;
+}
+
+.create_rightBox .uploadCvBox .btnCv img {
+    width: 100%;
+    max-width: 30px;
+}
+
+.create_rightBox .discriptBox {
+    margin-bottom: 30px;
+}
+
+.create_rightBox .discriptBox textarea {
+    min-height: 200px;
+    border-radius: 5px;
+    resize: none;
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    outline: none;
+    border: 1px solid var(--text-gray);
+}
+
+.create_rightBox .mySkillBox .skillSelect {
+    min-height: 360px;
+    border-radius: 5px;
+    resize: none;
+    width: 100%;
+    max-width: 420px;
+    /* padding: 15px; */
+    outline: none;
+    /* border: 1px solid var(--text-gray); */
+}
+
+.create_rightBox .mySkillBox .skillSelect select {
+    border: 1px solid var(--text-gray);
+    border-radius: 5px;
+    padding: 10px 15px;
+    outline: none;
+}
+
+/* -------- create_profile page css ---------- */

@@ -28,7 +28,7 @@ class CertificateController extends Controller
     public function addupdate(Request $request)
     {
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $availableCategories = Certificate::categories;
@@ -53,20 +53,20 @@ class CertificateController extends Controller
         $validator->after(function ($validator) use ($request) {
             // Check if both start_date and end_date are blank
             if (empty($request->start_date) && empty($request->end_date)) {
-                $validator->errors()->add('start_date', 'Start date and end date are required.');
-                $validator->errors()->add('end_date', 'Start date and end date are required.');
+                $validator->errors()->add('start_date', 'Startdatum und Enddatum sind erforderlich.');
+                $validator->errors()->add('end_date', 'Startdatum und Enddatum sind erforderlich.');
             }
             // Check if start_date is blank
             elseif (empty($request->start_date)) {
-                $validator->errors()->add('start_date', 'Start date is required.');
+                $validator->errors()->add('start_date', 'Startdatum ist erforderlich.');
             }
             // Check if end_date is blank
             elseif (empty($request->end_date)) {
-                $validator->errors()->add('end_date', 'End date is required.');
+                $validator->errors()->add('end_date', 'Enddatum ist erforderlich.');
             }
             // Check if end_date is after or equal to start_date
             elseif (!empty($request->start_date) && strtotime($request->end_date) < strtotime($request->start_date)) {
-                $validator->errors()->add('end_date', 'End date must be after or equal to start date.');
+                $validator->errors()->add('end_date', 'Das Enddatum muss nach oder gleich dem Startdatum liegen.');
             }
         });
 
@@ -79,7 +79,7 @@ class CertificateController extends Controller
             $certificate = $request->certificate_id ? Certificate::find($request->certificate_id) : new Certificate();
             if (!$certificate) {
                 DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Certificate Not Found', 'data' => []]);
+                return response()->json(['status' => false, 'message' => trans('message.certificate-not-found'), 'data' => []]);
             }
 
             $certificate->category_name = $request->input('category');
@@ -101,7 +101,11 @@ class CertificateController extends Controller
             $certificate->save();
 
             DB::commit();
-            $message = $request->certificate_id ? 'Certificate updated successfully.' : 'Certificate added successfully.';
+
+            $message = $request->certificate_id
+                        ? trans('message.Certificate updated successfully')
+                        : trans('message.Certificate added successfully');
+
             $isNew = $request->certificate_id ? false : true;
             return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
 
@@ -117,7 +121,7 @@ class CertificateController extends Controller
         $categories = Certificate::categories;
         $certificate = Certificate::find($request->id);
         if(!$certificate){
-            return response()->json(['message' => 'Certificate not found.'], 404);
+            abort(404);
         }
         $this->getFilePath($certificate);
         return view('admin.certificates.details', compact('certificate', 'categories'));
@@ -127,7 +131,7 @@ class CertificateController extends Controller
     {
         $certificate = Certificate::find($request->id);
         if(!$certificate){
-            return response()->json(['message' => 'Certificate not found.'], 404);
+            return response()->json(['message' => trans('message.certificate-not-found')], 404);
         }
 
         $this->getFilePath($certificate);

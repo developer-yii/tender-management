@@ -110,7 +110,7 @@
                             {{-- tags --}}
                             <li>
                                 <a class="kiTools {{ (isActiveRoute($activeRoutes['tags']) || isActiveRoute($activeRoutes['admins'])) ? 'main-active' : '' }}" href="javascript:void(0)">
-                                    <span><img src="{{$baseUrl}}images/admin-setting.png" height="25px; width:25px;" alt="Settings"></span> Setting
+                                    <span><img src="{{$baseUrl}}images/admin-setting.png" height="25px; width:25px;" alt="Einstellungen"></span> Einstellungen
                                 </a>
                                 <ul class="dropDownInner {{ (isActiveRoute($activeRoutes['tags']) || isActiveRoute($activeRoutes['admins'])) ? 'show' : '' }}">
                                     <li>

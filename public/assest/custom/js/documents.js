@@ -126,7 +126,7 @@ $('body').on('click', '.edit-document', function () {
         success: function (data) {
             $('#category').val(data.category_name);
             $('#title').val(data.title);
-            $('#oldDocumentPdf').html(`<a href="${data.document_pdf_url}" target="_blank" class="btn btn-primary">View Document</a>`);
+            $('#oldDocumentPdf').html(`<a href="${data.document_pdf_url}" target="_blank" class="btn btn-info">Dokument anzeigen</a>`);
 
             var storedParameters = data.parameters;
             storedParameters.forEach(function (parameter) {

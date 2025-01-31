@@ -8,7 +8,8 @@ class AiToolController extends Controller
 {
     public function index()
     {
-        return view('admin.ai.chatgpt');
+        $openaiApiKey = env('OPENAI_API_KEY');
+        return view('admin.ai.chatgpt', compact('openaiApiKey'));
     }
 
     public function conversation()

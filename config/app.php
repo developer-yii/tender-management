@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'de',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'de',
 
     /*
     |--------------------------------------------------------------------------
@@ -186,5 +186,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'PdfMerger' => LynX39\LaraPdfMerger\Facades\PdfMerger::class,
     ])->toArray(),
+
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
 ];

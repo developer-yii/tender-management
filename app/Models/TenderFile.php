@@ -26,27 +26,49 @@ class TenderFile extends Model
         return $this->belongsTo(Tender::class, 'tender_id');
     }
 
+    // public function getDocxPreviewUrl()
+    // {
+    //     if ($this->docx_preview) {
+    //         $subFolder = "tender" . $this->tender_id;
+    //         $filePath = "public/tenders/{$subFolder}/{$this->docx_preview}";
+    //         if (Storage::disk('local')->exists($filePath)) {
+    //             return asset('storage/tenders/' . $subFolder . '/' . $this->docx_preview);
+    //         }
+    //     }
+    //     return '';
+    // }
+
+    // public function getFilePathUrl()
+    // {
+    //     if ($this->file_path) {
+    //         $subFolder = "tender" . $this->tender_id;
+    //         $filePath = "public/tenders/{$subFolder}/{$this->file_path}";
+    //         if (Storage::disk('local')->exists($filePath)) {
+    //             return asset('storage/tenders/' . $subFolder . '/' . $this->file_path);
+    //         }
+
+    //     }
+    //     return '';
+    // }
+
     public function getDocxPreviewUrl()
     {
-        if ($this->docx_preview) {
-            $subFolder = "tender" . $this->tender_id;
-            $filePath = "public/tenders/{$subFolder}/{$this->docx_preview}";
-            if (Storage::disk('local')->exists($filePath)) {
-                return asset('storage/tenders/' . $subFolder . '/' . $this->docx_preview);
-            }
-        }
-        return '';
+        return $this->getFileUrl($this->docx_preview);
     }
 
     public function getFilePathUrl()
     {
-        if ($this->file_path) {
-            $subFolder = "tender" . $this->tender_id;
-            $filePath = "public/tenders/{$subFolder}/{$this->file_path}";
-            if (Storage::disk('local')->exists($filePath)) {
-                return asset('storage/tenders/' . $subFolder . '/' . $this->file_path);
-            }
+        return $this->getFileUrl($this->file_path);
+    }
 
+    private function getFileUrl($fileName)
+    {
+        if ($fileName) {
+            $subFolder = "tender" . $this->tender_id;
+            $filePath = "public/tenders/{$subFolder}/{$fileName}";
+            if (Storage::disk('local')->exists($filePath)) {
+                return asset('storage/tenders/' . $subFolder . '/' . $fileName);
+            }
         }
         return '';
     }

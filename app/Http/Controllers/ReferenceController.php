@@ -22,7 +22,7 @@ class ReferenceController extends Controller
     public function addupdate(Request $request)
     {
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $rules = [
@@ -44,20 +44,20 @@ class ReferenceController extends Controller
         $validator->after(function ($validator) use ($request) {
             // Check if both start_date and end_date are blank
             if (empty($request->start_date) && empty($request->end_date)) {
-                $validator->errors()->add('start_date', 'Start date and end date are required.');
-                $validator->errors()->add('end_date', 'Start date and end date are required.');
+                $validator->errors()->add('start_date', 'Startdatum und Enddatum sind erforderlich.');
+                $validator->errors()->add('end_date', 'Startdatum und Enddatum sind erforderlich.');
             }
             // Check if start_date is blank
             elseif (empty($request->start_date)) {
-                $validator->errors()->add('start_date', 'Start date is required.');
+                $validator->errors()->add('start_date', 'Startdatum ist erforderlich.');
             }
             // Check if end_date is blank
             elseif (empty($request->end_date)) {
-                $validator->errors()->add('end_date', 'End date is required.');
+                $validator->errors()->add('end_date', 'Enddatum ist erforderlich.');
             }
             // Check if end_date is after or equal to start_date
             elseif (!empty($request->start_date) && strtotime($request->end_date) < strtotime($request->start_date)) {
-                $validator->errors()->add('end_date', 'End date must be after or equal to start date.');
+                $validator->errors()->add('end_date', 'Das Enddatum muss nach oder gleich dem Startdatum liegen.');
             }
         });
 
@@ -70,7 +70,7 @@ class ReferenceController extends Controller
             $reference = $request->reference_id ? Reference::find($request->reference_id) : new Reference();
             if (!$reference) {
                 DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Reference Not Found', 'data' => []]);
+                return response()->json(['status' => false, 'message' => trans('message.Reference Not Found'), 'data' => []]);
             }
 
             $reference->project_title = $request->input('project_title');
@@ -89,7 +89,10 @@ class ReferenceController extends Controller
                 $reference->save();
                 $reference->tags()->sync($request->input('tags'));
                 Db::commit();
-                $message = $request->reference_id ? 'Reference updated successfully.' : 'Reference added successfully.';
+                $message = $request->reference_id
+                            ? trans('message.Reference updated successfully')
+                            : trans('message.Reference added successfully');
+
                 $isNew = $request->reference_id ? false : true;
                 return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
             }else{
@@ -109,7 +112,7 @@ class ReferenceController extends Controller
     {
         $reference = Reference::with('tags')->find($request->id);
         if(!$reference){
-            return response()->json(['message' => 'Reference not found.'], 404);
+            abort(404);
         }
         $tags = Tag::all();
         $this->getFilePath($reference);
@@ -120,7 +123,7 @@ class ReferenceController extends Controller
     {
         $reference = Reference::with('tags')->find($request->id);
         if(!$reference){
-            return response()->json(['message' => 'Reference not found.'], 404);
+            return response()->json(['message' => trans('message.Reference Not Found')], 404);
         }
         $this->getFilePath($reference);
         return response()->json($reference);

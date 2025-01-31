@@ -15,9 +15,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group boxForm">
-                                <label for="category">Category*</label>
+                                <label for="category">{{ trans('message.category') }}*</label>
                                 <select id="category" name="category">
-                                    <option class="d-none" value="">Select Category</option>
+                                    <option class="d-none" value="">{{ trans('message.select-category') }}</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category }}">{{ $category }}</option>
                                     @endforeach
@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group boxForm">
-                                <label for="title">Title*</label>
+                                <label for="title">{{ trans('message.title') }}*</label>
                                 <input type="text" id="title" name="title">
                                 <span class="error"></span>
                             </div>
@@ -49,14 +49,14 @@
                     </div>
 
                     <fieldset class="scheduler-border">
-                        <legend class="scheduler-border">Add Extra Fields</legend>
+                        <legend class="scheduler-border">{{ trans('message.add-extra-field') }}</legend>
                         <div id="extraFieldContainer"> <!-- Container for extra fields -->
                             <!-- extra fields will be added here -->
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3 form-group">
-                                <a id="addfield" class="btn btn-info"><i class="fa fa-plus"></i> Add Field </a>
+                                <a id="addfield" class="btn btn-info"><i class="fa fa-plus"></i> {{ trans('message.add-field') }}</a>
                                 <span class="error"></span>
                             </div>
                         </div>

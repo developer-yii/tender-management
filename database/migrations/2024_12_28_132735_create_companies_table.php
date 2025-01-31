@@ -26,9 +26,15 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('website_url')->nullable();
             $table->text('company_presentation_word')->nullable();
+            $table->text('company_presentation_word_original_file_name')->nullable();
+            $table->text('company_presentation_docx_preview')->nullable();
             $table->text('company_presentation_pdf')->nullable();
+            $table->text('company_presentation_pdf_original_file_name')->nullable();
             $table->text('agile_framework_word')->nullable();
+            $table->text('agile_framework_word_original_file_name')->nullable();
+            $table->text('agile_framework_docx_preview')->nullable();
             $table->text('agile_framework_pdf')->nullable();
+            $table->text('agile_framework_pdf_original_file_name')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

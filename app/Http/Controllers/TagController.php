@@ -17,22 +17,31 @@ class TagController extends Controller
     public function get(Request $request)
     {
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
-        $data = Tag::all();
+        $query = Tag::query();
 
-        return DataTables::of($data)
+        return DataTables::of($query)
+                ->editColumn('created_at', function ($data) {
+                    return formatDate($data->created_at, 'd/m/Y H:i:s');
+                })
+                ->editColumn('updated_at', function ($data) {
+                    return formatDate($data->updated_at, 'd/m/Y H:i:s');
+                })
+                ->filterColumn('created_at', function($query, $keyword) {
+                    $query->whereRaw("DATE_FORMAT(created_at, '%d/%m/%Y %H:%i:%s') like ?", ["%{$keyword}%"]);
+                })
+                ->filterColumn('updated_at', function($query, $keyword) {
+                    $query->whereRaw("DATE_FORMAT(updated_at, '%d/%m/%Y %H:%i:%s') like ?", ["%{$keyword}%"]);
+                })
                 ->addColumn('action', function ($data) {
 
-                    $editButton = '<a href="javascript:void(0);" class="btn btn-sm btn-primary edit-tag m-r-10" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#addTagModal"><i class="fa fa-edit"></i> </a>';
+                    $editButton = '<a href="javascript:void(0);" class="btn btn-sm btn-info edit-tag m-r-10" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#addTagModal"><i class="fa fa-edit"></i> </a>';
 
                     $deleteButton = '<a href="javascript:void(0);" class="btn btn-sm btn-danger delete-tag" data-id="' . $data->id . '" title="Delete"><i class="fa fa-trash"></i></a>';
 
-                    $actionButtons = $editButton . $deleteButton;
-
-                    return $actionButtons;
-
+                    return $editButton . $deleteButton;
                 })
                 ->rawColumns(['action'])
                 ->toJson();
@@ -42,7 +51,7 @@ class TagController extends Controller
     public function addupdate(Request $request)
     {
         if(!$request->ajax()){
-            return response()->json(['status' => 400, 'message' => 'Invalid Request.', 'data' => []]);
+            return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
         $validator = Validator::make($request->all(), [

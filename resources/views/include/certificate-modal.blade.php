@@ -15,9 +15,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group boxForm">
-                                <label for="category">Category*</label>
+                                <label for="category">{{ trans('message.category') }}*</label>
                                 <select id="category" name="category">
-                                    <option class="d-none" value="">Select Category</option>
+                                    <option class="d-none" value="">{{ trans('message.select-category') }}</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category }}">{{ $category }}</option>
                                     @endforeach
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group boxForm">
-                                <label for="title">Title*</label>
+                                <label for="title">{{ trans('message.title') }}*</label>
                                 <input type="text" id="title" name="title">
                                 <span class="error"></span>
                             </div>
@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group boxForm">
-                                <label for="description">Description*</label>
+                                <label for="description">{{ trans('message.description') }}*</label>
                                 <textarea name="description" id="description" rows="5"></textarea>
                                 <span class="error"></span>
                             </div>
@@ -47,11 +47,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="dateSelect">
-                                <label for="">Valid From(Start Date/End Date)*</label>
+                                <label for="">Ausschreibungszeitraum (Startdatum / Enddatum)*</label>
                                 <div class="form-group boxForm range">
-                                    <input type="text" class="flat" placeholder="Start Date" name="start_date" id="start_date">
+                                    <input type="text" class="flat" placeholder="{{ trans('message.start-date') }}" name="start_date" id="start_date">
                                     <span>To</span>
-                                    <input type="text" class="flat" placeholder="End Date" name="end_date" id="end_date">
+                                    <input type="text" class="flat" placeholder="{{ trans('message.end-date') }}" name="end_date" id="end_date">
                                 </div>
                                 <span class="error" id="error_message"></span>
                             </div>
@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group boxForm">
-                                <label for="certificate_word" class="certificate-word-label" id="certificate-word-label">Certificate(Word)*</label>
+                                <label for="certificate_word" class="certificate-word-label" id="certificate-word-label">{{ trans('message.certificate-word') }}*</label>
                                 <input type="file" name="certificate_word" id="certificate_word" value="">
                                 <span class="error"></span>
                                 <span id="oldCertificateWord" class="m-1"></span>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group boxForm">
-                                <label for="certificate_pdf" class="certificate-pdf-label" id="certificate-pdf-label">Certificate(PDF)*</label>
+                                <label for="certificate_pdf" class="certificate-pdf-label" id="certificate-pdf-label">{{ trans('message.certificate-pdf') }}*</label>
                                 <input type="file" name="certificate_pdf" id="certificate_pdf" value="">
                                 <span class="error"></span>
                                 <span id="oldCertificatePdf" class="m-1"></span>

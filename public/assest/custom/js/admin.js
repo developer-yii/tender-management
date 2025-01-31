@@ -13,13 +13,13 @@ $('body').on('click', '.edit-admin', function () {
             $('#last_name').val(data.last_name);
             $('#email').val(data.email);
             $('#description').val(data.description);
-            $('#user_status').val(data.is_active ? 1 : 0);
+            $('#status').val(data.is_active ? 1 : 0);
 
-            $('#oldProfile').html(`<img src="${data.profile_photo_url}" alt="Profile Photo" class="img-thumbnail" style="width:70px;">`);
+            $('#oldProfile').html(`<img src="${data.profile_photo_url}" alt="Profilbild" class="img-thumbnail" style="width:70px;">`);
             $('#addModal').find('button[type="submit"]').html("Aktualisieren");
             $('#addModal').find('#exampleModalLabel').html("Admin bearbeiten");
-            $('#addModal').find('#password-label').html("Password");
-            $('#addModal').find('#profile-label').html("Profile Photo");
+            $('#addModal').find('#password-label').html("Passwort");
+            $('#addModal').find('#profile-label').html("Profilbild");
         }
     });
 });
@@ -60,8 +60,8 @@ $('#addModal').on('hidden.bs.modal', function () {
     $('#oldProfile').html('');
     $('#addModal').find('button[type="submit"]').html("Hinzufügen");
     $('#addModal').find('#exampleModalLabel').html("Admin hinzuhügen");
-    $('#addModal').find('#password-label').html("Password*");
-    $('#addModal').find('#profile-label').html("Profile Photo*");
+    $('#addModal').find('#password-label').html("Passwort*");
+    $('#addModal').find('#profile-label').html("Profilbild*");
 });
 
 

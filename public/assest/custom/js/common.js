@@ -8,8 +8,8 @@ $(document).ready(function () {
     } );
 });
 
-// Initialize Flatpickr
-document.addEventListener('DOMContentLoaded', function () {
+function initializeFlatpickr() {
+
     const startDateInput = document.getElementById('start_date');
     const endDateInput = document.getElementById('end_date');
     const errorMessage = document.getElementById('error_message');
@@ -24,22 +24,31 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        let initialStartDate = startDateInput.value ? startDateInput.value : null;
+        let initialEndDate = endDateInput.value ? endDateInput.value : null;
+
+        // Convert values to Date objects for comparison
+        let parsedStartDate = initialStartDate ? flatpickr.parseDate(initialStartDate, "d-m-Y") : null;
+        let parsedEndDate = initialEndDate ? flatpickr.parseDate(initialEndDate, "d-m-Y") : null;
+
         const startDatePicker = flatpickr(startDateInput, {
             dateFormat: "d-m-Y",
+            locale: "de",
             allowInput: false, // Disable manual typing
+            defaultDate: initialStartDate, // Set existing date
+            maxDate: parsedEndDate || null, // Ensure it's before end date if available
             onChange: function (selectedDates) {
                 const startDate = selectedDates[0];
                 const endDate = endDatePicker.selectedDates[0];
-
                 if (startDate) {
                     endDatePicker.set('minDate', startDate); // Set minDate for end date
                     endDatePicker.set('disable', []); // Clear any disabled dates
                 }
 
                 // Validate date order
-                if (endDate && startDate && endDate < startDate) {
+                if (endDate && startDate && (endDate < startDate)) {
                     updateErrorMessage('Start Date cannot be after End Date.');
-                    startDateInput.value = ''; // Clear invalid end date
+                    startDatePicker.setDate(null);
                 } else {
                     updateErrorMessage();
                 }
@@ -49,7 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // Initialize flatpickr for end date
         const endDatePicker = flatpickr(endDateInput, {
             dateFormat: "d-m-Y",
+            locale: "de",
             allowInput: false, // Disable manual typing
+            defaultDate: initialEndDate, // Set existing date
+            minDate: parsedStartDate || null, // Ensure it's after start date if available
             disable: [], // No disabled dates initially
             onChange: function (selectedDates) {
                 const startDate = startDatePicker.selectedDates[0];
@@ -63,14 +75,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Validate date order
                 if (endDate && startDate && endDate < startDate) {
                     updateErrorMessage('End Date cannot be before Start Date.');
-                    endDateInput.value = ''; // Clear invalid end date
+                    endDatePicker.setDate(null);
                 } else {
                     updateErrorMessage();
                 }
             }
         });
     }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    initializeFlatpickr(); // Ensure flatpickr is initialized when the page is ready
 });
+
 
 function handleFormSubmission(formSelector, url, modalId, listUrl) {
     $(formSelector).submit(function (event) {
@@ -78,7 +95,6 @@ function handleFormSubmission(formSelector, url, modalId, listUrl) {
         $('.error').html("");
 
         const $form = $(this);
-        const $submitButton = $form.find('button[type="submit"]');
         const dataString = new FormData($form[0]);
 
         $.ajax({

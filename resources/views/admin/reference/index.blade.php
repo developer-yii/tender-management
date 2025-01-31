@@ -41,7 +41,7 @@
                 @else
                     <div class="referancePart" id="no_tags">
                         <div class="titleBox">
-                            <h5>No Data Found</h5>
+                            <h5>{{ trans('message.no data available') }}</h5>
                         </div>
                     </div>
                 @endif

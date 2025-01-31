@@ -1,9 +1,9 @@
 @php
     $baseUrl = asset('assest')."/";
-    $title = $tender ? 'Edit' : 'Add';
+    $title = $tender ? 'Bearbeiten' : 'hinzufügen';
 @endphp
 @extends('layouts.app-main')
-@section('title', "Admin | {$title} Tender")
+@section('title', "Admin | {$title} Ausschreibung")
 @section('extra_css')
 <style>
     .edit-icon {
@@ -41,12 +41,11 @@
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="leftnewBox">
-
                             <div class="topPlusBox form-group">
                                 @if($tender)
                                     <img id="blah" src="{{ asset('storage/tenders/tender' . $tender->id . '/' . $tender->main_image) }}" alt="{{ $tender->tender_name }}">
                                 @else
-                                <img id="blah" src="{{$baseUrl}}images/plus-Icon.png" alt="plus-Icon">
+                                    <img id="blah" src="{{$baseUrl}}images/plus-Icon.png" alt="plus-Icon">
                                 @endif
                                 <input type="file" class="file-upload" onchange="readURL(this);" id="file_upload" name="file_upload">
                                 <div class="edit-icon">
@@ -68,9 +67,6 @@
                                                 $executionPeriod = $tender
                                                     ? $tender->period_from . ' to ' . $tender->period_to
                                                     : '';
-                                                // $executionPeriod = $tender
-                                                //     ? formatDate($tender->period_from, 'Y-m-d') . ' to ' . formatDate($tender->period_to, 'Y-m-d')
-                                                //     : '';
                                             @endphp
                                             <label for="">Ausführungszeitraum</label>
                                             <input type="text" class="flat input-daterange-datepicker" placeholder="Eine Frist festlegen" name="execution_period" id="execution_period" value="{{$executionPeriod}}">
@@ -260,12 +256,12 @@
                                         @foreach ($folder_files as $folder_name => $files)
                                             <div class="accordion-item" data-folder-id="{{$folder_name}}">
                                                 <h2 class="accordion-header">
-                                                <button class="accordion-button cursor-default" type="button" data-bs-toggle="collapse" data-bs-target="#{{$folder_name}}" aria-expanded="true" aria-controls="{{$folder_name}}">
+                                                <button class="accordion-button cursor-default" type="button">
                                                     {{$folder_name}}
                                                     <a class="btn btn-sm btn-danger ms-2 remove-btn" onclick="removeFolder(this)">X</a>
                                                 </button>
                                                 </h2>
-                                                <div id="{{$folder_name}}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                                <div id="{{$folder_name}}">
                                                     <div class="accordion-body">
                                                         @foreach ($files as $file)
                                                             <div class="file-list">
@@ -288,7 +284,7 @@
                                     <span class="error"></span>
                                     <div>
                                         <a class="btn folderBtn mt-2" data-bs-toggle="modal" data-bs-target="#addFolderModal">
-                                            <i class="fa-solid fa-plus"></i> Add Folder
+                                            <i class="fa-solid fa-plus"></i> Ordner hinzufügen
                                         </a>
                                     </div>
                                 </div>

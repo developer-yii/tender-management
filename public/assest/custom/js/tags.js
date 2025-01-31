@@ -9,9 +9,11 @@ $(document).ready(function () {
         },
         order: [0, 'desc'],
         columns: [
-            { data: 'id', name: 'id'},
+            { data: 'id', name: 'id', visible:false},
             { data: 'name', name: 'name' },
-            { data: 'action', orderable: false, searchable: false, className: 'text-center' },
+            { data: 'created_at', name: 'created_at'},
+            { data: 'updated_at', name: 'updated_at'},
+            { data: 'action', orderable: false, searchable: false, className: 'text-right' },
         ],
     });
 
@@ -70,7 +72,7 @@ $(document).ready(function () {
             success: function (data) {
                 $('#name').val(data.name);
                 $('#addTagModal').find('button[type="submit"]').html("Update");
-                $('#addTagModal').find('#exampleModalLabel').html("Edit Tag");
+                $('#addTagModal').find('#exampleModalLabel').html("Tag bearbeiten");
             }
         });
     });
@@ -80,7 +82,7 @@ $(document).ready(function () {
         $('#addtag')[0].reset();
         $('#tag_id').val("");
         $('#addTagModal').find('button[type="submit"]').html("Save");
-        $('#addTagModal').find('#exampleModalLabel').html("Add Tag");
+        $('#addTagModal').find('#exampleModalLabel').html("Tag hinzufügen");
     });
 
     $('body').on('click', '.delete-tag', function () {
@@ -108,6 +110,4 @@ $(document).ready(function () {
         }
 
     });
-
-    // clearErrorOnInput('#addingredienttype');
 });
