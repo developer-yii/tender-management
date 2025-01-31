@@ -1,7 +1,6 @@
 @php
     $baseUrl = asset('assest')."/";
     $loginUser = Auth::user();
-    $imagePath = $loginUser->profile_pic ? Storage::url('employee/profile-photo/' . $loginUser->profile_pic) : $baseUrl."images/default-user.jpg" ;
 @endphp
 
 <header class="header">
@@ -27,7 +26,7 @@
         <div class="userHeaderBox">
             <div class="userProfile">
                 <div class="userimg">
-                    <img src="{{ $imagePath }}" alt="{{$loginUser->first_name}}">
+                    <img src="{{ isAdmin() ? $loginUser->getAdminProfilePicUrl() :$loginUser->getProfilePicUrl() }}" alt="{{$loginUser->first_name}}">
                 </div>
                 <div class="username">
                     <h6>{{$loginUser->first_name}} {{$loginUser->last_name}}</h6>
