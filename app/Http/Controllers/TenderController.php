@@ -163,13 +163,9 @@ class TenderController extends Controller
             $mergedFilePath = $outputDir . $uniqueFileName;
 
             if (!is_dir($outputDir)) {
-                mkdir($outputDir, 0777, true); // Creates the directory with 0755 permissions recursively
+                mkdir($outputDir, 0777, true);
+                chmod($outputDir, 0777); // Force permissions to 0777
             }
-
-
-            // if (!is_dir($outputDir) && !mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
-            //     throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
-            // }
 
             // if (!is_dir($outputDir)) {
             //     $oldUmask = umask(0); // Disable default umask effect
@@ -297,12 +293,10 @@ class TenderController extends Controller
             $outputDir = public_path('storage/mergedFile/');
             $mergedFilePath = $outputDir . $uniqueFileName;
 
-            // $mergedFilePath = public_path('storage/mergedFile/' . $uniqueFileName);
-            // $outputDir = dirname($mergedFilePath);
-
             // Create the directory if it doesn't exist with 0777 permissions
             if (!is_dir($outputDir)) {
-                mkdir($outputDir, 0777, true); // Creates the directory with 0755 permissions recursively
+                mkdir($outputDir, 0777, true);
+                chmod($outputDir, 0777); // Force permissions to 0777
             }
 
             // if (!is_dir($outputDir)) {
