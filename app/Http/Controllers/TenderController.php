@@ -162,7 +162,7 @@ class TenderController extends Controller
             $outputDir = public_path('storage/mergedFile/');
             $mergedFilePath = $outputDir . $uniqueFileName;
 
-            if (!is_dir($outputDir) && !mkdir($outputDir, 0755, true) && !is_dir($outputDir)) {
+            if (!is_dir($outputDir) && !mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
                 throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
             }
 
@@ -281,7 +281,7 @@ class TenderController extends Controller
 
             // Create the directory if it doesn't exist
             if (!is_dir(dirname($mergedFilePath))) {
-                mkdir(dirname($mergedFilePath), 0755, true);
+                mkdir(dirname($mergedFilePath), 0777, true);
             }
 
             // Initialize the PDFMerger
