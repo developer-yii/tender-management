@@ -290,11 +290,6 @@ class TenderController extends Controller
 
             // Set the path for the merged PDF
             $mergedFilePath = public_path('storage/mergedFile/' . $uniqueFileName);
-
-            // Create the directory if it doesn't exist
-            // if (!is_dir(dirname($mergedFilePath))) {
-            //     mkdir(dirname($mergedFilePath), 0777, true);
-            // }
             $outputDir = dirname($mergedFilePath);
 
             // Create the directory if it doesn't exist with 0777 permissions
