@@ -21,7 +21,7 @@
                                 <a href="{{ route('tender.details', [$tender->id])}}">
                                     <div class="offerLeft">
                                         <div class="imgBox">
-                                            <img src="{{ getTenderMainImage($tender) }}" alt="{{$tender->tender_name}}">
+                                            <img src="{{ getTenderMainImage($tender) }}" loading="lazy" alt="{{$tender->tender_name}}">
                                         </div>
                                         <div class="textBox">
                                             <h5>{{ $tender->tender_name }}</h5>
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="viewstatus">
                                     <div class="statusIcon">
-                                        <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" alt="{{ $tender->status_text }}">
+                                        <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" loading="lazy" alt="{{ $tender->status_text }}">
                                     </div>
                                     <div class="text">
                                         <p>{{ $tender->status_text }}</p>
@@ -67,7 +67,7 @@
                                 @foreach ($employees as $employee)
                                     <div class="employProfile" data-employee-id="{{ $employee->id }}">
                                         <div class="imgBox">
-                                            <img src="{{ $employee->getProfilePicUrl() }}" alt="Profile Picture">
+                                            <img src="{{ $employee->getProfilePicUrl() }}" loading="lazy" alt="Profile Picture">
                                         </div>
                                         <div class="textBox">
                                             <h5>{{ $employee->first_name }} {{ $employee->last_name }}</h5>
