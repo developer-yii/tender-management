@@ -162,21 +162,26 @@ class TenderController extends Controller
             $outputDir = public_path('storage/mergedFile/');
             $mergedFilePath = $outputDir . $uniqueFileName;
 
+            if (!is_dir($outputDir)) {
+                mkdir($outputDir, 0777, true); // Creates the directory with 0755 permissions recursively
+            }
+
+
             // if (!is_dir($outputDir) && !mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
             //     throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
             // }
 
-            if (!is_dir($outputDir)) {
-                $oldUmask = umask(0); // Disable default umask effect
-                if (!mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
-                    umask($oldUmask); // Restore umask before throwing an error
-                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
-                }
-                umask($oldUmask); // Restore umask after successful creation
+            // if (!is_dir($outputDir)) {
+            //     $oldUmask = umask(0); // Disable default umask effect
+            //     if (!mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
+            //         umask($oldUmask); // Restore umask before throwing an error
+            //         throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
+            //     }
+            //     umask($oldUmask); // Restore umask after successful creation
 
-                // Ensure correct permissions
-                chmod($outputDir, 0777);
-            }
+            //     // Ensure correct permissions
+            //     chmod($outputDir, 0777);
+            // }
 
             try {
                 $existingFiles = glob($outputDir . '*');
@@ -289,21 +294,28 @@ class TenderController extends Controller
             $uniqueFileName = date('d_m_Y') . '_' . uniqid() . '.pdf';
 
             // Set the path for the merged PDF
-            $mergedFilePath = public_path('storage/mergedFile/' . $uniqueFileName);
-            $outputDir = dirname($mergedFilePath);
+            $outputDir = public_path('storage/mergedFile/');
+            $mergedFilePath = $outputDir . $uniqueFileName;
+
+            // $mergedFilePath = public_path('storage/mergedFile/' . $uniqueFileName);
+            // $outputDir = dirname($mergedFilePath);
 
             // Create the directory if it doesn't exist with 0777 permissions
             if (!is_dir($outputDir)) {
-                $oldUmask = umask(0); // Disable default umask effect
-                if (!mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
-                    umask($oldUmask); // Restore umask before throwing an error
-                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
-                }
-                umask($oldUmask); // Restore umask after successful creation
-
-                // Ensure correct permissions
-                chmod($outputDir, 0777);
+                mkdir($outputDir, 0777, true); // Creates the directory with 0755 permissions recursively
             }
+
+            // if (!is_dir($outputDir)) {
+            //     $oldUmask = umask(0); // Disable default umask effect
+            //     if (!mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
+            //         umask($oldUmask); // Restore umask before throwing an error
+            //         throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
+            //     }
+            //     umask($oldUmask); // Restore umask after successful creation
+
+            //     // Ensure correct permissions
+            //     chmod($outputDir, 0777);
+            // }
 
             // Initialize the PDFMerger
             $pdfMerger = PDFMerger::init();
