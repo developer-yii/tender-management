@@ -162,8 +162,20 @@ class TenderController extends Controller
             $outputDir = public_path('storage/mergedFile/');
             $mergedFilePath = $outputDir . $uniqueFileName;
 
-            if (!is_dir($outputDir) && !mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
+            // if (!is_dir($outputDir) && !mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
+            //     throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
+            // }
+
+            if (!is_dir($outputDir)) {
+                $oldUmask = umask(0); // Disable default umask effect
+                if (!mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
+                    umask($oldUmask); // Restore umask before throwing an error
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
+                }
+                umask($oldUmask); // Restore umask after successful creation
+
+                // Ensure correct permissions
+                chmod($outputDir, 0777);
             }
 
             try {
@@ -280,8 +292,22 @@ class TenderController extends Controller
             $mergedFilePath = public_path('storage/mergedFile/' . $uniqueFileName);
 
             // Create the directory if it doesn't exist
-            if (!is_dir(dirname($mergedFilePath))) {
-                mkdir(dirname($mergedFilePath), 0777, true);
+            // if (!is_dir(dirname($mergedFilePath))) {
+            //     mkdir(dirname($mergedFilePath), 0777, true);
+            // }
+            $outputDir = dirname($mergedFilePath);
+
+            // Create the directory if it doesn't exist with 0777 permissions
+            if (!is_dir($outputDir)) {
+                $oldUmask = umask(0); // Disable default umask effect
+                if (!mkdir($outputDir, 0777, true) && !is_dir($outputDir)) {
+                    umask($oldUmask); // Restore umask before throwing an error
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $outputDir));
+                }
+                umask($oldUmask); // Restore umask after successful creation
+
+                // Ensure correct permissions
+                chmod($outputDir, 0777);
             }
 
             // Initialize the PDFMerger
