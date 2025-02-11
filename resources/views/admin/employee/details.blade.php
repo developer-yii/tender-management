@@ -63,10 +63,10 @@
                                     @foreach($employee->tenders as $employeeTender)
                                         <li>
                                             <div class="statusIcon">
-                                                <img src="{{ $employeeTender->tenderStatus->getIconUrl() }}" alt="{{ $employeeTender->tenderStatus->title }}">
+                                                <img src="{{ $employeeTender->tenderStatus ? $employeeTender->tenderStatus->getIconUrl() : '' }}" alt="{{ $employeeTender->tenderStatus ? $employeeTender->tenderStatus->title : 'status' }}">
                                             </div>
                                             <div class="text">
-                                                <p>{{$employeeTender->tender_name}}</p>
+                                                <p>{{ $employeeTender->tender_name}}</p>
                                             </div>
                                         </li>
                                     @endforeach
