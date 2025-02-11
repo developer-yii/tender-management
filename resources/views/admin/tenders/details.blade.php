@@ -46,8 +46,8 @@
                                     </div>
                                     <div class="secondBox box-box">
                                         <h6>STATUS</h6>
-                                        <img src="{{ $tender->tenderStatus->getIconUrl() }}" alt="{{ $tender->tenderStatus->title }}">
-                                        <p>{{ $tender->tenderStatus->title }}</p>
+                                        <img src="{{ $tender->tenderStatus ? $tender->tenderStatus->getIconUrl() : '' }}" alt="{{ $tender->tenderStatus ? $tender->tenderStatus->title : 'status' }}">
+                                        <p>{{ $tender->tenderStatus ? $tender->tenderStatus->title : 'Unknown' }}</p>
                                     </div>
                                     <div class="thirdBox box-box">
                                         <p>VERANTWORTLICHE PERSON</p>

@@ -43,10 +43,10 @@
                                 </div>
                                 <div class="viewstatus">
                                     <div class="statusIcon">
-                                        <img src="{{ $tender->tenderStatus->getIconUrl() }}" loading="lazy" alt="{{ $tender->tenderStatus->title }}">
+                                        <img src="{{ $tender->tenderStatus ? $tender->tenderStatus->getIconUrl() : '' }}" loading="lazy" alt="{{ $tender->tenderStatus ? $tender->tenderStatus->title : 'status' }}">
                                     </div>
                                     <div class="text">
-                                        <p>{{ $tender->tenderStatus->title }}</p>
+                                        <p>{{ $tender->tenderStatus ? $tender->tenderStatus->title : 'Unknown' }}</p>
                                     </div>
                                 </div>
                             </div>
