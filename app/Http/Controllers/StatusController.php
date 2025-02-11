@@ -62,7 +62,7 @@ class StatusController extends Controller
             'icon' => 'nullable|image|max:2048',
         ];
 
-        if (!$request->user_id) {
+        if (!$request->status_id) {
             $rules = array_merge($rules, [
                 'icon' => 'required|image|max:2048',
             ]);
