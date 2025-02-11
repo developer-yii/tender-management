@@ -27,19 +27,19 @@
                                     </li>
                                     <li>
                                         <p>Ablauf Angebotsfrist
-                                            <span>{{ formatDate($tender->offer_period_expiration, 'd.m.Y | h:i') }}</span>
+                                            <span>{{ formatDate($tender->offer_period_expiration, 'd.m.Y | h:i') }}</span><br>
                                             {{ getRemainingDaysMessage($tender->offer_period_expiration) }}
                                         </p>
                                     </li>
                                     <li>
                                         <p>Bindefrist
-                                            <span>{{ formatDate($tender->binding_period, 'd.m.Y') ?? '' }}</span>
+                                            <span>{{ formatDate($tender->binding_period, 'd.m.Y') ?? '' }}</span><br>
                                             {{ getRemainingDaysMessage($tender->binding_period) }}
                                         </p>
                                     </li>
                                     <li>
                                         <p>Bewerberfragen bis
-                                            <span>{{ formatDate($tender->question_ask_last_date, 'd.m.Y | h:i') }}</span>
+                                            <span>{{ formatDate($tender->question_ask_last_date, 'd.m.Y | h:i') }}</span><br>
                                             {{ getRemainingDaysMessage($tender->question_ask_last_date) }}
                                         </p>
                                     </li>
