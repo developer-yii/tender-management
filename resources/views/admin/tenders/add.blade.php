@@ -92,9 +92,9 @@
                                             <label for="">STATUS</label>
                                             <select name="status" id="status">
                                                 <option value="" style="display: none;">Select Status</option>
-                                                @foreach ($tenderStatus as $key => $value)
-                                                    <option value="{{ $key }}" {{ isset($tender) && $key == $tender->status ? 'selected' : '' }}>
-                                                        {{ $value }}
+                                                @foreach ($tenderStatus as $status)
+                                                    <option value="{{ $status->id }}" {{ isset($tender) && $status->id == $tender->status ? 'selected' : '' }}>
+                                                        {{ $status->title }}
                                                     </option>
                                                 @endforeach
                                             </select>

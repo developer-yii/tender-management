@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Status;
 use App\Models\Tender;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
@@ -41,7 +42,9 @@ class AppServiceProvider extends ServiceProvider
                     }
 
                     $statusCounts = $tenders->groupBy('status')->map->count();
-                    $view->with('statusCounts', $statusCounts);
+                    // $view->with('statusCounts', $statusCounts);
+                    $statuses = Status::all();
+                    $view->with(compact('statuses', 'statusCounts'));
                 }
             }
 

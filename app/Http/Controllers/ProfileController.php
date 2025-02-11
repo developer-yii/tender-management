@@ -14,7 +14,7 @@ class ProfileController extends Controller
     public function myProfile()
     {
         $user = Auth::user();
-        $user->load(['tags', 'tenders']);
+        $user->load(['tags', 'tenders', 'tenders.tenderStatus']);
         $this->getFilePath($user);
         return view('admin.profile.index',['user' => $user]);
     }
@@ -22,7 +22,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        $user->load(['tags', 'tenders']);
+        $user->load(['tags']);
         $this->getFilePath($user);
         $tags = Tag::with('users')->get();
         return view('admin.profile.edit', compact('tags', 'user'));

@@ -34,6 +34,21 @@
                 </div>
             </div>
             <div class="tenderStatus">
+                @foreach ($statuses as $status)
+                    <div class="comstatusBox">
+                        <div class="statusIcon">
+                            <img src="{{ $status->getIconUrl() }}" alt="{{ $status->title }}">
+                        </div>
+                        <div class="text">
+                            <p>{{ $status->title }}</p>
+                        </div>
+                        <div class="countPro">
+                            <span>{{ $statusCounts[$status->id] ?? 0 }}</span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            {{-- <div class="tenderStatus">
                 @php
                     $statuses = [
                         1 => ['label' => 'in Bearbeitung', 'icon' => 'Wait.png'],
@@ -56,7 +71,7 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
         </div>
     </div>
 </header>

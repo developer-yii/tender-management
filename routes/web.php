@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\ServerController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TempleteController;
 use App\Http\Controllers\TenderController;
@@ -46,6 +47,14 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::post('/addupdate', [TagController::class, 'addupdate'])->name('addupdate');
         Route::post('/detail', [TagController::class, 'detail'])->name('detail');
         Route::post('/delete', [TagController::class, 'delete'])->name('delete');
+    });
+
+    // status
+    Route::prefix('status')->as('status.')->group(function () {
+        Route::get('/', [StatusController::class, 'index'])->name('index');
+        Route::get('/get', [StatusController::class, 'get'])->name('list');
+        Route::post('/addupdate', [StatusController::class, 'addupdate'])->name('addupdate');
+        Route::post('/detail', [StatusController::class, 'detail'])->name('detail');
     });
 
     // Admin Module

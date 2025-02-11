@@ -67,7 +67,7 @@
                                     @foreach($user->tenders as $userTender)
                                         <li>
                                             <div class="statusIcon">
-                                                <img src="{{ $baseUrl .'images/'. $userTender->status_icon }}" alt="{{ $userTender->status_text }}">
+                                                <img src="{{ $userTender->tenderStatus->getIconUrl() }}" alt="{{ $userTender->tenderStatus->title }}">
                                             </div>
                                             <div class="text">
                                                 <p>{{$userTender->tender_name}}</p>

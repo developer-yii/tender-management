@@ -538,7 +538,7 @@ ul.dropDownInner {
 }
 
 .dropDownInner.show li a span {
-    margin-right: 0px !important;
+    /* margin-right: 0px !important; */
 }
 
 .dropDownInner.show {
