@@ -49,10 +49,10 @@
                                 <a class="btn btnDetails" href="{{ route('tender.details', [$tender->id])}}">DETAILS ANSEHEN</a>
                                 <div class="viewstatus">
                                     <div class="statusIcon">
-                                        <img src="{{ $baseUrl .'images/'. $tender->status_icon }}" alt="{{ $tender->status_text }}">
+                                        <img src="{{ $tender->tenderStatus ? $tender->tenderStatus->getIconUrl() : '' }}" alt="{{ $tender->tenderStatus ? $tender->tenderStatus->title : 'status' }}">
                                     </div>
                                     <div class="text">
-                                        <p>{{ $tender->status_text }}</p>
+                                        <p>{{ $tender->tenderStatus ? $tender->tenderStatus->title : 'Unknown' }}</p>
                                     </div>
                                 </div>
                             </div>
