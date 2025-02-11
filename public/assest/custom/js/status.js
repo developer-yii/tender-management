@@ -50,7 +50,9 @@ $(document).ready(function () {
                     $form[0].reset();
                     toastr.success(result.message);
                     $('#addStatusModal').modal('hide');
-                    $('#statusTable').DataTable().ajax.reload();
+                    setTimeout(function(){
+                        window.location.reload()
+                    }, 1000);
                 } else {
                     first_input = "";
                     $('.error').html("");

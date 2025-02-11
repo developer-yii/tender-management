@@ -88,7 +88,7 @@ class StatusController extends Controller
             }
             $dir = "public/status/";
             $extension = $request->file("icon")->getClientOriginalExtension();
-            $filename = strtolower(str_replace(' ', '-', trim($request->title))). "." . $extension;
+            $filename = strtolower(str_replace(' ', '-', trim($request->title))). "_" . time() . "." . $extension;
             Storage::disk("local")->put($dir . $filename,File::get($request->file("icon")));
             $status->icon = $filename;
         }
