@@ -60,24 +60,20 @@
 
                             <ul>
                                 @if($employee->tenders->isNotEmpty())
-                                @foreach($employee->tenders as $employeeTender)
-                                    <li>
-                                        <div class="statusIcon">
-                                            <img src="{{ $baseUrl .'images/'. $employeeTender->status_icon }}" alt="{{ $employeeTender->status_text }}">
-                                        </div>
-                                        <div class="text">
-                                            <p>{{$employeeTender->tender_name}}</p>
-                                        </div>
-                                    </li>
-                                @endforeach
+                                    @foreach($employee->tenders as $employeeTender)
+                                        <li>
+                                            <div class="statusIcon">
+                                                <img src="{{ $employeeTender->tenderStatus->getIconUrl() }}" alt="{{ $employeeTender->tenderStatus->title }}">
+                                            </div>
+                                            <div class="text">
+                                                <p>{{$employeeTender->tender_name}}</p>
+                                            </div>
+                                        </li>
+                                    @endforeach
                                 @else
                                     <li>
-                                        <div class="statusIcon">
-                                            <img src="{{ $baseUrl .'images/gray-dot.png' }}" alt="No tender">
-                                        </div>
-                                        <div class="text">
-                                            <p>No Tender Assign</p>
-                                        </div>
+                                        <div class="statusIcon"> - </div>
+                                        <div class="text"><p>No Tender Assign</p></div>
                                     </li>
                                 @endif
                             </ul>

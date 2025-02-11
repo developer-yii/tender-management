@@ -120,7 +120,7 @@ class EmployeeController extends Controller
 
     public function employeeDetails(Request $request)
     {
-        $employee = User::with(['tags', 'tenders'])->find($request->id);
+        $employee = User::with(['tags', 'tenders', 'tenders.tenderStatus'])->find($request->id);
         if(!$employee){
             abort(404);
         }

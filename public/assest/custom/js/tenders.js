@@ -22,7 +22,7 @@ $(document).ready(function () {
                         tenderList.append(`
                             <li>
                                 <div class="statusIcon">
-                                    <img src="${baseUrl}images/${tender.status_icon}" alt="${tender.status_text}">
+                                    <img src="${tender.status_icon}" alt="${tender.status}">
                                 </div>
                                 <div class="text">
                                     <p>${tender.tender_name}</p>

@@ -6,6 +6,7 @@ use App\Models\Certificate;
 use App\Models\Company;
 use App\Models\Document;
 use App\Models\Reference;
+use App\Models\Status;
 use App\Models\Tender;
 use App\Models\TenderFile;
 use App\Models\User;
@@ -24,9 +25,9 @@ class TenderController extends Controller
     public function index()
     {
         if (isAdmin()) {
-            $tenders = Tender::with(['files', 'users'])->get();
+            $tenders = Tender::with(['files', 'users', 'tenderStatus'])->get();
         } else {
-            $tenders = Tender::with(['files', 'users'])
+            $tenders = Tender::with(['files', 'users', 'tenderStatus'])
                 ->whereHas('users', function ($query) {
                     $query->where('users.id', Auth::id());
                 })
@@ -48,19 +49,26 @@ class TenderController extends Controller
 
     public function getTenders(Request $request)
     {
-        $employee = User::with('tenders')->find($request->id);
+        $employee = User::with(['tenders', 'tenders.tenderStatus'])->find($request->id);
 
         if (!$employee) {
             return response()->json(['error' => 'Employee not found'], 404);
         }
 
-        $tenders = $employee->tenders;
+        $tenders = $employee->tenders->map(function ($tender) {
+            return [
+                'id' => $tender->id,
+                'tender_name' => $tender->tender_name,
+                'status_icon' => $tender->tenderStatus ? $tender->tenderStatus->getIconUrl() : asset('assest/images/checkdot.png'),
+                'status' => $tender->tenderStatus ? $tender->tenderStatus->title : 'Unknown',
+            ];
+        });
         return response()->json(['tenders' => $tenders]);
     }
 
     public function tenderDetails(Request $request)
     {
-        $tender = Tender::with('files')->find($request->id);
+        $tender = Tender::with(['files', 'tenderStatus'])->find($request->id);
 
         $folder_files = $tender->files()
                     ->where('type', 'folder')
@@ -81,7 +89,7 @@ class TenderController extends Controller
 
     public function addEdit(Request $request)
     {
-        $tenderStatus = Tender::tenderStatus;
+        $tenderStatus = Status::all();
         $abgabeForms = Tender::abgabeForms;
         $options = Tender::options;
         $employees = User::where('role', 2)->where('is_active', true)->get();
