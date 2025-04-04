@@ -12,8 +12,8 @@ class Tender extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
-    const abgabeForms = [1 => 'Option 1', 2 => 'Option 2', 3 => 'Option 3'];
-    const options = [0 => 'No', 1 => 'Yes'];
+    // const abgabeForms = [1 => 'Option 1', 2 => 'Option 2', 3 => 'Option 3'];
+    const options = [0 => 'Nein', 1 => 'Ja'];
 
     public function tenderStatus()
     {
@@ -82,8 +82,13 @@ class Tender extends Model
         return $this->hasMany(TenderFile::class, 'tender_id');
     }
 
-    public function getAbgabeformTextAttribute()
+    public function abgabeformValue()
     {
-        return self::abgabeForms[$this->abgabeform] ?? 'Unknown Abgabeform';
+        return $this->belongsTo(Abgabeform::class, 'abgabeform', 'id');
     }
+
+    // public function getAbgabeformTextAttribute()
+    // {
+    //     return self::abgabeForms[$this->abgabeform] ?? 'Unknown Abgabeform';
+    // }
 }

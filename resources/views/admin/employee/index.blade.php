@@ -28,7 +28,7 @@
                 @if($employeesWithoutTags->isNotEmpty())
                     <div class="employsBoxList" id="no_tag">
                         <div class="titleBox">
-                            <h5>Employee Without Tags</h5>
+                            <h5>Mitarbeiter ohne Tags</h5>
                         </div>
                         <div class="listAllemploys">
                             @foreach($employeesWithoutTags as $employee)

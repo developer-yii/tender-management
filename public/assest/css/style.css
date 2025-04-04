@@ -807,6 +807,7 @@ ul.dropDownInner {
     font-size: 14px;
     color: var(--text-gray);
     font-family: 'BricolageGrotesque-SemiBold';
+    word-break: break-all;
 }
 
 .dateTime p {
@@ -910,6 +911,7 @@ ul.dropDownInner {
     font-size: 16px;
     color: var(--black-color);
     font-family: 'BricolageGrotesque-SemiBold';
+    word-break: break-all;
 }
 
 .employMainBox .employProfile.active .textBox h5,
@@ -2116,6 +2118,59 @@ ul.dropDownInner {
 
 .selectTenerSec .selectTender .dropdown {
     position: relative;
+    width: 100%; /* Keep fixed width */
+    max-width: 350px; /* Ensure max width remains */
+    margin-top: 20px;
+}
+
+.selectTenerSec .selectTender .dropdown-button {
+    width: 100%;
+    height: 40px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--text-gray);
+    font-family: 'BricolageGrotesque-Regular';
+    background-color: #fff;
+    box-shadow: inset 0px 2px 8px 1px rgba(0, 0, 0, 0.123);
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Prevents expansion */
+    white-space: nowrap; /* Ensures text stays in one line */
+}
+
+.selectTenerSec .selectTender .dropdown-button span {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.selectTenerSec .selectTender .dropdown-button::after {
+    content: "\f0d7";
+    font-family: 'FontAwesome';
+    font-size: 16px;
+    color: var(--white-color);
+    background-color: var(--sky-color);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: inset 0px 0px 8px 0px rgba(0, 0, 0, 0.123);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+/* .selectTenerSec .selectTender .dropdown {
+    position: relative;
     width: 100%;
     max-width: 350px;
     margin-top: 20px;
@@ -2155,7 +2210,7 @@ ul.dropDownInner {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
 
 .selectTenerSec .selectTender .dropdown-list {
     position: absolute;

@@ -7,7 +7,7 @@
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn newAdd">
-            <a href="{{ route('document.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück Zu Allen</a>
+            <a href="{{ route('document.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück zur Übersicht</a>
             <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addDocumentModal"><i class="fa-solid fa-plus"></i> Bescheinigung hinzufügen</button>
         </div>
         <div class="employsSection">
@@ -45,7 +45,7 @@
 @endsection
 @section('modal')
     @include('include.document-modal')
-    @include('include.preview-modal')
+    @include('include.preview-modal', ['pagename' => 'Lebenslauf'])
 @endsection
 @section('js')
 <script>

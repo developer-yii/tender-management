@@ -50,7 +50,7 @@
                                 <label for="">Ausschreibungszeitraum (Startdatum / Enddatum)*</label>
                                 <div class="form-group boxForm range">
                                     <input type="text" class="flat" placeholder="{{ trans('message.start-date') }}" name="start_date" id="start_date">
-                                    <span>To</span>
+                                    <span>bis</span>
                                     <input type="text" class="flat" placeholder="{{ trans('message.end-date') }}" name="end_date" id="end_date">
                                 </div>
                                 <span class="error" id="error_message"></span>

@@ -99,7 +99,7 @@
                                     <p>{{ $tender->vergabestelle }}</p>
                                     <div class="devliverBox">
                                         <h6>Abgabeform</h6>
-                                        <a href="javascript:void(0)" class="btn btnDetails cursor-default">{{ $tender->abgabeform_text }}</a>
+                                        <a href="javascript:void(0)" class="btn btnDetails cursor-default">{{ $tender->abgabeformValue->name }}</a>
                                     </div>
                                 </div>
                                 <div class="rightMap">
@@ -188,7 +188,7 @@
     document.querySelectorAll(".chat-gpt").forEach((image) => {
         image.addEventListener("click", async function () {
             const filePath = image.getAttribute("data-file-path");
-            const question = "Summarise most important part of this document";
+            const question = "Fassen Sie den wichtigsten Teil dieses Dokuments zusammen";
             const chatBoxId = image.getAttribute("data-chat-box-id");
             const chatBox = document.getElementById(chatBoxId);
             chatBox.style.display = "block";

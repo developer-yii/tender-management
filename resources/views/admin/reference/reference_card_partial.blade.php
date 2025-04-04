@@ -1,5 +1,5 @@
 <div class="projectDetailsBox">
-    <h6>Projekt: {{ $reference->project_title }}</h6>
+    <h6>{{ $reference->project_title }}</h6>
     <div class="projectBox">
         <p>Umfang:</p>
         <pre class="pre">{{ $reference->scope }}</pre>

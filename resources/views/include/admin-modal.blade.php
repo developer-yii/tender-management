@@ -40,7 +40,7 @@
                             <div class="form-group boxForm">
                                 <label for="status" class="control-label">Status*</label>
                                 <select name="status" id="status">
-                                    <option value="" class="d-none">Select Status</option>
+                                    <option value="" class="d-none">Wähle den Status</option>
                                     <option value="1">Active</option>
                                     <option value="0">Inactive</option>
                                 </select>

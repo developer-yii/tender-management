@@ -33,6 +33,7 @@
                             'status' => ['status.index'],
                             'servers' => ['server.index'],
                             'admins' => ['admin.index'],
+                            'abgabeform' => ['abgabeform.index'],
                         ];
                     @endphp
 
@@ -109,12 +110,12 @@
                                 </a>
                             </li>
 
-                            {{-- tags --}}
+                            {{-- Setting --}}
                             <li>
-                                <a class="kiTools {{ (isActiveRoute($activeRoutes['tags']) || isActiveRoute($activeRoutes['admins']) || isActiveRoute($activeRoutes['status'])) ? 'main-active' : '' }}" href="javascript:void(0)">
+                                <a class="kiTools {{ (isActiveRoute($activeRoutes['tags']) || isActiveRoute($activeRoutes['admins']) || isActiveRoute($activeRoutes['status']) || isActiveRoute($activeRoutes['abgabeform'])) ? 'main-active' : '' }}" href="javascript:void(0)">
                                     <span><img src="{{$baseUrl}}images/admin-setting.png" height="25px; width:25px;" alt="Einstellungen"></span> Einstellungen
                                 </a>
-                                <ul class="dropDownInner {{ (isActiveRoute($activeRoutes['tags']) || isActiveRoute($activeRoutes['admins']) || isActiveRoute($activeRoutes['status']))  ? 'show' : '' }}">
+                                <ul class="dropDownInner {{ (isActiveRoute($activeRoutes['tags']) || isActiveRoute($activeRoutes['admins']) || isActiveRoute($activeRoutes['status']) || isActiveRoute($activeRoutes['abgabeform']))  ? 'show' : '' }}">
                                     <li>
                                         <a href="{{ route('admin.index') }}" class="{{ isActiveRoute($activeRoutes['admins']) ? 'main-active' : '' }}">
                                             <span><img src="{{$baseUrl}}images/Account.png" alt="Account"></span>
@@ -131,6 +132,13 @@
                                         <a href="{{ route('status.index') }}" class="{{ isActiveRoute($activeRoutes['status']) ? 'main-active' : '' }}">
                                             <span><img src="{{$baseUrl}}images/checkdot.png" alt="status"></span>
                                             Status
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('abgabeform.index') }}" class="{{ isActiveRoute($activeRoutes['abgabeform']) ? 'main-active' : '' }}">
+                                            <span><img src="{{$baseUrl}}images/checkdot.png" alt="abgabeform"></span>
+                                            Abgabeform
                                         </a>
                                     </li>
                                 </ul>

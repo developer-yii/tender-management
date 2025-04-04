@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Abgabeform;
 use App\Models\Certificate;
 use App\Models\Company;
 use App\Models\Document;
@@ -68,8 +69,9 @@ class TenderController extends Controller
 
     public function tenderDetails(Request $request)
     {
-        $tender = Tender::with(['files', 'tenderStatus'])->find($request->id);
+        $tender = Tender::with(['abgabeformValue', 'files', 'tenderStatus'])->find($request->id);
 
+        // pre($tender->toArray());
         $folder_files = $tender->files()
                     ->where('type', 'folder')
                     ->get()
@@ -90,7 +92,8 @@ class TenderController extends Controller
     public function addEdit(Request $request)
     {
         $tenderStatus = Status::all();
-        $abgabeForms = Tender::abgabeForms;
+        // $abgabeForms = Tender::abgabeForms;
+        $abgabeForms = Abgabeform::all();
         $options = Tender::options;
         $employees = User::where('role', 2)->where('is_active', true)->get();
 

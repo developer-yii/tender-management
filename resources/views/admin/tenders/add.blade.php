@@ -91,7 +91,7 @@
                                         <li class="form-group">
                                             <label for="">STATUS</label>
                                             <select name="status" id="status">
-                                                <option value="" style="display: none;">Select Status</option>
+                                                <option value="" style="display: none;">Wähle den Status</option>
                                                 @foreach ($tenderStatus as $status)
                                                     <option value="{{ $status->id }}" {{ isset($tender) && $status->id == $tender->status ? 'selected' : '' }}>
                                                         {{ $status->title }}
@@ -107,7 +107,7 @@
                                     <div class="thirdBox box-box form-group">
                                         <p>VERANTWORTLICHE PERSON</p>
                                         <div class="newBox">
-                                            <select name="employees[]" id="employees" data-placeholder="Choose Employee" multiple>
+                                            <select name="employees[]" id="employees" data-placeholder="Mitarbeiter auswählen" multiple>
                                                 @foreach ($employees as $employee)
                                                     <option value="{{$employee->id}}"
                                                         @if (isset($tender) && $tender->users->contains('id', $employee->id))
@@ -180,11 +180,13 @@
                                         <h6>Abgabeform</h6>
                                         <select name="abgabeform" id="abgabeform">
                                             <option value="" style="display: none;">Wählen Sie aus</option>
-                                            @foreach ($abgabeForms as $key => $value)
-                                                <option value="{{ $key }}" {{ isset($tender) && $key == $tender->abgabeform ? 'selected' : '' }}>
-                                                    {{ $value }}
+                                            @foreach ($abgabeForms as $abgabeForm)
+                                                <option value="{{ $abgabeForm->id }}" 
+                                                    {{ isset($tender) && $abgabeForm->id == $tender->abgabeform ? 'selected' : '' }}>
+                                                    {{ $abgabeForm->name }}
                                                 </option>
                                             @endforeach
+
                                         </select>
                                         <span class="error"></span>
                                     </div>

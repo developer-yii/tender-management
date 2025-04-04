@@ -8,14 +8,14 @@
     <div class="homeSectionPart">
         <div class="referanceDetailsSec">
             <div class="addCommonBtn newAdd">
-                <a href="{{ route('reference.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück Zu Allen</a>
+                <a href="{{ route('reference.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück zur Übersicht</a>
                 <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addReferenceModal" ><i class="fa-solid fa-plus"></i> Referenz hinzufügen</button>
             </div>
             <div class="refInnerDetail">
                 <div class="refCenterBox">
                     <div class="recenterleft">
                         <div class="titleBox">
-                            <h5>Projekt: {{ $reference->project_title }}</h5>
+                            <h5>{{ $reference->project_title }}</h5>
                             <h6>Music Support Group</h6>
                         </div>
                         <div class="musicSupportText">
@@ -70,7 +70,7 @@
 @endsection
 @section('modal')
     @include('include.reference-modal')
-    @include('include.preview-modal')
+    @include('include.preview-modal', ['pagename' => 'Referenz'])
 @endsection
 @section('js')
 <script>

@@ -7,7 +7,7 @@
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn newAdd">
-            <a href="{{ route('certificate.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück Zu Allen</a>
+            <a href="{{ route('certificate.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück zur Übersicht</a>
             <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addCertificateModal"><i class="fa-solid fa-plus"></i> Zertifizierung hinzufügen</button>
         </div>
         <div class="softwareDevlop">
@@ -58,7 +58,7 @@
 @endsection
 @section('modal')
     @include('include.certificate-modal')
-    @include('include.preview-modal')
+    @include('include.preview-modal', ['pagename' => 'Zertifizierung'])
 @endsection
 @section('js')
 <script>

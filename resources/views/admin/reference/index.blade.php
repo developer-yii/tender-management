@@ -29,7 +29,7 @@
                     @if($referencesWithoutTags->isNotEmpty())
                         <div class="referancePart" id="no_tags">
                             <div class="titleBox">
-                                <h5>References Without Tags</h5>
+                                <h5>Referenzen ohne Tags</h5>
                             </div>
                             <div class="projectType">
                                 @foreach ($referencesWithoutTags as $reference)

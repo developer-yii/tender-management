@@ -7,6 +7,7 @@ use App\Models\Tender;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
     {
         App::setLocale('de'); // Set the application locale
         Carbon::setLocale('de'); // Set Carbon's locale
+
+        if (!Session::has('locale')) {
+            Session::put('locale', 'de');
+        }
 
         View::composer('*', function ($view) {
             if($view->getName() == "include.header"){

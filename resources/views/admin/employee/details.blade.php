@@ -7,7 +7,7 @@
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn newAdd">
-            <a href="{{ route('employee.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück Zu Allen</a>
+            <a href="{{ route('employee.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück zur Übersicht</a>
             <a href="{{route('employee.add-edit')}}" class="btn btnAdd"><i class="fa-solid fa-plus"></i> Mitarbeiter hinzuhügen</a>
         </div>
         <div class="employsSection">
@@ -96,7 +96,7 @@
 </section>
 @endsection
 @section('modal')
-    @include('include.preview-modal')
+    @include('include.preview-modal', ['pagename' => 'Lebenslauf'])
 @endsection
 @section('js')
 <script>

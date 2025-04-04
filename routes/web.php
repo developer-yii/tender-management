@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbgabeformController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AiToolController;
 use App\Http\Controllers\CertificateController;
@@ -55,6 +56,14 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::get('/get', [StatusController::class, 'get'])->name('list');
         Route::post('/addupdate', [StatusController::class, 'addupdate'])->name('addupdate');
         Route::post('/detail', [StatusController::class, 'detail'])->name('detail');
+    });
+
+    // abgabeform
+    Route::prefix('abgabeform')->as('abgabeform.')->group(function () {
+        Route::get('/', [AbgabeformController::class, 'index'])->name('index');
+        Route::get('/get', [AbgabeformController::class, 'get'])->name('list');
+        Route::post('/addupdate', [AbgabeformController::class, 'addupdate'])->name('addupdate');
+        Route::post('/detail', [AbgabeformController::class, 'detail'])->name('detail');
     });
 
     // Admin Module

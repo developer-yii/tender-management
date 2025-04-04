@@ -93,7 +93,7 @@
 </section>
 @endsection
 @section('modal')
-    @include('include.preview-modal')
+    @include('include.preview-modal', ['pagename' => 'Lebenslauf'])
 @endsection
 @section('js')
 <script>

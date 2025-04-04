@@ -9,7 +9,7 @@
     <div class="homeSectionPart">
         <div class="referanceDetailsSec">
             <div class="addCommonBtn newAdd">
-                <a href="{{ route('templete.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück Zu Allen</a>
+                <a href="{{ route('templete.index') }}" class="btn btnBack"><i class="bi bi-chevron-double-left"></i> Zurück zur Übersicht</a>
                 <button class="btn btnAdd edit-templete" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Vorlage hinzufügen</button>
             </div>
             <div class="employsSection">
@@ -48,7 +48,7 @@
 @endsection
 @section('modal')
     @include('include.templete-modal')
-    @include('include.preview-modal')
+    @include('include.preview-modal', ['pagename' => 'Lebenslauf'])
 @endsection
 
 @section('js')

@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group boxForm">
-                                <label for="project_title">{{ trans('message.project-title') }}*</label>
+                                <label for="project_title">Referenzentitel*</label>
                                 <input type="text" id="project_title" name="project_title">
                                 <span class="error"></span>
                             </div>
@@ -25,7 +25,7 @@
                         <div class="col-12">
                             <div class="form-group boxForm">
                                 <label for="tags" class="control-label">Tags*</label>
-                                <select name="tags[]" id="tags" multiple="multiple" data-placeholder="Choose">
+                                <select name="tags[]" id="tags" multiple="multiple" data-placeholder="Choose Tags">
                                     @foreach($tags as $tag)
                                         <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                     @endforeach

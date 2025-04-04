@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group boxForm">
-                                <label for="folder_name">Folder Name*</label>
+                                <label for="folder_name">Ordner Name*</label>
                                 <input type="text" id="folder_name" name="folder_name">
                                 <span class="error"></span>
                             </div>
