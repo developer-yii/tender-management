@@ -159,7 +159,7 @@ $(document).ready(function () {
                 $('#username').val(data.username);
                 $('#password').val(data.password);
                 $('#addPortalModal').find('button[type="submit"]').html("Bearbeiten");
-                $('#addPortalModal').find('#exampleModalLabel').html("Edit Portalen");
+                $('#addPortalModal').find('#exampleModalLabel').html("Portal bearbeiten");
             }
         });
     });
@@ -168,36 +168,10 @@ $(document).ready(function () {
         $('.error').html("");
         $('#addportal')[0].reset();
         $('#server_id').val("");
-        $('#addPortalModal').find('button[type="submit"]').html("Save");
-        $('#addPortalModal').find('#exampleModalLabel').html("Add Portalen");
+        $('#addPortalModal').find('button[type="submit"]').html("Speichern");
+        $('#addPortalModal').find('#exampleModalLabel').html("Portal hinzufügen");
     });
 
-    $('body').on('click', '.delete-tag', function () {
-        var id = $(this).attr('data-id');
-        var confirmed = confirm('Are you sure you want to delete this tag?');
-
-        if (confirmed) {
-            $.ajax({
-                url: deleteTagUrl,
-                data: { id: id },
-                type: 'POST',
-                dataType: 'json',
-                success: function (result) {
-                    toastr.success(result.message);
-                    $('#tagsTable').DataTable().ajax.reload();
-                },
-                error: function (error) {
-                    toastr.error('An error occurred while deleting the tag.');
-                }
-            });
-        } else {
-            // User canceled the action, do nothing
-            toastr.info('Deletion canceled.');
-        }
-
-    });
-
-    // clearErrorOnInput('#addingredienttype');
 });
 
 function appendNewServer(server) {

@@ -324,10 +324,10 @@
 
     // ChatGPT integration (same as the original code you provided)
     async function addMessage(question, fileDetails = null, chatBox) {
-        let userMsg = `<div class="questionMsg"><div class="msgText"><strong>Question:</strong> ${question}</div></div>`;
+        let userMsg = `<div class="questionMsg"><div class="msgText"><strong>Frage:</strong> ${question}</div></div>`;
 
         if (fileDetails) {
-            userMsg += `<div class="questionMsg"><div class="msgText"><strong>Uploaded File:</strong> ${fileDetails.fileName}</div></div>`;
+            userMsg += `<div class="questionMsg"><div class="msgText"><strong>Hochgeladene Datei:</strong> ${fileDetails.fileName}</div></div>`;
         }
 
         chatBox.innerHTML += userMsg;
@@ -339,10 +339,10 @@
             combinedInput = truncateContentToFitTokens(combinedInput);
 
             const botResponse = await getChatGPTResponse(combinedInput);
-            const botMsg = `<div class="responseMsg"><div class="msgText"><strong>Response:</strong> ${botResponse}</div></div>`;
+            const botMsg = `<div class="responseMsg"><div class="msgText"><strong>Antwort:</strong> ${botResponse}</div></div>`;
             chatBox.innerHTML += botMsg;
         } catch (error) {
-            const errorMsg = `<div class="responseMsg"><div class="msgText"><strong>Error:</strong> ${error.message}</div></div>`;
+            const errorMsg = `<div class="responseMsg"><div class="msgText"><strong>Fehler:</strong> ${error.message}</div></div>`;
             chatBox.innerHTML += errorMsg;
             console.error(error);
         }

@@ -73,7 +73,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 $('#name').val(data.name);
-                $('#addAbgabeformModal').find('button[type="submit"]').html("Update");
+                $('#addAbgabeformModal').find('button[type="submit"]').html("Aktualisieren");
                 $('#addAbgabeformModal').find('#exampleModalLabel').html("Abgabeform bearbeiten");
             }
         });
@@ -83,7 +83,7 @@ $(document).ready(function () {
         $('.error').html("");
         $('#addabgabeform')[0].reset();
         $('#abgabeform_id').val("");
-        $('#addAbgabeformModal').find('button[type="submit"]').html("Save");
+        $('#addAbgabeformModal').find('button[type="submit"]').html("Speichern");
         $('#addAbgabeformModal').find('#exampleModalLabel').html("Abgabeform hinzufügen");
     });   
 });

@@ -71,7 +71,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 $('#name').val(data.name);
-                $('#addTagModal').find('button[type="submit"]').html("Update");
+                $('#addTagModal').find('button[type="submit"]').html("Aktualisieren");
                 $('#addTagModal').find('#exampleModalLabel').html("Tag bearbeiten");
             }
         });
@@ -81,7 +81,7 @@ $(document).ready(function () {
         $('.error').html("");
         $('#addtag')[0].reset();
         $('#tag_id').val("");
-        $('#addTagModal').find('button[type="submit"]').html("Save");
+        $('#addTagModal').find('button[type="submit"]').html("Speichern");
         $('#addTagModal').find('#exampleModalLabel').html("Tag hinzufügen");
     });
 

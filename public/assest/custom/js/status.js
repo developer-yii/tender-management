@@ -80,7 +80,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 $('#title').val(data.title);
-                $('#addStatusModal').find('button[type="submit"]').html("Update");
+                $('#addStatusModal').find('button[type="submit"]').html("Aktualisieren");
                 $('#addStatusModal').find('#exampleModalLabel').html("Status bearbeiten");
                 $('#addStatusModal').find('.icon-label').html("Icon");
             }
@@ -91,7 +91,7 @@ $(document).ready(function () {
         $('.error').html("");
         $('#addstatus')[0].reset();
         $('#status_id').val("");
-        $('#addStatusModal').find('button[type="submit"]').html("Save");
+        $('#addStatusModal').find('button[type="submit"]').html("Speichern");
         $('#addStatusModal').find('#exampleModalLabel').html("Status hinzufügen");
         $('#addStatusModal').find('.icon-label').html("Icon*");
     });

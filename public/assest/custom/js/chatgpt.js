@@ -287,7 +287,7 @@ async function addMessage(question, fileDetails = null) {
     let userMsg = `<div class="questionMsg"><div class="msgText"><strong>Frage:</strong> ${question}</div></div>`;
 
     if (fileDetails) {
-        userMsg += `<div class="questionMsg"><div class="msgText"><strong>Datei:</strong> ${fileDetails.fileName}</div></div>`;
+        userMsg += `<div class="questionMsg"><div class="msgText"><strong>Hochgeladene Datei:</strong> ${fileDetails.fileName}</div></div>`;
     }
 
     chatBox.innerHTML += userMsg;

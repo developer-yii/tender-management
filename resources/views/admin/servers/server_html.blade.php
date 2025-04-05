@@ -11,7 +11,7 @@
             <button class="btn btnCopy">KOPIEREN</button>
         </div>
         <div class="form-group commonFill">
-            <label for="">Username:</label>
+            <label for="">Nutzername:</label>
             <input type="text" placeholder="{{ $server->username }}" value="{{ $server->username }}" readonly>
             <button class="btn btnCopy">KOPIEREN</button>
         </div>

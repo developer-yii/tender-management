@@ -45,7 +45,7 @@
                             <input type="hidden" name="status_id" class="status_id" id="status_id">
                         </div>
                         <div class="form-group">
-                            <label for="title" class="control-label">Title *</label>
+                            <label for="title" class="control-label">Titel *</label>
                             <input class="form-control" type="text" id="title" name="title">
                             <span class="error"></span>
                         </div>
@@ -56,8 +56,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                        <button type="submit" class="btn btn-info">Speichern</button>
                     </div>
                 </form>
             </div>

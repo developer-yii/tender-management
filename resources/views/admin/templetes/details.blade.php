@@ -29,10 +29,10 @@
 
                             <div class="btncenterSec">
                                 <button class="btn btnCom" id="previewBtn">
-                                    <span><img src="{{$baseUrl}}images/eye-icon.png" alt="eye-icon"></span> LEBENSLAUF VORSCHAU
+                                    <span><img src="{{$baseUrl}}images/eye-icon.png" alt="eye-icon"></span> VORLAGE VORSCHAU
                                 </button>
                                 <button class="btn btnCom" id="downloadPdf">
-                                    <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> LEBENSLAUF HERUNTERLADEN
+                                    <span><img src="{{$baseUrl}}images/downloads-Folder.png" alt="downloads-Folder"></span> VORLAGE HERUNTERLADEN
                                     <a id="download-pdf" href="{{ $templete->templete_file_url }}" download style="display:none;"></a>
                                 </button>
 
@@ -48,7 +48,7 @@
 @endsection
 @section('modal')
     @include('include.templete-modal')
-    @include('include.preview-modal', ['pagename' => 'Lebenslauf'])
+    @include('include.preview-modal', ['pagename' => 'Vorlage'])
 @endsection
 
 @section('js')

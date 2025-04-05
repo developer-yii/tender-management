@@ -41,8 +41,8 @@
                                 <label for="status" class="control-label">Status*</label>
                                 <select name="status" id="status">
                                     <option value="" class="d-none">Wähle den Status</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
+                                    <option value="1">Aktiv</option>
+                                    <option value="0">Inaktiv</option>
                                 </select>
                                 <span class="error"></span>
                             </div>

@@ -29,7 +29,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title" id="exampleModalLabel">Add Portalen</h1>
+                    <h1 class="modal-title" id="exampleModalLabel">Portal hinzufügen</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="addportal">
@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group boxForm">
-                                    <label for="username" class="control-label">Username*</label>
+                                    <label for="username" class="control-label">Nutzername*</label>
                                     <input type="text" id="username" name="username">
                                     <span class="error"></span>
                                 </div>
@@ -71,8 +71,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Speichern</button>
                     </div>
                 </form>
             </div>

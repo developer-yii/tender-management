@@ -11,7 +11,9 @@
 <section class="mainSection">
     <div class="homeSectionPart">
         <div class="addCommonBtn">
-            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addDocumentModal"><i class="fa-solid fa-plus"></i> Bescheinigung hinzufügen</button>
+            <button class="btn btnAdd" data-bs-toggle="modal" data-bs-target="#addDocumentModal">
+                <i class="fa-solid fa-plus"></i> Unterlagen / Bescheinigung hinzufügen
+            </button>
         </div>
         <div class="document_confirmSec">
             @if ($categoriesWithDocuments->isNotEmpty())

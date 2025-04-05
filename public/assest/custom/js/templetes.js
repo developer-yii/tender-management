@@ -66,7 +66,7 @@ $('body').on('click', '.edit-templete', function () {
             generateFilePreview(data.templete_file_url, '#addModal #oldFile');
 
             $('#addModal').find('button[type="submit"]').html("Aktualisieren");
-            $('#addModal').find('#exampleModalLabel').html("Zertifizierung bearbeiten");
+            $('#addModal').find('#exampleModalLabel').html("Vorlage bearbeiten");
             $('#addModal').find('#logo-label').html("Logo");
             $('#addModal').find('#certificate-word-label').html("Certificate(Word)");
             $('#addModal').find('#certificate-pdf-label').html("Certificate(PDF)");
@@ -82,9 +82,9 @@ function generateFilePreview(filePath, container) {
     if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
         content = `<img src="${filePath}" alt="Image" style="width: 100px; height: auto; cursor: pointer;" onclick="window.open('${filePath}', '_blank');">`;
     } else if (fileExtension === 'pdf' || fileExtension === 'docx' || fileExtension === 'doc') {
-        content = `<a href="${filePath}" target="_blank" class="btn btn-info">View File</a>`;
+        content = `<a href="${filePath}" target="_blank" class="btn btn-info">Siehe Datei</a>`;
     } else {
-        content = `<a href="${filePath}" target="_blank" style="cursor: pointer;">View File</a>`;
+        content = `<a href="${filePath}" target="_blank" class="btn btn-info" style="cursor: pointer;">Siehe Datei</a>`;
     }
 
     $(container).empty().html(content);
