@@ -2,6 +2,7 @@
 
 return [
 
+    'Choose file' => 'Datei auswählen',
     'Reference updated successfully' => 'Referenz erfolgreich aktualisiert.',
     'Reference added successfully' => 'Referenz erfolgreich hinzugefügt.',
     'Reference Not Found' => 'Referenz nicht gefunden.',

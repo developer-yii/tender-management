@@ -22,12 +22,12 @@ class TempleteController extends Controller
 
         $rules = [
             'title' => 'required|unique:templetes,title,' . $request->edit_id . ',id,deleted_at,NULL',
-            'templete_file' => 'nullable|max:5120',
+            'templete_file' => 'nullable|max:15360',
         ];
 
         if (!$request->edit_id) {
             $rules = array_merge($rules, [
-                'templete_file' => 'required|max:5120',
+                'templete_file' => 'required|max:15360',
             ]);
         }
 

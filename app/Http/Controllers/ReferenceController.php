@@ -28,14 +28,14 @@ class ReferenceController extends Controller
         $rules = [
             'project_title' => 'required|string|max:255|unique:references,project_title,' . $request->reference_id . ',id,deleted_at,NULL',
             'scope' => 'required',
-            'file_word' => 'nullable|mimes:doc,docx|max:5120',
-            'file_pdf' => 'nullable|mimes:pdf|max:5120',
+            'file_word' => 'nullable|mimes:doc,docx|max:15360',
+            'file_pdf' => 'nullable|mimes:pdf|max:15360',
         ];
 
         if (!$request->reference_id) {
             $rules = array_merge($rules, [
-                'file_word' => 'required|mimes:doc,docx|max:5120',
-                'file_pdf' => 'required|mimes:pdf|max:5120',
+                'file_word' => 'required|mimes:doc,docx|max:15360',
+                'file_pdf' => 'required|mimes:pdf|max:15360',
             ]);
         }
 

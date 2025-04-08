@@ -28,12 +28,12 @@ class DocumentController extends Controller
         $rules = [
             'category' => 'required|in:' . implode(',', $availableCategories),
             'title' => 'required|unique:documents,title,' . $request->document_id . ',id,deleted_at,NULL',
-            'document_pdf' => 'nullable|mimes:pdf|max:5120',
+            'document_pdf' => 'nullable|mimes:pdf|max:15360',
         ];
 
         if (!$request->document_id) {
             $rules = array_merge($rules, [
-                'document_pdf' => 'required|mimes:pdf|max:5120',
+                'document_pdf' => 'required|mimes:pdf|max:15360',
             ]);
         }
 

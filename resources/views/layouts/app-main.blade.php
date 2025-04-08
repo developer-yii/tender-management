@@ -95,6 +95,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
     <script src="{{ $baseUrl }}js/custom.js"></script>
+    <script src="{{ $baseUrl }}js/jquery-input-file-text.js"></script>
 
     <script>
         var current_language= "{{ session()->get('locale') }}";
@@ -107,6 +108,9 @@
             });
 
             // $(".select2").select2();
+            $('.custom-file-input-german').inputFileText({
+                text: "{{ __('message.Choose file') }}"
+            });
             
         });
         function language_check() {

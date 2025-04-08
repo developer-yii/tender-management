@@ -36,15 +36,15 @@ class CertificateController extends Controller
             'category' => 'required|in:' . implode(',', $availableCategories),
             'title' => 'required|unique:certificates,title,' . $request->certificate_id . ',id,deleted_at,NULL',
             'description' => 'required',
-            'certificate_word' => 'nullable|mimes:doc,docx|max:5120',
-            'certificate_pdf' => 'nullable|mimes:pdf|max:5120',
+            'certificate_word' => 'nullable|mimes:doc,docx|max:15360',
+            'certificate_pdf' => 'nullable|mimes:pdf|max:15360',
         ];
 
         if (!$request->certificate_id) {
             $rules = array_merge($rules, [
                 'logo' => 'required|image|max:2048',
-                'certificate_word' => 'required|mimes:doc,docx|max:5120',
-                'certificate_pdf' => 'required|mimes:pdf|max:5120',
+                'certificate_word' => 'required|mimes:doc,docx|max:15360',
+                'certificate_pdf' => 'required|mimes:pdf|max:15360',
             ]);
         }
 

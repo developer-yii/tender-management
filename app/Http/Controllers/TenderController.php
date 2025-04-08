@@ -402,6 +402,16 @@ class TenderController extends Controller
             return response()->json(['status' => 400, 'message' => trans('message.invalid-request'), 'data' => []]);
         }
 
+        // foreach ($request->file('documents', []) as $doc) {
+        //     dump([
+        //         'name' => $doc->getClientOriginalName(),
+        //         'mime' => $doc->getMimeType(),
+        //         'extension' => $doc->getClientOriginalExtension(),
+        //         'realPath' => $doc->getRealPath(),
+        //     ]);
+        // }
+        
+
         $rules = [
             'file_upload' => 'nullable|image|max:2048',
             'ausschreibung_name' => 'required',
@@ -421,12 +431,14 @@ class TenderController extends Controller
             'vergabeordnung' => 'required',
             'vergabeverfahren' => 'required',
             'employees' => 'required',
-            'documents' => 'nullable|array',
-            'documents.*' => 'file|mimes:doc,docx,pdf|max:5120',
+            // 'documents' => 'nullable|array',
+            // 'documents.*' => 'nullable|file|mimes:pdf,doc,docx',
+            'documents.*' => 'file|mimes:doc,docx,pdf|max:15360',
             'folder_doc' => 'nullable|array',
-            'folder_doc.*.*' => 'file|mimes:doc,docx,pdf,xls,xlsx,csv|max:5120',
-        ];
-
+            'folder_doc.*.*' => 'file|mimes:doc,docx,pdf,xls,xlsx,csv|max:15360',
+            // 'folder_doc.*.*' => 'file|mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv',
+        ];    
+        
         if (!$request->tender_id) {
             $rules = array_merge($rules, [
                 'file_upload' => 'required|image|max:2048',
@@ -434,8 +446,10 @@ class TenderController extends Controller
         }
 
         $customMessage = [
-            'documents.*.*' => 'The documents field must be a file of type: doc, docx, pdf.',
-            'folder_doc.*.*' => 'The documents must be a file of type: doc, docx, pdf, xls, xlsx, csv.',
+            'documents.*' => 'The documents field must be a file of type: doc, docx, pdf.',
+            'documents.*.max' => 'Each file must not exceed 15MB.',
+            'folder_doc.*.*' => 'The files must be a file of type: doc, docx, pdf, xls, xlsx, csv.',
+            'folder_doc.*.*.max' => 'Each file must not exceed 15MB.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $customMessage);

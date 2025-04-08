@@ -81,7 +81,7 @@
                             <div class="form-group">
                                 <div class="uploadCvBox">
                                     <p>Lebenslauf hochladen</p>
-                                    <input type="file" name="cv" id="cv" value="">
+                                    <input type="file" name="cv" id="cv" value="" class="custom-file-input-german">
                                     @if($employee)
                                         <span id="oldCv" class="m-1">
                                             <a href="{{ $employee->cv_url }}" target="_blank" class="btn btn-info">Lebenslauf ansehen</a>
@@ -94,7 +94,7 @@
                             <div class="form-group">
                                 <div class="uploadCvBox">
                                     <p>Laden Sie Dokument hoch</p>
-                                    <input type="file" name="document" id="document" value="">
+                                    <input type="file" name="document" id="document" value="" class="custom-file-input-german">
                                     @if($employee)
                                         <span id="oldDocument" class="m-1">
                                             <a href="{{ $employee->document_url }}" target="_blank" class="btn btn-info">Dokument anzeigen</a>

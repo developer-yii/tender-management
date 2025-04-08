@@ -55,8 +55,8 @@ class EmployeeController extends Controller
             'last_name' => 'required',
             'email' => 'required|string|max:255|unique:users,email,' . $request->user_id . ',id,deleted_at,NULL',
             'profile_photo' => 'nullable|image|max:2048',
-            'cv' => 'nullable|mimes:pdf|max:5120',
-            'document' => 'nullable|mimes:doc,docx|max:5120',
+            'cv' => 'nullable|mimes:pdf|max:15360',
+            'document' => 'nullable|mimes:doc,docx|max:15360',
         ];
 
         if (!$request->user_id) {
@@ -64,8 +64,8 @@ class EmployeeController extends Controller
                 'password' => 'required|confirmed',
                 'password_confirmation' => 'required',
                 'profile_photo' => 'required|image|max:2048',
-                'cv' => 'required|mimes:pdf|max:5120',
-                'document' => 'required|mimes:doc,docx|max:5120',
+                'cv' => 'required|mimes:pdf|max:15360',
+                'document' => 'required|mimes:doc,docx|max:15360',
             ]);
         }
 
