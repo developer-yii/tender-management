@@ -81,7 +81,7 @@
                             <div class="form-group">
                                 <div class="uploadCvBox">
                                     <p>Lebenslauf hochladen</p>
-                                    <input type="file" name="cv" id="cv" value="" class="custom-file-input-german">
+                                    <input type="file" name="cv" id="cv" value="">
                                     @if($employee)
                                         <span id="oldCv" class="m-1">
                                             <a href="{{ $employee->cv_url }}" target="_blank" class="btn btn-info">Lebenslauf ansehen</a>
@@ -94,7 +94,7 @@
                             <div class="form-group">
                                 <div class="uploadCvBox">
                                     <p>Laden Sie Dokument hoch</p>
-                                    <input type="file" name="document" id="document" value="" class="custom-file-input-german">
+                                    <input type="file" name="document" id="document" value="">
                                     @if($employee)
                                         <span id="oldDocument" class="m-1">
                                             <a href="{{ $employee->document_url }}" target="_blank" class="btn btn-info">Dokument anzeigen</a>
@@ -134,6 +134,14 @@
     <script>
         var createUrl = "{{ route('employee.addupdate') }}";
         var listUrl = "{{ route('employee.index') }}";
+        
+        $('#cv').inputFileText({
+            text: "{{ __('message.Choose file') }}"
+        });
+
+        $('#document').inputFileText({
+            text: "{{ __('message.Choose file') }}"
+        });
     </script>
     <script src="{{ $baseUrl }}custom/js/common.js"></script>
     <script src="{{ $baseUrl }}custom/js/employees.js"></script>
