@@ -80,11 +80,11 @@
                         <div class="create_rightBox">
                             <div class="form-group">
                                 <div class="uploadCvBox">
-                                    <p>Lebenslauf hochladen</p>
+                                    <p>Lebenslauf hochladen*</p>
                                     <input type="file" name="cv" id="cv" value="">
                                     @if($employee)
                                         <span id="oldCv" class="m-1">
-                                            <a href="{{ $employee->cv_url }}" target="_blank" class="btn btn-info">Lebenslauf ansehen</a>
+                                            <a href="{{ $employee->cv_url }}" target="_blank" class="btn btn-info">Lebenslauf ansehen*</a>
                                         </span>
                                     @endif
                                     {{-- <button class="btn btnCv"><img src="{{$baseUrl}}images/plus-new.png" alt="plus-new"></button> --}}
@@ -93,11 +93,11 @@
                             </div>
                             <div class="form-group">
                                 <div class="uploadCvBox">
-                                    <p>Laden Sie Dokument hoch</p>
+                                    <p>Laden Sie Dokument hoch*</p>
                                     <input type="file" name="document" id="document" value="">
                                     @if($employee)
                                         <span id="oldDocument" class="m-1">
-                                            <a href="{{ $employee->document_url }}" target="_blank" class="btn btn-info">Dokument anzeigen</a>
+                                            <a href="{{ $employee->document_url }}" target="_blank" class="btn btn-info">Dokument anzeigen*</a>
                                         </span>
                                     @endif
                                 </div>
@@ -133,7 +133,7 @@
 @section('js')
     <script>
         var createUrl = "{{ route('employee.addupdate') }}";
-        var listUrl = "{{ route('employee.index') }}";       
+        var listUrl = "{{ route('employee.index') }}";        
     </script>
     <script src="{{ $baseUrl }}custom/js/common.js"></script>
     <script src="{{ $baseUrl }}custom/js/employees.js"></script>

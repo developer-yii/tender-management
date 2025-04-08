@@ -66,5 +66,12 @@
         }
     }
 
-
+    function clearErrorOnInput(containerSelector) {
+        $(containerSelector).on('keyup change', 'input, textarea, select', function () {
+            if ($.trim($(this).val()).length > 0) {
+                $(this).removeClass('is-invalid');
+                $(this).closest('.form-group').find('.error').html('');
+            }
+        });
+    }
 

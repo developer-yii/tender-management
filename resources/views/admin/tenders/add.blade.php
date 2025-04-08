@@ -41,6 +41,9 @@
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="leftnewBox">
+                            <div class="title_box">
+                                <h5>Logo*</h5>
+                            </div>
                             <div class="topPlusBox form-group">
                                 @if($tender)
                                     <img id="blah" src="{{ asset('storage/tenders/tender' . $tender->id . '/' . $tender->main_image) }}" alt="{{ $tender->tender_name }}">
@@ -57,8 +60,24 @@
                             <div class="centerBox">
                                 <div class="multyDateBox">
                                     <ul>
+                                    
+                                        <!-- <li class="topPlusBox form-group">    
+                                            <div class="title_box">
+                                                <h5>Logo</h5>
+                                            </div>                                    
+                                            @if($tender)
+                                                <img id="blah" src="{{ asset('storage/tenders/tender' . $tender->id . '/' . $tender->main_image) }}" alt="{{ $tender->tender_name }}">
+                                            @else
+                                                <img id="blah" src="{{$baseUrl}}images/plus-Icon.png" alt="plus-Icon">
+                                            @endif
+                                            <input type="file" class="file-upload" onchange="readURL(this);" id="file_upload" name="file_upload">
+                                            <div class="edit-icon">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </div>
+                                            <span class="error"></span>
+                                        </li> -->
                                         <li class="form-group">
-                                            <label for="">Ausschreibung Name</label>
+                                            <label for="">Ausschreibung Name*</label>
                                             <input type="text" placeholder="Ausschreibung Name" name="ausschreibung_name" id="ausschreibung_name" value="{{ $tender ? $tender->tender_name : '' }}">
                                             <span class="error"></span>
                                         </li>
@@ -68,28 +87,28 @@
                                                     ? $tender->period_from . ' bis ' . $tender->period_to
                                                     : '';
                                             @endphp
-                                            <label for="">Ausführungszeitraum</label>
+                                            <label for="">Ausführungszeitraum*</label>
                                             <input type="text" class="flat input-daterange-datepicker" placeholder="Eine Frist festlegen" name="execution_period" id="execution_period" value="{{$executionPeriod}}">
                                             <span class="error"></span>
                                         </li>
                                         <li class="form-group">
-                                            <label for="">Bindefrist</label>
+                                            <label for="">Bindefrist*</label>
                                             <input type="text" class="flat" placeholder="Eine Frist festlegen" name="binding_period" id="binding_period" value="{{ $tender ? $tender->binding_period : '' }}">
                                             <span class="error"></span>
                                         </li>
                                         <li class="form-group">
-                                            <label for="">Bewerberfragen bis</label>
+                                            <label for="">Bewerberfragen bis*</label>
                                             <input type="text" class="flat" placeholder="Eine Frist festlegen" name="applicant_questions_date" id="applicant_questions_date" value="{{ $tender ? $tender->question_ask_last_date : '' }}">
                                             <span class="error"></span>
                                        </li>
 
                                         <li class="form-group">
-                                            <label for="">Ablauf Angebotsfrist</label>
+                                            <label for="">Ablauf Angebotsfrist*</label>
                                             <input type="text" class="flat" placeholder="Eine Frist festlegen" name="expiry_offer_date" id="expiry_offer_date" value="{{ $tender ? $tender->offer_period_expiration : '' }}">
                                             <span class="error"></span>
                                         </li>
                                         <li class="form-group">
-                                            <label for="">STATUS</label>
+                                            <label for="">STATUS*</label>
                                             <select name="status" id="status">
                                                 <option value="" style="display: none;">Wähle den Status</option>
                                                 @foreach ($tenderStatus as $status)
@@ -105,7 +124,7 @@
 
                                 <div class="ourThreeBox">
                                     <div class="thirdBox box-box form-group">
-                                        <p>VERANTWORTLICHE PERSON</p>
+                                        <p>VERANTWORTLICHE PERSON*</p>
                                         <div class="newBox">
                                             <select name="employees[]" id="employees" data-placeholder="Mitarbeiter auswählen" multiple>
                                                 @foreach ($employees as $employee)
@@ -158,12 +177,12 @@
                         <div class="rightnewBox">
                             <div class="shortDiscription">
                                 <div class="sameBox form-group">
-                                    <h6>Leistungstitel</h6>
+                                    <h6>Leistungstitel*</h6>
                                     <input type="text" name="performance_title" id="performance_title" placeholder="Fügen Sie eine Leistungstitel" value="{{ $tender ? $tender->title : '' }}">
                                     <span class="error"></span>
                                 </div>
                                 <div class="sameBox form-group">
-                                    <h6>Fügen Sie eine kurze Beschreibung hinzu</h6>
+                                    <h6>Fügen Sie eine kurze Beschreibung hinzu*</h6>
                                     <textarea name="kurze_beschreibung" id="kurze_beschreibung" placeholder="Fügen Sie eine kurze Beschreibung hinzu">{{ $tender ? $tender->description : '' }}</textarea>
                                     <span class="error"></span>
                                 </div>
@@ -171,13 +190,13 @@
                             <div class="newaddRegister">
                                 <div class="addRegister">
                                     <div class="form-group">
-                                        <h6>Vergabestelle</h6>
+                                        <h6>Vergabestelle*</h6>
                                         <textarea name="vergabestelle" id="vergabestelle" placeholder="Fügen Sie eine Vergabestelle hinzu">{{ $tender ? $tender->vergabestelle : '' }}</textarea>
                                         <span class="error"></span>
                                     </div>
 
                                     <div class="form-group">
-                                        <h6>Abgabeform</h6>
+                                        <h6>Abgabeform*</h6>
                                         <select name="abgabeform" id="abgabeform">
                                             <option value="" style="display: none;">Wählen Sie aus</option>
                                             @foreach ($abgabeForms as $abgabeForm)
@@ -192,7 +211,7 @@
                                     </div>
                                 </div>
                                 <div class="addRightText form-group">
-                                    <h6>Ausführungsort</h6>
+                                    <h6>Ausführungsort*</h6>
                                     <textarea name="execution_location" id="execution_location" placeholder="Fügen Sie eine Ausführungsort hinzu">{{ $tender ? $tender->place_of_execution : '' }}</textarea>
                                     <span class="error"></span>
                                 </div>
@@ -203,12 +222,12 @@
                                 <div class="newFullBox">
                                     <ul>
                                         <li class="form-group">
-                                            <label for="">Vergabeordnung</label>
+                                            <label for="">Vergabeordnung*</label>
                                             <input type="text" name="vergabeordnung" id="vergabeordnung" value="{{ $tender ? $tender->procurement_regulations : '' }}">
                                             <span class="error"></span>
                                         </li>
                                         <li class="form-group">
-                                            <label for="">Vergabeverfahren</label>
+                                            <label for="">Vergabeverfahren*</label>
                                             <input type="text" name="vergabeverfahren" id="vergabeverfahren" value="{{ $tender ? $tender->procurement_procedures : '' }}">
                                             <span class="error"></span>
                                         </li>

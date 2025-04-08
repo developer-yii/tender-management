@@ -431,3 +431,5 @@ $(document).ready(function () {
         });
     });
 });
+
+clearErrorOnInput('#addForm');

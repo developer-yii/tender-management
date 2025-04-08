@@ -278,3 +278,16 @@ li.select2-search-field {
   transform: translateY(-50%) !important;
   left: 10px !important;
 }
+
+.leftnewBox .topPlusBox .error {
+  position: absolute;
+  bottom: -10px;
+}
+
+.new-TenderSec .leftnewBox .title_box h5 {
+  font-size: 18px;
+  font-family: 'BricolageGrotesque-Medium';
+  color: var(--text-black);
+  margin-bottom: 10px;
+  margin: 0px 30px 10px;
+}
