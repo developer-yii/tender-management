@@ -133,15 +133,7 @@
 @section('js')
     <script>
         var createUrl = "{{ route('employee.addupdate') }}";
-        var listUrl = "{{ route('employee.index') }}";
-        
-        $('#cv').inputFileText({
-            text: "{{ __('message.Choose file') }}"
-        });
-
-        $('#document').inputFileText({
-            text: "{{ __('message.Choose file') }}"
-        });
+        var listUrl = "{{ route('employee.index') }}";       
     </script>
     <script src="{{ $baseUrl }}custom/js/common.js"></script>
     <script src="{{ $baseUrl }}custom/js/employees.js"></script>

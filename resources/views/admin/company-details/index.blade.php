@@ -220,6 +220,7 @@
 <script>
     var getCompanyDetailsUrl = "{{ route('company-details.detail') }}";
     var createCompanyDetailsUrl = "{{ route('company-details.update') }}";
+
 </script>
 <script src="{{ $baseUrl }}custom/js/company.js"></script>
 @endsection

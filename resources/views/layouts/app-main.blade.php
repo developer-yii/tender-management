@@ -108,10 +108,27 @@
             });
 
             // $(".select2").select2();
-            $('.custom-file-input-german').inputFileText({
-                text: "{{ __('message.Choose file') }}"
-            });
-            
+            ['#company_presentation_word', 
+                '#company_presentation_pdf', 
+                '#agile_framework_word', 
+                '#agile_framework_pdf',
+                '#cv',
+                '#document',
+                '#certificate_word',
+                '#certificate_pdf',
+                '#logo',
+                '#file_pdf',
+                '#file_word',
+                '#document_pdf',
+                '#templete_file',
+                '#profile_photo',
+                
+            ]
+            .forEach(function(id) {
+                $(id).inputFileText({
+                    text: "{{ __('message.Choose file') }}"
+                });
+            });                     
         });
         function language_check() {
             if (current_language === 'de') {
