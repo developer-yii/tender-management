@@ -20,7 +20,7 @@ class DeleteTenderMergedFiles extends Command
      *
      * @var string
      */
-    protected $description = 'Delete all files from the previous date in the mergedFile folder';
+    protected $description = 'Lösche alle Dateien vom vorherigen Datum im Ordner mergedFile';
 
     /**
      * Execute the console command.
@@ -30,7 +30,7 @@ class DeleteTenderMergedFiles extends Command
         $path = realpath(storage_path('app/public/mergedFile'));
 
         if (!File::exists($path)) {
-            $this->info("Directory does not exist: $path");
+            $this->info("Verzeichnis existiert nicht.: $path");
             return Command::FAILURE;
         }
 
@@ -43,14 +43,14 @@ class DeleteTenderMergedFiles extends Command
             $fileLastModified = Carbon::createFromTimestamp(File::lastModified($file));
             if ($fileLastModified <= $yesterday) {
                 if (unlink($file)) {
-                    $this->info("Deleted file: {$file->getFilename()}");
+                    $this->info("Datei gelöscht: {$file->getFilename()}");
                 } else {
-                    $this->info("Failed to delete file: {$file->getFilename()}");
+                    $this->info("Löschen der Datei fehlgeschlagen: {$file->getFilename()}");
                 }
             }
         }
 
-        $this->info("Completed cleaning up files for the previous day.");
+        $this->info("Bereinigung der Dateien vom Vortag abgeschlossen.");
         return Command::SUCCESS;
     }
 }

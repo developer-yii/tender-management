@@ -112,7 +112,7 @@
                             <div class="mySkillBox">
                                 <p>Meine Fähigkeiten</p>
                                 <div class="skillSelect">
-                                    <select name="tags[]" id="tags" multiple="multiple" data-placeholder="Choose Tags">
+                                    <select name="tags[]" id="tags" multiple="multiple" data-placeholder="Tags auswählen">
                                         @foreach($tags as $tag)
                                             <option value="{{ $tag->id }}"
                                                 @if (isset($employee) && $employee->tags->contains('id', $tag->id)) selected @endif>

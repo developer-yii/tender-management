@@ -27,7 +27,7 @@ function addExtraFieldSection(paramName = null, paramValue = null) {
                 <span class="error text-danger"></span>
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-danger remove-field" data-id="field_${fieldCounter}">Remove</button>
+                <button type="button" class="btn btn-danger remove-field" data-id="field_${fieldCounter}">Entfernen</button>
             </div>
         </div>
     `;
@@ -97,7 +97,7 @@ $('#adddocument').submit(function (event) {
         },
         error: function (error) {
             $submitButton.prop('disabled', false);
-            alert('Something went wrong!', 'error');
+            alert('Etwas ist schiefgelaufen!', 'error');
         }
     });
 });

@@ -27,12 +27,12 @@ $(document).ready(function () {
                         tenderDocumentList.append(tenderDochtml);
                     });
                 } else {
-                    alert("No documents found for this tender.");
+                    alert("Keine Dokumente für diese Ausschreibung gefunden.");
                 }
             },
             error: function (xhr, status, error) {
                 console.error("AJAX Error: ", error);
-                alert("An error occurred while fetching the documents.");
+                alert("Beim Abrufen der Dokumente ist ein Fehler aufgetreten.");
             }
         });
     });
@@ -88,7 +88,7 @@ $(document).ready(function () {
 
     function renderPDF(canvas, url) {
         if (!canvas || !url) {
-            console.error("Invalid canvas or PDF URL");
+            console.error("Ungültige Canvas- oder PDF-URL");
             return;
         }
 
@@ -181,12 +181,12 @@ $(document).ready(function () {
                         document.body.removeChild(a);
                     }
                 } else {
-                    alert(result.message || 'An error occurred.');
+                    alert(result.message || 'Ein Fehler ist aufgetreten.');
                 }
             },
             error: function () {
                 $submitButton.prop('disabled', false);
-                alert('Something went wrong!', 'error');
+                alert('Etwas ist schiefgelaufen!', 'error');
             }
         });
     }

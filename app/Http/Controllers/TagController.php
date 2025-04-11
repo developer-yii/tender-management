@@ -65,25 +65,25 @@ class TagController extends Controller
 
         $tag = $request->tag_id ? Tag::find($request->tag_id) : new Tag();
         if ($request->tag_id && !$tag) {
-            return response()->json(['status' => false, 'message' => 'Tag not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Tag nicht gefunden.', 'data' => []], 404);
         }
 
         $tag->name = $request->input('name');
 
         if ($tag->save()) {
-            $message = $request->tag_id ? 'Tag updated successfully.' : 'Tag added successfully.';
+            $message = $request->tag_id ? 'Tag erfolgreich aktualisiert.' : 'Tag erfolgreich hinzugefügt.';
             return response()->json(['status' => true, 'message' => $message, 'data' => []]);
         }
 
         // Handle failure in saving data
-        return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []], 500);
+        return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten', 'data' => []], 500);
     }
 
     public function detail(Request $request)
     {
         $tag = Tag::find($request->id);
         if (!$tag) {
-            return response()->json(['status' => false, 'message' => 'Tag not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Tag nicht gefunden.', 'data' => []], 404);
         }
         return response()->json($tag);
     }
@@ -93,13 +93,13 @@ class TagController extends Controller
         try {
             $tag = Tag::find($request->id);
             if (!$tag) {
-                return response()->json(['status' => false, 'message' => 'Tag not found', 'data' => []], 404);
+                return response()->json(['status' => false, 'message' => 'Tag nicht gefunden.', 'data' => []], 404);
             }
 
             $tag->delete();
-            return response()->json(['status' => true, 'message' => 'Tag deleted successfully!', 'data' => []]);
+            return response()->json(['status' => true, 'message' => 'Tag erfolgreich gelöscht!', 'data' => []]);
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => 'Failed to delete the tag.', 'data' => []], 500);
+            return response()->json(['status' => false, 'message' => 'Löschen des Tags fehlgeschlagen.', 'data' => []], 500);
         }
     }
 }

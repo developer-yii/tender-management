@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const folderName = document.getElementById("folder_name").value.trim();
         if (folderName === "") {
-            alert("Folder name cannot be empty!");
+            alert("Ordnername darf nicht leer sein!");
             return;
         }
 
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const folderTitle = folder.querySelector(".accordion-button").childNodes[0].textContent.trim(); // Get only the folder name
 
             if (folderTitle === folderName) {
-                alert("Folder name already exists!");
+                alert("Ordnername existiert bereits!");
                 return;
             }
         }
@@ -116,7 +116,7 @@ function handleFolderFileInputChange(fileInput, fileList, folderId, folderName) 
                 (link) => link.innerText.trim().includes(fileName)
             );
             if (existingFile) {
-                alert("This file is already added!");
+                alert("Diese Datei wurde bereits hinzugefügt!");
                 return;
             }
 
@@ -295,14 +295,14 @@ $(document).ready(function () {
             const oldFileList = document.querySelectorAll('#oldFileList input[name="old_documents[]"]');
             for (let oldFile of oldFileList) {
                 if (oldFile.value === file.name) {
-                    alert("This file is already added!");
+                    alert("Diese Datei wurde bereits hinzugefügt!");
                     fileInput.value = '';
                     return;
                 }
             }
 
             if (addedFiles.has(file.name)) {
-                alert("This file is already added!");
+                alert("Diese Datei wurde bereits hinzugefügt!");
                 fileInput.value = '';
                 return;
             }
@@ -426,7 +426,7 @@ $(document).ready(function () {
             },
             error: function (error) {
                 $("#loaderOverlay").fadeOut();
-                alert('Something went wrong!', 'error');
+                alert('Etwas ist schiefgelaufen!', 'error');
             }
         });
     });

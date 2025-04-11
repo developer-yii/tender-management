@@ -29,7 +29,7 @@ function fetchServers() {
             }
         },
         error: function (xhr, status, error) {
-            console.error("Error fetching data:", error);
+            console.error("Fehler beim Abrufen der Daten:", error);
         },
         complete: function () {
             isLoading = false; // Allow new requests
@@ -37,11 +37,6 @@ function fetchServers() {
         }
     });
 }
-
-// Check if user has scrolled to the bottom
-// function isScrolledToBottom() {
-//     return $(window).scrollTop() + $(window).height() >= $(document).height() - 50;
-// }
 
 function isScrolledToBottom() {
     return $('.loginSection').scrollTop() + $('.loginSection').height() >= $('.loginSection')[0].scrollHeight - 50;
@@ -140,7 +135,7 @@ $(document).ready(function () {
             },
             error: function (error) {
                 $submitButton.prop('disabled', false);
-                alert('Something went wrong!', 'error');
+                alert('Etwas ist schiefgelaufen!', 'error');
             }
         });
     });

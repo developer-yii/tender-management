@@ -53,7 +53,7 @@ class TenderController extends Controller
         $employee = User::with(['tenders', 'tenders.tenderStatus'])->find($request->id);
 
         if (!$employee) {
-            return response()->json(['error' => 'Employee not found'], 404);
+            return response()->json(['error' => 'Mitarbeiter nicht gefunden'], 404);
         }
 
         $tenders = $employee->tenders->map(function ($tender) {
@@ -227,14 +227,14 @@ class TenderController extends Controller
             } catch (\Exception $e) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Error merging DOCX files: ' . $e->getMessage()
+                    'message' => 'Fehler beim Zusammenführen der DOCX-Dateien: ' . $e->getMessage()
                 ]);
             }
         }
 
         return response()->json([
             'status' => false,
-            'message' => 'No files found to merge.'
+            'message' => 'Keine Dateien zum Zusammenführen gefunden.'
         ]);
     }
 
@@ -329,7 +329,7 @@ class TenderController extends Controller
                     $pdfMerger->addPDF($file, 'all'); // Explicitly specify 'all' pages
                 } else {
                     // Log or handle missing files
-                    logger()->warning("PDF file not found: $file");
+                    logger()->warning("PDF-Datei nicht gefunden: $file");
                 }
             }
 
@@ -338,7 +338,7 @@ class TenderController extends Controller
                 $pdfMerger->merge();
                 $pdfMerger->save($mergedFilePath);
             } catch (\Exception $e) {
-                echo "Error merging PDFs: " . $e->getMessage();
+                echo "Fehler beim Zusammenführen der PDFs: " . $e->getMessage();
             }
 
             // Respond with the merged PDF details
@@ -361,7 +361,7 @@ class TenderController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => 'No valid PDFs to merge.'
+            'message' => 'Keine gültigen PDFs zum Zusammenführen vorhanden.'
         ]);
     }
 
@@ -446,10 +446,10 @@ class TenderController extends Controller
         }
 
         $customMessage = [
-            'documents.*' => 'The documents field must be a file of type: doc, docx, pdf.',
-            'documents.*.max' => 'Each file must not exceed 15MB.',
-            'folder_doc.*.*' => 'The files must be a file of type: doc, docx, pdf, xls, xlsx, csv.',
-            'folder_doc.*.*.max' => 'Each file must not exceed 15MB.',
+            'documents.*' => 'Das Dokumentenfeld muss eine Datei des Typs: doc, docx, pdf sein.',
+            'documents.*.max' => 'Jede Datei darf 15 MB nicht überschreiten.',
+            'folder_doc.*.*' => 'Die Dateien müssen vom Typ sein: doc, docx, pdf, xls, xlsx, csv.',
+            'folder_doc.*.*.max' => 'Jede Datei darf 15 MB nicht überschreiten.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $customMessage);
@@ -460,7 +460,7 @@ class TenderController extends Controller
 
         $tender = $request->tender_id ? Tender::find($request->tender_id) : new Tender();
         if (!$tender) {
-            return response()->json(['status' => false, 'message' => 'Tender Not Found', 'data' => []]);
+            return response()->json(['status' => false, 'message' => 'Ausschreibung nicht gefunden.', 'data' => []]);
         }
 
         $tender->tender_name = $request->input('ausschreibung_name');
@@ -620,11 +620,11 @@ class TenderController extends Controller
         $tender->users()->sync($request->employees);
         if ($tender->save()) {
 
-            $message = $request->tender_id ? 'Tender updated successfully.' : 'Tender added successfully.';
+            $message = $request->tender_id ? 'Ausschreibung erfolgreich aktualisiert.' : 'Ausschreibung erfolgreich hinzugefügt.';
             $isNew = $request->tender_id ? false : true;
             return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
         }
 
-        return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []]);
+        return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten', 'data' => []]);
     }
 }

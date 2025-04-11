@@ -114,7 +114,7 @@ class EmployeeController extends Controller
             return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['status' => false, 'message' => 'Error in saving data: ' . $e->getMessage(), 'data' => []]);
+            return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten.: ' . $e->getMessage(), 'data' => []]);
         }
     }
 

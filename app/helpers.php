@@ -177,7 +177,7 @@ if (!function_exists('uploadFile')) {
                 $extension = 'docx'; // Update extension after conversion
                 $filename = $uniqueName. '.' . $extension;
             } else {
-                throw new \Exception("Failed to convert .doc to .docx for file: {$filePath}");
+                throw new \Exception("Fehler beim Konvertieren der .doc-Datei in .docx: {$filePath}");
             }
         }
 
@@ -212,7 +212,7 @@ if (!function_exists('convertDocToDocx')) {
         putenv('DISPLAY=:0');
         exec($command . ' 2>&1', $output, $resultCode);
         if ($resultCode !== 0) {
-            throw new \Exception("Failed to convert DOC to DOCX. Command output: " . implode("\n", $output));
+            throw new \Exception("Fehler beim Konvertieren von DOC in DOCX. Befehlsausgabe: " . implode("\n", $output));
             return false;
         }
 
@@ -240,7 +240,7 @@ if (!function_exists('convertDocxtoPdf')) {
         putenv('DISPLAY=:0');
         exec($command . ' 2>&1', $output, $resultCode);
         if ($resultCode !== 0) {
-            throw new \Exception("Failed to convert DOCX to PDF. Command output: " . implode("\n", $output));
+            throw new \Exception("Fehler beim Konvertieren von DOCX in PDF. Befehlsausgabe: " . implode("\n", $output));
         }
 
         // Full PDF path
@@ -248,7 +248,7 @@ if (!function_exists('convertDocxtoPdf')) {
 
         // Check if the PDF was created
         if (!file_exists($fullPdfPath)) {
-            throw new \Exception("PDF file not found: " . $fullPdfPath);
+            throw new \Exception("PDF-Datei nicht gefunden: " . $fullPdfPath);
         }
 
         // Extract only the first page using pdftk

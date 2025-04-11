@@ -47,13 +47,13 @@ class DocumentController extends Controller
             // Add custom validation rules for pairs
             $rules["param_name.$index"] = function ($attribute, $value, $fail) use ($paramValue, $index) {
                 if (!empty($value) && empty($paramValue)) {
-                    $fail("The parameter name is required");
+                    $fail("Der Parametername ist erforderlich");
                 }
             };
 
             $rules["param_value.$index"] = function ($attribute, $value, $fail) use ($paramName, $index) {
                 if (!empty($value) && empty($paramName)) {
-                    $fail("The parameter value is required.");
+                    $fail("Der Parameterwert ist erforderlich.");
                 }
             };
         }
@@ -69,7 +69,7 @@ class DocumentController extends Controller
             $document = $request->document_id ? Document::find($request->document_id) : new Document();
             if (!$document) {
                 DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Certificate Not Found', 'data' => []]);
+                return response()->json(['status' => false, 'message' => 'Zertifikat nicht gefunden', 'data' => []]);
             }
 
             $document->category_name = $request->input('category');
@@ -135,16 +135,16 @@ class DocumentController extends Controller
             if ($document->save()) {
                 $document = fileUploadWithId($request, $document, $files);
                 DB::commit();
-                $message = $request->document_id ? 'Document updated successfully.' : 'Document added successfully.';
+                $message = $request->document_id ? 'Dokument erfolgreich aktualisiert.' : 'Dokument erfolgreich hinzugefügt.';
                 $isNew = $request->document_id ? false : true;
                 return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
             }else {
                 DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []]);
+                return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten.', 'data' => []]);
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['status' => false, 'message' => 'An error occurred: ' . $e->getMessage(), 'data' => []]);
+            return response()->json(['status' => false, 'message' => 'Ein Fehler ist aufgetreten: ' . $e->getMessage(), 'data' => []]);
         }
 
     }
@@ -154,7 +154,7 @@ class DocumentController extends Controller
         $categories = Document::categories;
         $document = Document::with('parameters')->find($request->id);
         if(!$document){
-            return response()->json(['message' => 'Document not found.'], 404);
+            return response()->json(['message' => 'Dokument nicht gefunden.'], 404);
         }
         $this->getFilePath($document);
         return view('admin.documents.details', compact('document', 'categories'));
@@ -164,7 +164,7 @@ class DocumentController extends Controller
     {
         $document = Document::with('parameters')->find($request->id);
         if(!$document){
-            return response()->json(['message' => 'Document not found.'], 404);
+            return response()->json(['message' => 'Dokument nicht gefunden.'], 404);
         }
         $this->getFilePath($document);
         return response()->json($document);

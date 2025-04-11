@@ -54,7 +54,7 @@ class AdminController extends Controller
             $user = $request->user_id ? User::find($request->user_id) : new User();
             if (!$user) {
                 DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Admin Not Found', 'data' => []]);
+                return response()->json(['status' => false, 'message' => 'Administrator nicht gefunden.', 'data' => []]);
             }
 
             $user->first_name = $request->input('first_name');
@@ -78,12 +78,12 @@ class AdminController extends Controller
             $user->save();
             DB::commit();
 
-            $message = $request->user_id ? 'Admin updated successfully.' : 'Admin added successfully.';
+            $message = $request->user_id ? 'Administrator erfolgreich aktualisiert.' : 'Administrator erfolgreich hinzugefügt.';
             $isNew = $request->user_id ? false : true;
             return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['status' => false, 'message' => 'Error in saving data: ' . $e->getMessage(), 'data' => []]);
+            return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten: ' . $e->getMessage(), 'data' => []]);
         }
     }
 
@@ -91,7 +91,7 @@ class AdminController extends Controller
     {
         $admin = User::find($request->id);
         if(!$admin){
-            return response()->json(['message' => 'Admin not found.'], 404);
+            return response()->json(['message' => 'Administrator nicht gefunden.'], 404);
         }
 
         $this->getFilePath($admin);
@@ -112,7 +112,7 @@ class AdminController extends Controller
         try {
             $admin = User::find($request->id);
             if (!$admin) {
-                return response()->json(['message' => 'Admin not found.'], 404);
+                return response()->json(['message' => 'Administrator nicht gefunden.'], 404);
             }
             $folder = "admins";
             $subFolder = "admin".$admin->id;
@@ -125,10 +125,10 @@ class AdminController extends Controller
             $admin->delete();
 
             DB::commit();
-            return response()->json(['message' => 'Admin deleted successfully!']);
+            return response()->json(['message' => 'Administrator erfolgreich gelöscht!']);
         }catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => 'An error occurred while deleting the admin.'], 500);
+            return response()->json(['message' => 'Beim Löschen des Administrators ist ein Fehler aufgetreten.'], 500);
         }
     }
 

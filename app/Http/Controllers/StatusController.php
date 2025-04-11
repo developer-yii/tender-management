@@ -77,7 +77,7 @@ class StatusController extends Controller
 
         $status = $request->status_id ? Status::find($request->status_id) : new Status();
         if ($request->status_id && !$status) {
-            return response()->json(['status' => false, 'message' => 'Status not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Status nicht gefunden', 'data' => []], 404);
         }
 
         $status->title = $request->input('title');
@@ -94,19 +94,19 @@ class StatusController extends Controller
         }
 
         if ($status->save()) {
-            $message = $request->status_id ? 'Status updated successfully.' : 'Status added successfully.';
+            $message = $request->status_id ? 'Status erfolgreich aktualisiert.' : 'Status erfolgreich hinzugefügt.';
             return response()->json(['status' => true, 'message' => $message, 'data' => []]);
         }
 
         // Handle failure in saving data
-        return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []], 500);
+        return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten', 'data' => []], 500);
     }
 
     public function detail(Request $request)
     {
         $status = Status::find($request->id);
         if (!$status) {
-            return response()->json(['status' => false, 'message' => 'Status not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Status nicht gefunden', 'data' => []], 404);
         }
         return response()->json($status);
     }

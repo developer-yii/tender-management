@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         });
                     });
                 }).catch(err => {
-                    console.error("Error loading PDF:", err);
+                    console.error("Fehler beim Laden der PDF:", err);
                 });
             })
             .catch(err => {
-                console.error("Error fetching PDF:", err);
+                console.error("Fehler beim Abrufen der PDF.:", err);
             });
     });
 });
@@ -45,7 +45,7 @@ document.addEventListener('click', function(event) {
             tempLink.click();
             document.body.removeChild(tempLink);
         } else {
-            console.error('Download URL not found!');
+            console.error('Download-URL nicht gefunden!');
         }
     }
 });

@@ -25,7 +25,7 @@
                         <div class="col-12">
                             <div class="form-group boxForm">
                                 <label for="tags" class="control-label">Tags*</label>
-                                <select name="tags[]" id="tags" multiple="multiple" data-placeholder="Choose Tags">
+                                <select name="tags[]" id="tags" multiple="multiple" data-placeholder="Tags auswählen">
                                     @foreach($tags as $tag)
                                         <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                     @endforeach

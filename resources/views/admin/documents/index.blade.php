@@ -65,11 +65,11 @@
                                                 });
                                             });
                                         }).catch(err => {
-                                            console.error("Error loading PDF:", err);
+                                            console.error("Fehler beim Laden der PDF:", err);
                                         });
                                     })
                                     .catch(err => {
-                                        console.error("Error fetching PDF:", err);
+                                        console.error("Fehler beim Abrufen der PDF.:", err);
                                     });
                                 </script>
 

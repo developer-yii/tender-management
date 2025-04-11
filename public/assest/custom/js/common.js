@@ -47,7 +47,7 @@ function initializeFlatpickr() {
 
                 // Validate date order
                 if (endDate && startDate && (endDate < startDate)) {
-                    updateErrorMessage('Start Date cannot be after End Date.');
+                    updateErrorMessage('Startdatum darf nicht nach dem Enddatum liegen.');
                     startDatePicker.setDate(null);
                 } else {
                     updateErrorMessage();
@@ -74,7 +74,7 @@ function initializeFlatpickr() {
 
                 // Validate date order
                 if (endDate && startDate && endDate < startDate) {
-                    updateErrorMessage('End Date cannot be before Start Date.');
+                    updateErrorMessage('Enddatum darf nicht vor dem Startdatum liegen.');
                     endDatePicker.setDate(null);
                 } else {
                     updateErrorMessage();
@@ -125,7 +125,7 @@ function handleFormSubmission(formSelector, url, modalId, listUrl) {
             },
             error: function () {
                 $("#loaderOverlay").fadeOut();
-                alert('Something went wrong!', 'error');
+                alert('Etwas ist schiefgelaufen!', 'error');
             }
         });
     });
@@ -168,11 +168,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (fileExtension === 'pdf') {
                 previewBody.innerHTML = `<embed src="${fileUrl}" type="application/pdf" width="100%" height="600px" />`;
             } else if (fileExtension === 'doc' || fileExtension === 'docx') {
-                previewBody.innerHTML = "<p>No preview available for this file.</p>";
+                previewBody.innerHTML = "<p>Keine Vorschau für diese Datei verfügbar.</p>";
             } else if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
                 previewBody.innerHTML = `<img src="${fileUrl}" alt="Image" style="width: 100%; height: auto; cursor: pointer;">`;
             } else {
-                previewBody.innerHTML = "<p>No preview available for this file type.</p>";
+                previewBody.innerHTML = "<p>Keine Vorschau für diesen Dateityp verfügbar.</p>";
             }
 
             // Show the modal
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (downloadLink) {
                 downloadLink.click(); // Trigger download action
             } else {
-                console.error("Download link not found.");
+                console.error("Download-Link nicht gefunden.");
             }
         });
     } else {
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (downloadLink) {
                 downloadLink.click(); // Trigger download action
             } else {
-                console.error("Download link not found.");
+                console.error("Download-Link nicht gefunden.");
             }
         });
     } else {

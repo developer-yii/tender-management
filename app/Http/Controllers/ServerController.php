@@ -57,7 +57,7 @@ class ServerController extends Controller
 
         $server = $request->server_id ? Server::find($request->server_id) : new Server();
         if ($request->server_id && !$server) {
-            return response()->json(['status' => false, 'message' => 'Server not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Server nicht gefunden', 'data' => []], 404);
         }
 
         $server->name = $request->input('portal_name');
@@ -69,32 +69,21 @@ class ServerController extends Controller
         }
 
         if ($server->save()) {
-            $message = $request->server_id ? 'Tag updated successfully.' : 'Tag added successfully.';
+            $message = $request->server_id ? 'Server erfolgreich aktualisiert.' : 'Server erfolgreich hinzugefügt.';
             $isNew = $request->server_id ? false : true;
             return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew,  'server' => $server]);
         }
 
         // Handle failure in saving data
-        return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []], 500);
+        return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten', 'data' => []], 500);
     }
 
     public function detail(Request $request)
     {
         $server = Server::find($request->id);
         if (!$server) {
-            return response()->json(['status' => false, 'message' => 'Server not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Server nicht gefunden', 'data' => []], 404);
         }
         return response()->json($server);
-    }
-
-    // public function delete(Request $request)
-    // {
-    //     $tag = Tag::find($request->id);
-    //     if (!$tag) {
-    //         return response()->json(['status' => false, 'message' => 'Tag not found', 'data' => []], 404);
-    //     }
-
-    //     $tag->delete();
-    //     return response()->json(['status' => true, 'message' => 'Tag deleted successfully!', 'data' => []]);
-    // }
+    }   
 }

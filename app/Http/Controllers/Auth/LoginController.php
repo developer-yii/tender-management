@@ -73,18 +73,18 @@ class LoginController extends Controller
                 if (Auth::attempt($credentials, $remember)) {
                     return redirect()->intended(route('tender.index'));
                 } else {
-                    return redirect('login')->withErrors(['password' => 'The Password is wrong.'])->withInput();
+                    return redirect('login')->withErrors(['password' => 'Das Passwort ist falsch.'])->withInput();
                 }
             }
             if ($get_user->role == '2') {
                 if (Auth::attempt($credentials, $remember)){
                     return redirect()->route('employee.tenders');
                 } else {
-                    return redirect('login')->withErrors(['password' => 'The Password is wrong.'])->withInput();
+                    return redirect('login')->withErrors(['password' => 'Das Passwort ist falsch.'])->withInput();
                 }
             }
         } else {
-            return redirect('login')->withErrors(['approve' => 'Provided credential does not match in our records.'])->withInput();
+            return redirect('login')->withErrors(['approve' => 'Die angegebenen Zugangsdaten stimmen nicht mit unseren Unterlagen überein.'])->withInput();
         }
     }
 }

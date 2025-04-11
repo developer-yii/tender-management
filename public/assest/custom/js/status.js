@@ -65,7 +65,7 @@ $(document).ready(function () {
             },
             error: function (error) {
                 $submitButton.prop('disabled', false);
-                alert('Something went wrong!', 'error');
+                alert('Etwas ist schiefgelaufen!', 'error');
             }
         });
     });

@@ -56,7 +56,7 @@ $(document).ready(function () {
             },
             error: function (error) {
                 $submitButton.prop('disabled', false);
-                alert('Something went wrong!', 'error');
+                alert('Etwas ist schiefgelaufen!', 'error');
             }
         });
     });
@@ -87,7 +87,7 @@ $(document).ready(function () {
 
     $('body').on('click', '.delete-tag', function () {
         var id = $(this).attr('data-id');
-        var confirmed = confirm('Are you sure you want to delete this tag?');
+        var confirmed = confirm('Möchten Sie dieses Tag wirklich löschen?');
 
         if (confirmed) {
             $.ajax({
@@ -100,13 +100,13 @@ $(document).ready(function () {
                     $('#tagsTable').DataTable().ajax.reload();
                 },
                 error: function (error) {
-                    console.error('Error response:', error.responseJSON || error);
-                    toastr.error('An error occurred while deleting the tag.');
+                    console.error('Fehlermeldung:', error.responseJSON || error);
+                    toastr.error('Beim Löschen des Tags ist ein Fehler aufgetreten.');
                 }
             });
         } else {
             // User canceled the action, do nothing
-            toastr.info('Deletion canceled.');
+            toastr.info('Löschen abgebrochen.');
         }
 
     });

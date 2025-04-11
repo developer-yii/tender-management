@@ -42,7 +42,7 @@ class TempleteController extends Controller
             $templete = $request->edit_id ? Templete::find($request->edit_id) : new Templete();
             if (!$templete) {
                 DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Templete Not Found', 'data' => []]);
+                return response()->json(['status' => false, 'message' => 'Vorlage nicht gefunden', 'data' => []]);
             }
 
             $templete->title = $request->input('title');
@@ -57,16 +57,16 @@ class TempleteController extends Controller
             if ($templete->save()) {
                 $templete = fileUploadWithId($request, $templete, $files);
                 DB::commit();
-                $message = $request->edit_id ? 'Templete updated successfully.' : 'Templete added successfully.';
+                $message = $request->edit_id ? 'Vorlage erfolgreich aktualisiert.' : 'Vorlage erfolgreich hinzugefügt.';
                 $isNew = $request->edit_id ? false : true;
                 return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
             }else {
                 DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []]);
+                return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten', 'data' => []]);
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['status' => false, 'message' => 'An error occurred: ' . $e->getMessage(), 'data' => []]);
+            return response()->json(['status' => false, 'message' => 'Ein Fehler ist aufgetreten: ' . $e->getMessage(), 'data' => []]);
         }
 
     }
@@ -75,7 +75,7 @@ class TempleteController extends Controller
     {
         $templete = Templete::find($request->id);
         if(!$templete){
-            return response()->json(['message' => 'Templete not found.'], 404);
+            return response()->json(['message' => 'Vorlage nicht gefunden.'], 404);
         }
         $this->getFilePath($templete);
         return view('admin.templetes.details', compact('templete'));
@@ -85,7 +85,7 @@ class TempleteController extends Controller
     {
         $templete = Templete::find($request->id);
         if(!$templete){
-            return response()->json(['message' => 'Templete not found.'], 404);
+            return response()->json(['message' => 'Vorlage nicht gefunden.'], 404);
         }
 
         $this->getFilePath($templete);

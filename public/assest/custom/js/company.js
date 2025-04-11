@@ -63,7 +63,7 @@ $('#addcompanydetail').submit(function (event) {
         },
         error: function (error) {
             $("#loaderOverlay").fadeOut();
-            alert('Something went wrong!', 'error');
+            alert('Etwas ist schiefgelaufen!', 'error');
         }
     });
 });

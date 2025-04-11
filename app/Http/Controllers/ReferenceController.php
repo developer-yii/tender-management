@@ -97,15 +97,15 @@ class ReferenceController extends Controller
                 return response()->json(['status' => true, 'message' => $message, 'isNew' => $isNew, 'data' => []]);
             }else{
                 DB::rollBack();
-                return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []]);
+                return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten', 'data' => []]);
             }
         } catch (\Exception $e) {
             // Rollback on any exception
             DB::rollBack();
-            return response()->json(['status' => false, 'message' => 'An error occurred: ' . $e->getMessage(), 'data' => []]);
+            return response()->json(['status' => false, 'message' => 'Ein Fehler ist aufgetreten: ' . $e->getMessage(), 'data' => []]);
         }
 
-        return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []]);
+        return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten', 'data' => []]);
     }
 
     public function referenceDetails(Request $request)

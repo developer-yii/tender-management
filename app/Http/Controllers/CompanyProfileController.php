@@ -103,12 +103,12 @@ class CompanyProfileController extends Controller
         }
 
         if ($company->save()) {
-            $message = 'Company Details updated successfully.';
+            $message = 'Firmendaten erfolgreich aktualisiert.';
             return response()->json(['status' => true, 'message' => $message, 'data' => []]);
         }
 
         // Handle failure in saving data
-        return response()->json(['status' => false, 'message' => 'Failed to update company details.', 'data' => []], 500);
+        return response()->json(['status' => false, 'message' => 'Aktualisierung der Firmendaten fehlgeschlagen..', 'data' => []], 500);
     }
 
     // private function uploadFile($file, $folder, $fileName, $oldFile = null)
@@ -138,7 +138,7 @@ class CompanyProfileController extends Controller
     //             $extension = 'docx'; // Update extension after conversion
     //             $filename = "{$fileName}.{$extension}";
     //         } else {
-    //             throw new \Exception("Failed to convert .doc to .docx for file: {$filePath}");
+    //             throw new \Exception("Fehler beim Konvertieren der .doc-Datei in .docx: {$filePath}");
     //         }
     //     }
     //     return $filename;
@@ -148,7 +148,7 @@ class CompanyProfileController extends Controller
     {
         $company = Company::find(1);
         if (!$company) {
-            return response()->json(['status' => false, 'message' => 'Company not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Firma nicht gefunden.', 'data' => []], 404);
         }
         return response()->json($company);
     }

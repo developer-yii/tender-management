@@ -62,25 +62,25 @@ class AbgabeformController extends Controller
 
         $abgabeform = $request->abgabeform_id ? Abgabeform::find($request->abgabeform_id) : new Abgabeform();
         if ($request->abgabeform_id && !$abgabeform) {
-            return response()->json(['status' => false, 'message' => 'Abgabeform not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Abgabeform nicht gefunden.', 'data' => []], 404);
         }
 
         $abgabeform->name = $request->input('name');
 
         if ($abgabeform->save()) {
-            $message = $request->abgabeform_id ? 'Abgabeform updated successfully.' : 'Abgabeform added successfully.';
+            $message = $request->abgabeform_id ? 'Abgabeform erfolgreich aktualisiert.' : 'Abgabeform erfolgreich hinzugefügt.';
             return response()->json(['status' => true, 'message' => $message, 'data' => []]);
         }
 
         // Handle failure in saving data
-        return response()->json(['status' => false, 'message' => 'Error in saving data', 'data' => []], 500);
+        return response()->json(['status' => false, 'message' => 'Fehler beim Speichern der Daten', 'data' => []], 500);
     }
 
     public function detail(Request $request)
     {
         $abgabeform = Abgabeform::find($request->id);
         if (!$abgabeform) {
-            return response()->json(['status' => false, 'message' => 'Abgabeform not found', 'data' => []], 404);
+            return response()->json(['status' => false, 'message' => 'Abgabeform nicht gefunden.', 'data' => []], 404);
         }
         return response()->json($abgabeform);
     }  

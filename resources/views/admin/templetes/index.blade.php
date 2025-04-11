@@ -24,9 +24,9 @@
                             @if($templete->isPdf())
                             <canvas id="preview-{{$templete->id}}" data-url="{{ $templete->getTempleteFileUrl() }}" style="height: 180px; width: 50%;"></canvas>
                             @elseif($templete->isImage())
-                                <img src="{{ $templete->getTempleteFileUrl() }}" alt="Image preview" style="height: 150px; width: 100%; object-fit: cover;">
+                                <img src="{{ $templete->getTempleteFileUrl() }}" alt="Bildvorschau" style="height: 150px; width: 100%; object-fit: cover;">
                             @else
-                                <img src="{{ $baseUrl }}images/no-preview.png" alt="No preview available" style="">
+                                <img src="{{ $baseUrl }}images/no-preview.png" alt="Keine Vorschau verfügbar" style="">
                             @endif
                         </div>
                         <div class="templeBtn">

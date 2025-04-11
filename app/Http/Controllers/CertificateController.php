@@ -111,7 +111,7 @@ class CertificateController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['status' => false, 'message' => 'An error occurred: ' . $e->getMessage(), 'data' => []]);
+            return response()->json(['status' => false, 'message' => 'Ein Fehler ist aufgetreten: ' . $e->getMessage(), 'data' => []]);
         }
 
     }

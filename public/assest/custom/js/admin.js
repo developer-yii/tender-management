@@ -48,7 +48,7 @@ $('body').on('click', '.delete-admin', function () {
         });
     } else {
         // User canceled the action, do nothing
-        toastr.info('Deletion canceled.');
+        toastr.info('Löschen abgebrochen.');
     }
 
 });
