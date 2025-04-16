@@ -99,7 +99,9 @@
                                     <p>{{ $tender->vergabestelle }}</p>
                                     <div class="devliverBox">
                                         <h6>Abgabeform</h6>
-                                        <a href="javascript:void(0)" class="btn btnDetails cursor-default">{{ $tender->abgabeformValue->name }}</a>
+                                        <a href="javascript:void(0)" class="btn btnDetails cursor-default">
+                                            {{ isset($tender->abgabeformValue) ? $tender->abgabeformValue->name : 'N/A' }}
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="rightMap">

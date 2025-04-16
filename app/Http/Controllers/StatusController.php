@@ -89,6 +89,15 @@ class StatusController extends Controller
             $dir = "public/status/";
             $extension = $request->file("icon")->getClientOriginalExtension();
             $filename = strtolower(str_replace(' ', '-', trim($request->title))). "_" . time() . "." . $extension;
+
+            // Create directory if not exists and set permissions
+            $path = storage_path('app/' . $dir);
+            if (!File::exists($path)) {
+                File::makeDirectory($path, 0755, true);
+            } else {
+                chmod($path, 0755); // Ensure existing directory has correct permission
+            }
+
             Storage::disk("local")->put($dir . $filename,File::get($request->file("icon")));
             $status->icon = $filename;
         }
