@@ -280,12 +280,12 @@ class TenderController extends Controller
                 }elseif($type == "presentation"){
                     $file = Company::find($id);
                     $folder = "company-documents";
-                    $subFolder = "";
+                    $subFolder = "company-presentation";
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->company_presentation_pdf);
                 }elseif($type == "framework"){
                     $file = Company::find($id);
                     $folder = "company-documents";
-                    $subFolder = "";
+                    $subFolder = "agile-framework";
                     $filePath = getPdfFilePathUrl($folder, $subFolder, $file->agile_framework_pdf);
                 }
 
@@ -410,7 +410,7 @@ class TenderController extends Controller
         //         'realPath' => $doc->getRealPath(),
         //     ]);
         // }
-        
+
 
         $rules = [
             'file_upload' => 'nullable|image|max:2048',
@@ -437,8 +437,8 @@ class TenderController extends Controller
             'folder_doc' => 'nullable|array',
             'folder_doc.*.*' => 'file|mimes:doc,docx,pdf,xls,xlsx,csv|max:15360',
             // 'folder_doc.*.*' => 'file|mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv',
-        ];    
-        
+        ];
+
         if (!$request->tender_id) {
             $rules = array_merge($rules, [
                 'file_upload' => 'required|image|max:2048',
